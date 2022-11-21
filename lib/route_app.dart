@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:movies/presentation/screens/onboard_screen.dart';
+import 'package:movies/presentation/screens/personal_information_screen.dart';
 
 import 'constants/name_page.dart';
 
@@ -8,6 +9,8 @@ class RouteApp{
     switch (settings.name){
       case onBoardScreen:
         return MaterialPageRoute(builder: (context) => OnBoardScreen(),);
+      case personalInformationScreen:
+        return MaterialPageRoute(builder: (context) => PersonalInformationScreen(),);
     }
   }
 }
