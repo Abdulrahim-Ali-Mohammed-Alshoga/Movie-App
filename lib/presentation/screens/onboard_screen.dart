@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../constants/font.dart';
 import '../../constants/mycolor.dart';
@@ -19,17 +20,17 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
 
   Widget pageViewOnBoard(String image, String textOne, String textTow) {
     return Padding(
-      padding: const EdgeInsets.all(40.0),
+      padding:  const EdgeInsets.all(40.0).r,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
           Image(
             image: AssetImage(image),
-            height: 300,
-            width: 300,
+            height: 300.h,
+            width: 300.w,
           ),
-          const SizedBox(
-            height: 30,
+           SizedBox(
+            height: 30.h,
           ),
           Text(
             textOne,
@@ -41,10 +42,10 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                     .textTheme
                     .headline2
                     ?.color,
-                fontSize: 20),
+                fontSize: 20.sp),
           ),
-          const SizedBox(
-            height: 15,
+           SizedBox(
+            height: 15.h,
           ),
           Text(
             textTow,
@@ -57,7 +58,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                     .textTheme
                     .headline2
                     ?.color,
-                fontSize: 18),
+                fontSize: 18.sp),
           ),
         ],
       ),
@@ -88,24 +89,25 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
         width: isActive ? 22.0 : 11.0,
         decoration: BoxDecoration(
             color: isActive ? MyColors.green : Colors.grey,
-            borderRadius: const BorderRadius.all(Radius.circular(12))),
+            borderRadius:  BorderRadius.all(const Radius.circular(12).r)),
       ),
     );
   }
 
   @override
   Widget build(BuildContext context) {
+    print(MediaQuery.of(context).size);
     return Scaffold(
       resizeToAvoidBottomInset: false,
 
       body: Padding(
-        padding: const EdgeInsets.only(
-            top: 100, left: 20, right: 20),
+        padding:  EdgeInsets.only(
+            top: 100.h, left: 20.w, right: 20.w),
         child: Column(
 
           children: [
             SizedBox(
-              height: 570,
+              height: 570.h,
               child: PageView(
                 controller: _pageController,
                 physics: const BouncingScrollPhysics(),
@@ -155,10 +157,10 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                                 .textTheme
                                 .headline2
                                 ?.color,
-                            fontSize: 20),
+                            fontSize: 20.sp),
                       ),
-                      const SizedBox(
-                        width: 10.0,
+                       SizedBox(
+                        width: 10.0.w,
                       ),
                       Icon(
                         Icons.arrow_forward,
@@ -181,22 +183,22 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                     shadowColor: MyColors.green,
                     backgroundColor: MyColors.green,
                     shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10)),
+                        borderRadius: BorderRadius.circular(10).r),
                     fixedSize:
                     Size(MediaQuery
                         .of(context)
                         .size
-                        .width - 50, 60
+                        .width - 50.w, 60.h
                     ),
                   ),
                   onPressed: () {
                         Navigator.pushNamed(context, personalInformationScreen);
                   },
-                  child: const Text(
+                  child:  Text(
                     'Get Started',
                     style: TextStyle(
                         color: Colors.white,
-                        fontSize: 25,
+                        fontSize: 25.sp,
                         fontFamily: MyFont.mainFont),
                   ),
                 ),
