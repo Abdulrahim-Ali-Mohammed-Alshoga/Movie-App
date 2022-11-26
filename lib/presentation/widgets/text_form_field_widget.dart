@@ -6,13 +6,16 @@ import '../../constants/mycolor.dart';
 class TextFormFieldWidget extends StatelessWidget {
 
 
-  const TextFormFieldWidget(
+   TextFormFieldWidget(
       {Key? key, required this.controller,  required this.hintText,
-        required this.textInputAction,required this.validator, required this.textInputType})
+        required this.textInputAction,required this.validator, required this.textInputType,this.suffixIcon,this.obscureText=false})
       : super(key: key);
   final TextEditingController controller;
   final TextInputType textInputType;
+   Widget? suffixIcon;
+   final bool obscureText;
   final String hintText;
+
   // final Function save;
    final FormFieldValidator<String> validator;
   final TextInputAction textInputAction;
@@ -28,7 +31,9 @@ class TextFormFieldWidget extends StatelessWidget {
       controller: controller,
       textInputAction: textInputAction,
       validator: validator,
+obscureText: obscureText,
       decoration:  InputDecoration(
+        suffixIcon:suffixIcon,
         enabledBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: MyColors.grey, width: 1),
         ),

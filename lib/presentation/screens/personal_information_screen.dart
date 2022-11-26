@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/business_logic/cubit/auth_cubit.dart';
 import 'package:movies/constants/font.dart';
 import 'package:movies/constants/mycolor.dart';
 import 'package:movies/constants/name_page.dart';
@@ -19,7 +21,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   TextEditingController controllerPassword = TextEditingController();
   final GlobalKey<FormState> globalKey = GlobalKey<FormState>();
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
-
+bool isPassword=true;
   Future<void> personalInfoFill() async {
     if (globalKey.currentState!.validate()) {
       globalKey.currentState!.save();
@@ -82,6 +84,15 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 TextFormFieldWidget(
                     controller: controllerPassword,
                     hintText: "Password",
+                    obscureText: isPassword?true:false,
+                    suffixIcon:GestureDetector(onTap: (){
+                      print(55);
+                      setState(() {
+                        isPassword=!isPassword;
+                      });
+                    },child: Icon(isPassword?Icons.visibility:Icons.visibility_off,
+                     // size: 20,
+                      color:  MyColors.white,) ) ,
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'This is not  a valid Password';
@@ -91,7 +102,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       return null;
                     },
                     textInputAction: TextInputAction.next,
-                    textInputType: TextInputType.phone),
+                    textInputType: TextInputType.text),
                 SizedBox(height: 20.h),
                 TextFormFieldWidget(
                     controller: controllerEmail,
@@ -137,6 +148,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     ])),
                     GestureDetector(
                       onTap: (){
+                        BlocProvider.of<AuthCubit>(context).changAuth();
                         Navigator.pushNamedAndRemoveUntil(context, homeScreen, (route) => false);
                       },
                       child:  Text(

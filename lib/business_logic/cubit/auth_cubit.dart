@@ -8,8 +8,11 @@ class AuthCubit extends Cubit<AuthState>{
   late bool isAuth;
   var box = Hive.box(authDb);
 
-
+changAuth(){
+  box.put(authTable, true);
+}
   getAuth() {
+
     if (box.get(authTable) == null || box.get(authTable) == false) {
       isAuth = false;
       emit(AuthFailure());
@@ -18,5 +21,6 @@ class AuthCubit extends Cubit<AuthState>{
       isAuth = true;
       emit(AuthSuccess());
     }
+   box.put(authTable, false);
   }
 }

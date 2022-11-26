@@ -8,32 +8,34 @@ import 'package:movies/constants/hive_name.dart';
 import 'package:movies/constants/theme_app.dart';
 import 'package:movies/route_app.dart';
 
-void main() async{
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
+  FlutterNativeSplash.preserve(
+      widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
   await Hive.initFlutter();
-await Hive.openBox(authDb);
-  runApp( MyApp(routeApp: RouteApp(),themeApp: ThemeApp(),));
+  await Hive.openBox(authDb);
+  runApp(BlocProvider<AuthCubit>(create: (context) =>
+  AuthCubit()..getAuth(),child: MyApp(routeApp: RouteApp(), themeApp: ThemeApp(),)));
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({super.key,required this.routeApp,required this.themeApp});
-RouteApp routeApp;ThemeApp themeApp;
+  MyApp({super.key, required this.routeApp, required this.themeApp});
+
+  RouteApp routeApp;
+  ThemeApp themeApp;
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-
     return ScreenUtilInit(
-     designSize: Size(411.4, 843.4),
+      designSize: Size(411.4, 843.4),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (BuildContext context, Widget? child) {
-        return BlocProvider(create: (context) =>AuthCubit()..isAuth,child:MaterialApp(
+        return MaterialApp(
           debugShowCheckedModeBanner: false,
           onGenerateRoute: routeApp.generateRoute,
           theme: ThemeApp().lightTheme,
-        ) ,
-
         );
       },
     );
