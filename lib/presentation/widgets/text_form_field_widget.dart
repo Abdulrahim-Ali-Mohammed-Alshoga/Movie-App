@@ -30,7 +30,7 @@ class TextFormFieldWidget extends StatelessWidget {
       validator: validator,
       decoration:  InputDecoration(
         enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey, width: 1),
+          borderSide: BorderSide(color: MyColors.grey, width: 1),
         ),
         focusedBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.white),
@@ -41,7 +41,7 @@ class TextFormFieldWidget extends StatelessWidget {
         errorBorder: const OutlineInputBorder(
           borderSide: BorderSide(color: Colors.redAccent),
         ),
-        hintStyle: const TextStyle(color: Colors.grey),
+        hintStyle: const TextStyle(color: MyColors.grey),
         hintText:hintText,
       ),
     )

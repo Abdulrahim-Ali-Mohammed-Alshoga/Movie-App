@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/constants/font.dart';
 import 'package:movies/constants/mycolor.dart';
+import 'package:movies/constants/name_page.dart';
 import 'package:movies/presentation/widgets/text_form_field_widget.dart';
 
 class PersonalInformationScreen extends StatefulWidget {
@@ -14,8 +15,8 @@ class PersonalInformationScreen extends StatefulWidget {
 
 class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   TextEditingController controllerName = TextEditingController();
-  TextEditingController controllerAddress = TextEditingController();
-  TextEditingController controllerPhoneNumber = TextEditingController();
+  TextEditingController controllerEmail = TextEditingController();
+  TextEditingController controllerPassword = TextEditingController();
   final GlobalKey<FormState> globalKey = GlobalKey<FormState>();
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
 
@@ -29,8 +30,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       //   'address': address.text,
       //   'image': image
       // });
-    }
-    else {
+    } else {
       setState(() {
         autoValidateMode = AutovalidateMode.always;
       });
@@ -56,7 +56,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                   style: TextStyle(
                       fontSize: 25.sp,
                       fontFamily: MyFont.mainFont,
-                      color:MyColors.white),
+                      color: MyColors.white),
                 ),
                 SizedBox(height: 10.h),
                 Text(
@@ -64,10 +64,11 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                   style: TextStyle(
                       fontSize: 15.sp,
                       fontFamily: MyFont.mainFont,
-                      color: Colors.grey),
+                      color: MyColors.grey),
                 ),
                 SizedBox(height: 60.h),
-                TextFormFieldWidget(controller: controllerName,
+                TextFormFieldWidget(
+                    controller: controllerName,
                     hintText: "Name",
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -78,25 +79,26 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     textInputAction: TextInputAction.next,
                     textInputType: TextInputType.name),
                 SizedBox(height: 20.h),
-                TextFormFieldWidget(controller: controllerPhoneNumber,
-                    hintText: "Phone Number",
+                TextFormFieldWidget(
+                    controller: controllerPassword,
+                    hintText: "Password",
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'This is not  a valid phone number';
-                      }
-                      else if(value.length!=9){
-                        return 'phone number consist of 9 digits';
+                        return 'This is not  a valid Password';
+                      } else if (value.length <= 6) {
+                        return 'Password consist of 6 digits or more';
                       }
                       return null;
                     },
                     textInputAction: TextInputAction.next,
                     textInputType: TextInputType.phone),
                 SizedBox(height: 20.h),
-                TextFormFieldWidget(controller: controllerAddress,
-                    hintText: "Address",
+                TextFormFieldWidget(
+                    controller: controllerEmail,
+                    hintText: "Email",
                     validator: (value) {
                       if (value!.isEmpty) {
-                        return 'Address cannot be empty';
+                        return 'Email cannot be empty';
                       }
                       return null;
                     },
@@ -105,13 +107,57 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                 SizedBox(
                   height: 50.h,
                 ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    RichText(
+                        text: TextSpan(children: <WidgetSpan>[
+                      const WidgetSpan(
+                          child: Text(
+                        "Already have an account ! ",
+                        style: TextStyle(
+                          color: MyColors.white,
+                          fontSize: 12,
+                          fontFamily: MyFont.mainFont,
+                        ),
+                      )),
+                      WidgetSpan(
+                          child: InkWell(
+                        onTap: () {
+                          Navigator.pushNamed(context, singInScreen);
+                        //  Navigator.pushNamedAndRemoveUntil(context, singInScreen, (route) => false);
+                        },
+                        child: const Text(" SignIn",
+                            style: TextStyle(
+                              color: MyColors.deepOrange,
+                              fontSize: 12,
+                              fontFamily: MyFont.mainFont,
+                            )),
+                      )),
+                    ])),
+                    GestureDetector(
+                      onTap: (){
+                        Navigator.pushNamedAndRemoveUntil(context, homeScreen, (route) => false);
+                      },
+                      child:  Text(
+                        style: TextStyle(
+                          color: MyColors.white,
+                          fontSize: 12.sp,
+                          fontFamily: MyFont.mainFont,
+                        ),
+                        "Skip",
+                      ),
+                    )
+                  ],
+                ),
+SizedBox(height: 12.h,),
                 SizedBox(
                   height: 60.h,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: Colors.deepOrange),
+                            backgroundColor: MyColors.deepOrange),
                         onPressed: () {
                           personalInfoFill();
                         },
@@ -121,7 +167,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                             style: TextStyle(
                                 fontSize: 25.sp,
                                 fontFamily: MyFont.mainFont,
-                                color:MyColors.white),
+                                color: MyColors.white),
                           ),
                         )),
                   ),
