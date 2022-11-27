@@ -149,6 +149,7 @@ bool isPassword=true;
                     GestureDetector(
                       onTap: (){
                         BlocProvider.of<AuthCubit>(context).changAuth();
+                        BlocProvider.of<AuthCubit>(context).changTypeAuth(false);
                         Navigator.pushNamedAndRemoveUntil(context, homeScreen, (route) => false);
                       },
                       child:  Text(

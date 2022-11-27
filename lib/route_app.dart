@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:movies/presentation/screens/home_screen.dart';
 import 'package:movies/presentation/screens/onboard_screen.dart';
 import 'package:movies/presentation/screens/personal_information_screen.dart';
-import 'package:movies/presentation/screens/sing_in_screen.dart';
+import 'package:movies/presentation/screens/sign_in_screen.dart';
 import 'package:movies/presentation/screens/splash_screen.dart';
 
 import 'constants/name_page.dart';
