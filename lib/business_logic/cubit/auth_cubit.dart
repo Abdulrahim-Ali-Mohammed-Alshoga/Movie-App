@@ -31,6 +31,6 @@ changTypeAuth(bool type){
     else {
       typeAuth=true;
     }
-   box.put(authTable, false);
+  // box.put(authTable, false);
   }
 }

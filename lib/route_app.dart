@@ -28,7 +28,7 @@ class RouteApp {
         );
       case homeScreen:
         return MaterialPageRoute(
-          builder: (context) => BlocProvider<MovieCubit>(create: (context) => MovieCubit(MoviesRepository(MoviesWebServices())..getMovies()),child: HomeScreen()),
+          builder: (context) => BlocProvider(create: (context) => MovieCubit(MoviesRepository(MoviesWebServices()))..getAllMovies(),child: HomeScreen()),
         );
     }
   }

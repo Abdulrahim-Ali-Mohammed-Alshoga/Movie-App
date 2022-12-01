@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/business_logic/cubit/movie_cubit.dart';
+import 'package:movies/business_logic/cubit/movie_state.dart';
 import 'package:movies/presentation/widgets/app_bar_widget.dart';
 
 import '../../constants/font.dart';
@@ -16,14 +17,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      BlocProvider.of<MovieCubit>(context).getAllActors(context);
+   
+      BlocProvider.of<MovieCubit>(context).getAllMovies();
       print(result.index);
-      ShowSnackBarWidget.checkInternetConnectivity(context,result.index,);
+      ShowSnackBarWidget.checkInternetConnectivity(context,result.index);
     });
   }
   @override
@@ -43,6 +46,14 @@ class _HomeScreenState extends State<HomeScreen> {
           ]
         ),
       )),
+      body: BlocBuilder<MovieCubit,MovieState>(builder: (context, state) {
+        if(state is NotConnected){
+          return Text("data");
+        }
+        else{
+          return Text("sdff");
+        }
+      },),
     );
   }
 }

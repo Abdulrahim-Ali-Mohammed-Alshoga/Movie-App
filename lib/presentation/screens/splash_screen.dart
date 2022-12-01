@@ -6,6 +6,9 @@ import 'package:movies/presentation/screens/onboard_screen.dart';
 
 import '../../business_logic/cubit/auth_cubit.dart';
 import '../../business_logic/cubit/auth_state.dart';
+import '../../business_logic/cubit/movie_cubit.dart';
+import '../../data/repository/movies_repository.dart';
+import '../../data/web_services/movies_web_services.dart';
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
 
@@ -24,8 +27,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit,AuthState>(builder: (context, state) {
       if(state is AuthSuccess){
-        print(11);
-     return   const HomeScreen();
+     return BlocProvider(create: (context) => MovieCubit(MoviesRepository(MoviesWebServices()))..getAllMovies(),child: HomeScreen());
       }
       else{
        return const OnBoardScreen();
