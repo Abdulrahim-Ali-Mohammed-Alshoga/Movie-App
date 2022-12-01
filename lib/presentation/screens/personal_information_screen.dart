@@ -25,7 +25,9 @@ bool isPassword=true;
   Future<void> personalInfoFill() async {
     if (globalKey.currentState!.validate()) {
       globalKey.currentState!.save();
-
+      BlocProvider.of<AuthCubit>(context).changAuth();
+      Navigator.pushNamedAndRemoveUntil(context, homeScreen, (route) => false);
+      BlocProvider.of<AuthCubit>(context).changTypeAuth(true);
       // Navigator.pushNamed(context, signUpScreen, arguments: {
       //   'name': name.text,
       //   'phoneNumber': phoneNumber.text,

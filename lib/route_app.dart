@@ -1,4 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movies/business_logic/cubit/movie_cubit.dart';
+import 'package:movies/data/repository/movies_repository.dart';
+import 'package:movies/data/web_services/movies_web_services.dart';
 import 'package:movies/presentation/screens/home_screen.dart';
 import 'package:movies/presentation/screens/onboard_screen.dart';
 import 'package:movies/presentation/screens/personal_information_screen.dart';
@@ -24,7 +28,7 @@ class RouteApp {
         );
       case homeScreen:
         return MaterialPageRoute(
-          builder: (context) => HomeScreen(),
+          builder: (context) => BlocProvider<MovieCubit>(create: (context) => MovieCubit(MoviesRepository(MoviesWebServices())..getMovies()),child: HomeScreen()),
         );
     }
   }

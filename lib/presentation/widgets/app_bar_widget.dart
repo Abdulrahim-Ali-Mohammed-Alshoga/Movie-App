@@ -2,15 +2,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/business_logic/cubit/auth_cubit.dart';
+import 'package:movies/constants/name_page.dart';
 
 import '../../constants/mycolor.dart';
+
 class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   Widget nameAppBar;
-  AppBarWidget(
-      {Key? key,
-        required this.nameAppBar,
-        })
-      : super(key: key);
+
+  AppBarWidget({
+    Key? key,
+    required this.nameAppBar,
+  }) : super(key: key);
+
   @override
   State<AppBarWidget> createState() => _AppBarWidgetState();
 
@@ -26,23 +29,28 @@ class _AppBarWidgetState extends State<AppBarWidget> {
   Widget build(BuildContext context) {
     return AppBar(
       actions: [
-        BlocProvider.of<AuthCubit>(context).typeAuth?IconButton(
-          onPressed: () {
-            //  BlocProvider.of<SystemCubit>(context).changTheme();
-          },
-          icon: Icon(
-            Icons.person,
-            size: 30.w,
-          ),
-        )
-        :Padding(
-          padding:EdgeInsets.only(right: 10.w),
-          child: Image.asset(width: 38.w,height: 38.h,"assets/images/log_in.png"),
-        )
-
+        BlocProvider.of<AuthCubit>(context).typeAuth
+            ? IconButton(
+                onPressed: () {
+                  //  BlocProvider.of<SystemCubit>(context).changTheme();
+                },
+                icon: Icon(
+                  Icons.person,
+                  size: 30.w,
+                ),
+              )
+            : GestureDetector(
+                onTap: () {
+                  Navigator.pushNamed(context, personalInformationScreen);
+                },
+                child: Padding(
+                  padding: EdgeInsets.only(right: 10.w),
+                  child: Image.asset(
+                      width: 38.w, height: 38.h, "assets/images/log_in.png"),
+                ),
+              )
       ],
-      title:widget.nameAppBar,
-
+      title: widget.nameAppBar,
     );
   }
 }

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/business_logic/cubit/auth_cubit.dart';
 import 'package:movies/constants/name_page.dart';
+import 'package:movies/presentation/screens/home_screen.dart';
 import '../../constants/font.dart';
 import '../../constants/mycolor.dart';
 import '../widgets/text_form_field_widget.dart';
@@ -22,7 +25,9 @@ class _SingInScreenState extends State<SingInScreen> {
   Future<void> singInFill() async {
     if (globalKey.currentState!.validate()) {
       globalKey.currentState!.save();
+      BlocProvider.of<AuthCubit>(context).changAuth();
       Navigator.pushNamedAndRemoveUntil(context, homeScreen, (route) => false);
+      BlocProvider.of<AuthCubit>(context).changTypeAuth(true);
       // Navigator.pushNamed(context, signUpScreen, arguments: {
       //   'name': name.text,
       //   'phoneNumber': phoneNumber.text,
