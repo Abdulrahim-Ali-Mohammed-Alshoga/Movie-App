@@ -6,6 +6,7 @@ import 'package:movies/data/web_services/movies_web_services.dart';
 import 'package:movies/presentation/screens/home_screen.dart';
 import 'package:movies/presentation/screens/onboard_screen.dart';
 import 'package:movies/presentation/screens/personal_information_screen.dart';
+import 'package:movies/presentation/screens/scand_screen.dart';
 import 'package:movies/presentation/screens/sign_in_screen.dart';
 import 'package:movies/presentation/screens/splash_screen.dart';
 
@@ -14,7 +15,7 @@ import 'constants/name_page.dart';
 class RouteApp {
   Route? generateRoute(RouteSettings settings) {
     switch (settings.name) {
-      case onBoardScreen:
+      case splashScreen:
         return MaterialPageRoute(
           builder: (context) => SplashScreen(),
         );
@@ -22,14 +23,15 @@ class RouteApp {
         return MaterialPageRoute(
           builder: (context) => PersonalInformationScreen(),
         );
+      case scandScreen:
+        return MaterialPageRoute(
+          builder: (context) => ScandScreen(),
+        );
       case singInScreen:
         return MaterialPageRoute(
           builder: (context) => SingInScreen(),
         );
-      case homeScreen:
-        return MaterialPageRoute(
-          builder: (context) => BlocProvider(create: (context) => MovieCubit(MoviesRepository(MoviesWebServices()))..getAllMovies(),child: HomeScreen()),
-        );
+
     }
   }
 }

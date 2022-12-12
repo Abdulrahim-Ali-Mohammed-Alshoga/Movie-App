@@ -26,8 +26,9 @@ bool isPassword=true;
     if (globalKey.currentState!.validate()) {
       globalKey.currentState!.save();
       BlocProvider.of<AuthCubit>(context).changAuth();
-      Navigator.pushNamedAndRemoveUntil(context, homeScreen, (route) => false);
-      BlocProvider.of<AuthCubit>(context).changTypeAuth(true);
+      BlocProvider.of<AuthCubit>(context).changTypeUserAuth(true);
+      Navigator.pushNamedAndRemoveUntil(context, splashScreen, (route) => false);
+
       // Navigator.pushNamed(context, signUpScreen, arguments: {
       //   'name': name.text,
       //   'phoneNumber': phoneNumber.text,
@@ -151,8 +152,8 @@ bool isPassword=true;
                     GestureDetector(
                       onTap: (){
                         BlocProvider.of<AuthCubit>(context).changAuth();
-                        BlocProvider.of<AuthCubit>(context).changTypeAuth(false);
-                        Navigator.pushNamedAndRemoveUntil(context, homeScreen, (route) => false);
+                        BlocProvider.of<AuthCubit>(context).changTypeUserAuth(false);
+                        Navigator.pushNamedAndRemoveUntil(context, splashScreen, (route) => false);
                       },
                       child:  Text(
                         style: TextStyle(

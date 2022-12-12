@@ -10,25 +10,27 @@ class MovieCubit extends Cubit<MovieState>{
 MoviesRepository moviesRepository;
   List<Movie> movies=[];
   void getAllMovies() async {
+
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult != ConnectivityResult.none) {
       if (movies.isEmpty) {
      emit(MovieLoading());
+     try {
+       movies = await moviesRepository.getMovies();
+       emit(MovieSuccess());
+     } catch (e) {
+       emit(MovieFailure());
+     }
       }
       else {
         emit(MovieSuccess());
-      }
-      try {
-        movies = await moviesRepository.getMovies();
-        emit(MovieSuccess());
-      } catch (e) {
-        emit(MovieFailure());
       }
     }
     else{
       if(movies.isEmpty) {
           emit(NotConnected());
         }
+
     }
   }
 

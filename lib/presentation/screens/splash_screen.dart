@@ -21,13 +21,14 @@ class _SplashScreenState extends State<SplashScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    Future.delayed(Duration(milliseconds: 1000)).then((value) => FlutterNativeSplash.remove());
+    BlocProvider.of<AuthCubit>(context).getAuth();
+    Future.delayed(const Duration(milliseconds: 1000)).then((value) => FlutterNativeSplash.remove());
   }
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit,AuthState>(builder: (context, state) {
       if(state is AuthSuccess){
-     return BlocProvider(create: (context) => MovieCubit(MoviesRepository(MoviesWebServices()))..getAllMovies(),child: HomeScreen());
+     return BlocProvider(create: (context) => MovieCubit(MoviesRepository(MoviesWebServices())),child: HomeScreen());
       }
       else{
        return const OnBoardScreen();

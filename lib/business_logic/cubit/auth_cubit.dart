@@ -12,7 +12,7 @@ changAuth(){
   box.put(authTable, true);
 
 }
-changTypeAuth(bool type){
+changTypeUserAuth(bool type){
   typeAuth=type;
   box.put(typeAuthTable, type);
 }

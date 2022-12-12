@@ -26,8 +26,9 @@ class _SingInScreenState extends State<SingInScreen> {
     if (globalKey.currentState!.validate()) {
       globalKey.currentState!.save();
       BlocProvider.of<AuthCubit>(context).changAuth();
-      Navigator.pushNamedAndRemoveUntil(context, homeScreen, (route) => false);
-      BlocProvider.of<AuthCubit>(context).changTypeAuth(true);
+      BlocProvider.of<AuthCubit>(context).changTypeUserAuth(true);
+      Navigator.pushNamedAndRemoveUntil(context, splashScreen, (route) => false);
+
       // Navigator.pushNamed(context, signUpScreen, arguments: {
       //   'name': name.text,
       //   'phoneNumber': phoneNumber.text,
