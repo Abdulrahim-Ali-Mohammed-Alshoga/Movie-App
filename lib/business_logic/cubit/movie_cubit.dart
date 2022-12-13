@@ -17,6 +17,7 @@ MoviesRepository moviesRepository;
      emit(MovieLoading());
      try {
        movies = await moviesRepository.getMovies();
+       print(movies);
        emit(MovieSuccess());
      } catch (e) {
        emit(MovieFailure());

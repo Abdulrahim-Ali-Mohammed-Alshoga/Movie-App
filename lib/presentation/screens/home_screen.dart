@@ -5,7 +5,9 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/business_logic/cubit/movie_cubit.dart';
 import 'package:movies/business_logic/cubit/movie_state.dart';
 import 'package:movies/constants/name_page.dart';
+import 'package:movies/data/models/movie.dart';
 import 'package:movies/presentation/widgets/app_bar_widget.dart';
+import 'package:movies/presentation/widgets/page_view_home_widget.dart';
 
 import '../../constants/font.dart';
 import '../../constants/mycolor.dart';
@@ -22,7 +24,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   bool isBackground = false;
   late ConnectivityResult result;
   late ConnectivityResult outResult;
-
+late List<Movie> movies;
   initAction() {
     if (!isBackground) {
       ShowSnackBarWidget.checkInternetConnectivity(context, result.index);
@@ -95,19 +97,21 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             );
           }
           if (state is MovieSuccess) {
+            movies=BlocProvider.of<MovieCubit>(context).movies;
+            print(movies);
             return Padding(
-              padding: EdgeInsets.only(top: 10),
-              child: SingleChildScrollView(
-                child: Column(
+              padding: EdgeInsets.only(top: 10.h),
+              child: Column(
                   children: [
                     Center(
                         child: Text(
                       "Recent Movies",
                       style: TextStyle(
-                          fontSize: 15.sp, fontFamily: MyFont.titleFont,color: MyColors.white),
+                          fontSize: 16.sp, fontFamily: MyFont.titleFont,color: MyColors.white),
                     )),
+                     PageViewHomeWidget(movies: movies,)
                   ],
-                ),
+
               ),
             );
           }
