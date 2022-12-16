@@ -39,14 +39,18 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
           _currentPage = numPages;
         });
       },
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 150),
-        margin: const EdgeInsets.symmetric(horizontal: 8),
-        height: 11.0,
-        width: isActive ? 22.0 : 11.0,
-        decoration: BoxDecoration(
-            color: isActive ? MyColors.deepOrange : MyColors.grey,
-            borderRadius: BorderRadius.all(const Radius.circular(12).r)),
+      child: Container(
+        color: MyColors.black,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 150),
+          margin: const EdgeInsets.symmetric(horizontal: 8),
+          height: 11.0,
+
+          width: isActive ? 22.0 : 11.0,
+          decoration: BoxDecoration(
+              color: isActive ? MyColors.deepOrange : MyColors.grey,
+              borderRadius: BorderRadius.all(const Radius.circular(12).r)),
+        ),
       ),
     );
   }

@@ -11,6 +11,7 @@ import 'package:movies/presentation/widgets/page_view_home_widget.dart';
 
 import '../../constants/font.dart';
 import '../../constants/mycolor.dart';
+import '../widgets/list_view_movies_widget.dart';
 import '../widgets/show_snack_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -24,7 +25,8 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   bool isBackground = false;
   late ConnectivityResult result;
   late ConnectivityResult outResult;
-late List<Movie> movies;
+  late List<Movie> movies;
+
   initAction() {
     if (!isBackground) {
       ShowSnackBarWidget.checkInternetConnectivity(context, result.index);
@@ -97,21 +99,60 @@ late List<Movie> movies;
             );
           }
           if (state is MovieSuccess) {
-            movies=BlocProvider.of<MovieCubit>(context).movies;
+            movies = BlocProvider.of<MovieCubit>(context).movies;
             print(movies);
             return Padding(
               padding: EdgeInsets.only(top: 10.h),
-              child: Column(
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Center(
+                      child: Padding(
+                        padding: EdgeInsets.only(right: 30.w),
                         child: Text(
-                      "Recent Movies",
-                      style: TextStyle(
-                          fontSize: 16.sp, fontFamily: MyFont.titleFont,color: MyColors.white),
-                    )),
-                     PageViewHomeWidget(movies: movies,)
+                          "Recent Movies",
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              fontFamily: MyFont.titleFont,
+                              color: MyColors.white),
+                        ),
+                      ),
+                    ),
+                    PageViewHomeWidget(
+                      movies: movies,
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 20.w, right: 5.w),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            "Action",
+                            textAlign: TextAlign.start,
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                fontFamily: MyFont.titleFont,
+                                color: MyColors.white),
+                          ),
+                          GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(context, scandScreen);
+                              },
+                              child: const Icon(
+                                    Icons.keyboard_arrow_right,
+                                    color: MyColors.white,
+                                    size: 27,
+                                  ))
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding:  EdgeInsets.only(left: 15.w),
+                      child: ListViewMoviesWidget(movies: movies),
+                    )
                   ],
-
+                ),
               ),
             );
           }

@@ -93,7 +93,7 @@ class _SingInScreenState extends State<SingInScreen> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Emile cannot be empty';
-                      } else if (!value.contains("@")) {
+                      } else if (!value.contains("@")||!value.contains(".com")) {
                         return 'This is not Email';
                       }
                       return null;

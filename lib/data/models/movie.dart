@@ -2,7 +2,7 @@ class Movie{
   late String image;
   late int id;
   late String title;
-
+   dynamic rating;
   late String productionData;
   late String description;
   //late List<dynamic> genres;
@@ -10,7 +10,7 @@ class Movie{
     image = json['poster_path'];
     id = json['id'];
     title = json['title'];
-   // rating = json['vote_average'];
+    rating = json['vote_average'];
     productionData = json['release_date'];
     description = json['overview'];
     //genres = json['genres'];
