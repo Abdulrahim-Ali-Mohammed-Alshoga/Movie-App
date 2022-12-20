@@ -3,6 +3,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/constants/mycolor.dart';
 import 'package:movies/constants/name_page.dart';
 
+import '../../constants/arguments.dart';
 import '../../data/models/movie.dart';
 import 'list_movie_title_widget.dart';
 
@@ -37,7 +38,7 @@ class ListViewMoviesWidget extends StatelessWidget {
               isLastMovie
                   ? GestureDetector(
                 onTap: (){
-                  Navigator.pushNamed(context, scandScreen);
+                  Navigator.pushNamed(context, scandScreen,arguments: ListMovies(movies,"Action"));
                 },
                     child: Container(
                         margin: EdgeInsets.symmetric(horizontal: 20.w),

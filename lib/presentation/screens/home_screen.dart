@@ -9,6 +9,7 @@ import 'package:movies/data/models/movie.dart';
 import 'package:movies/presentation/widgets/app_bar_widget.dart';
 import 'package:movies/presentation/widgets/page_view_home_widget.dart';
 
+import '../../constants/arguments.dart';
 import '../../constants/font.dart';
 import '../../constants/mycolor.dart';
 import '../widgets/list_view_movies_widget.dart';
@@ -137,7 +138,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                           ),
                           GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(context, scandScreen);
+                                Navigator.pushNamed(context, scandScreen,arguments: ListMovies(movies,"Action"));
                               },
                               child: const Icon(
                                     Icons.keyboard_arrow_right,

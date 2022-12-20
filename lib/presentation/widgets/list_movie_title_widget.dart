@@ -4,8 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/constants/font.dart';
+import 'package:movies/constants/name_page.dart';
 import 'package:movies/data/models/movie.dart';
 
+import '../../constants/arguments.dart';
 import '../../constants/mycolor.dart';
 class ListMovieTitleWidget extends StatelessWidget {
    ListMovieTitleWidget({Key? key,required this.movie}) : super(key: key);
@@ -14,7 +16,7 @@ Movie movie;
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-       // Navigator.pushNamed(context, Web_Screen,arguments: urlSite);
+       Navigator.pushNamed(context, detailsMovieScreen,arguments: DetailsMovie(movie));
       },
       child: Container(
         width: 320.w,
