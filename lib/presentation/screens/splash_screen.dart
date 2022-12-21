@@ -28,7 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
   Widget build(BuildContext context) {
     return BlocBuilder<AuthCubit,AuthState>(builder: (context, state) {
       if(state is AuthSuccess){
-     return BlocProvider(create: (context) => MovieCubit(MoviesRepository(MoviesWebServices())),child: HomeScreen());
+     return BlocProvider(create: (context) => MovieCubit(MoviesRepository(MoviesWebServices()))..getAllMovies(),child: HomeScreen());
       }
       else{
        return const OnBoardScreen();

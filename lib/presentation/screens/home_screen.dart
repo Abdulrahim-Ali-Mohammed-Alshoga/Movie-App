@@ -24,7 +24,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   bool isBackground = false;
-  late ConnectivityResult result;
+  bool firstRun = true;
+  late ConnectivityResult result = ConnectivityResult.none;
   late ConnectivityResult outResult;
   late List<Movie> movies;
 
@@ -34,16 +35,35 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     }
   }
 
+  getMovies() {
+    BlocProvider.of<MovieCubit>(context).getAllMovies();
+  }
+
+  changConnect() async {
+    if (result.index == 4 && firstRun) {
+      var connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult.index == 4) {
+        firstRun = false;
+      }
+    }
+    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
+      this.result = result;
+      if (!firstRun) {
+        getMovies();
+        initAction();
+      } else {
+        firstRun = false;
+      }
+    });
+  }
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+
     WidgetsBinding.instance.addObserver(this);
-    Connectivity().onConnectivityChanged.listen((ConnectivityResult result) {
-      this.result = result;
-      BlocProvider.of<MovieCubit>(context).getAllMovies();
-      initAction();
-    });
+    changConnect();
   }
 
   @override
@@ -101,7 +121,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
           }
           if (state is MovieSuccess) {
             movies = BlocProvider.of<MovieCubit>(context).movies;
-            print(movies);
+            print("555");
             return Padding(
               padding: EdgeInsets.only(top: 10.h),
               child: SingleChildScrollView(
@@ -138,18 +158,19 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                           ),
                           GestureDetector(
                               onTap: () {
-                                Navigator.pushNamed(context, scandScreen,arguments: ListMovies(movies,"Action"));
+                                Navigator.pushNamed(context, scandScreen,
+                                    arguments: ListMovies(movies, "Action"));
                               },
                               child: const Icon(
-                                    Icons.keyboard_arrow_right,
-                                    color: MyColors.white,
-                                    size: 27,
-                                  ))
+                                Icons.keyboard_arrow_right,
+                                color: MyColors.white,
+                                size: 27,
+                              ))
                         ],
                       ),
                     ),
                     Padding(
-                      padding:  EdgeInsets.only(left: 15.w),
+                      padding: EdgeInsets.only(left: 15.w),
                       child: ListViewMoviesWidget(movies: movies),
                     )
                   ],
@@ -158,14 +179,32 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             );
           }
           if (state is NotConnected) {
-            return Text("data");
+            return Center(
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 130.h),
+                child: Image.asset(
+                  "assets/images/Interneton.png",
+                  width: 400.w,
+                  height: 400.h,
+                ),
+              ),
+            );
+          }
+          if (state is MovieInitialState) {
+            return Center(
+              child: SizedBox(
+                height: .1.h,
+              ),
+            );
           } else {
             return Center(
-              child: ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, scandScreen);
-                },
-                child: Text("zxcz"),
+              child: Padding(
+                padding: EdgeInsets.only(bottom: 130.h),
+                child: Image.asset(
+                  "assets/images/404Page.png",
+                  width: 300.w,
+                  height: 400.h,
+                ),
               ),
             );
           }

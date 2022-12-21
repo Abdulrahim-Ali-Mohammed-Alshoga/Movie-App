@@ -13,6 +13,7 @@ MoviesRepository moviesRepository;
 
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult != ConnectivityResult.none) {
+
       if (movies.isEmpty) {
      emit(MovieLoading());
      try {

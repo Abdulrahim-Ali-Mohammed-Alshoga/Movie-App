@@ -21,13 +21,15 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   TextEditingController controllerPassword = TextEditingController();
   final GlobalKey<FormState> globalKey = GlobalKey<FormState>();
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
-bool isPassword=true;
+  bool isPassword = true;
+
   Future<void> personalInfoFill() async {
     if (globalKey.currentState!.validate()) {
       globalKey.currentState!.save();
       BlocProvider.of<AuthCubit>(context).changAuth();
       BlocProvider.of<AuthCubit>(context).changTypeUserAuth(true);
-      Navigator.pushNamedAndRemoveUntil(context, splashScreen, (route) => false);
+      Navigator.pushNamedAndRemoveUntil(
+          context, splashScreen, (route) => false);
 
       // Navigator.pushNamed(context, signUpScreen, arguments: {
       //   'name': name.text,
@@ -87,15 +89,19 @@ bool isPassword=true;
                 TextFormFieldWidget(
                     controller: controllerPassword,
                     hintText: "Password",
-                    obscureText: isPassword?true:false,
-                    suffixIcon:GestureDetector(onTap: (){
-                      print(55);
-                      setState(() {
-                        isPassword=!isPassword;
-                      });
-                    },child: Icon(isPassword?Icons.visibility:Icons.visibility_off,
-                     // size: 20,
-                      color:  MyColors.white,) ) ,
+                    obscureText: isPassword ? true : false,
+                    suffixIcon: GestureDetector(
+                        onTap: () {
+                          print(55);
+                          setState(() {
+                            isPassword = !isPassword;
+                          });
+                        },
+                        child: Icon(
+                          isPassword ? Icons.visibility : Icons.visibility_off,
+                          // size: 20,
+                          color: MyColors.white,
+                        )),
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'This is not  a valid Password';
@@ -113,6 +119,9 @@ bool isPassword=true;
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Email cannot be empty';
+                      } else if (!value.contains("@") ||
+                          !value.contains(".com")) {
+                        return 'This is not Email';
                       }
                       return null;
                     },
@@ -139,7 +148,7 @@ bool isPassword=true;
                           child: InkWell(
                         onTap: () {
                           Navigator.pushNamed(context, singInScreen);
-                        //  Navigator.pushNamedAndRemoveUntil(context, singInScreen, (route) => false);
+                          //  Navigator.pushNamedAndRemoveUntil(context, singInScreen, (route) => false);
                         },
                         child: const Text(" SignIn",
                             style: TextStyle(
@@ -150,12 +159,14 @@ bool isPassword=true;
                       )),
                     ])),
                     GestureDetector(
-                      onTap: (){
+                      onTap: () {
                         BlocProvider.of<AuthCubit>(context).changAuth();
-                        BlocProvider.of<AuthCubit>(context).changTypeUserAuth(false);
-                        Navigator.pushNamedAndRemoveUntil(context, splashScreen, (route) => false);
+                        BlocProvider.of<AuthCubit>(context)
+                            .changTypeUserAuth(false);
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, splashScreen, (route) => false);
                       },
-                      child:  Text(
+                      child: Text(
                         style: TextStyle(
                           color: MyColors.white,
                           fontSize: 12.sp,
@@ -166,7 +177,9 @@ bool isPassword=true;
                     )
                   ],
                 ),
-SizedBox(height: 12.h,),
+                SizedBox(
+                  height: 12.h,
+                ),
                 SizedBox(
                   height: 60.h,
                   child: ClipRRect(

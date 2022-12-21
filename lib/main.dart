@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:movies/business_logic/cubit/auth_cubit.dart';
 import 'package:movies/constants/hive_name.dart';
+import 'package:movies/constants/mycolor.dart';
 import 'package:movies/constants/theme_app.dart';
 import 'package:movies/route_app.dart';
 
@@ -35,6 +36,8 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
           debugShowCheckedModeBanner: false,
           onGenerateRoute: routeApp.generateRoute,
+          title: "Cinema Batool",
+color: Colors.black,
           theme: ThemeApp().lightTheme,
         );
       },
