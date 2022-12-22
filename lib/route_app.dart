@@ -15,29 +15,42 @@ import 'package:movies/presentation/screens/splash_screen.dart';
 import 'constants/name_page.dart';
 
 class RouteApp {
-  Route? generateRoute(RouteSettings settings) {
+
+  final MovieCubit movieCubit=MovieCubit(MoviesRepository(MoviesWebServices()));
+  Route? generateRoute(RouteSettings settings) {print("kll");
     switch (settings.name) {
       case splashScreen:
         return MaterialPageRoute(
-          builder: (context) => SplashScreen(),
+          builder: (_) {
+            print(6664);
+            return SplashScreen(movieCubit: movieCubit);
+          },
         );
+
       case personalInformationScreen:
         return MaterialPageRoute(
           builder: (context) => PersonalInformationScreen(),
         );
       case scandScreen:
         return MaterialPageRoute(
-          builder: (context) => ListMoviesScreen(listMovies: settings.arguments as ListMovies),
-        );
+            builder: (_) => BlocProvider.value(
+              value: movieCubit,
+                  child: ListMoviesScreen(
+                      listMovies: settings.arguments as ListMovies),
+                ));
       case singInScreen:
         return MaterialPageRoute(
           builder: (context) => SingInScreen(),
         );
       case detailsMovieScreen:
         return MaterialPageRoute(
-          builder: (context) => DetailsMovieScreen(detailsMovie: settings.arguments as DetailsMovie),
+          builder: (context) => DetailsMovieScreen(
+              detailsMovie: settings.arguments as DetailsMovie),
         );
-
     }
+    return null;
+  }
+  void dispose(){
+movieCubit.close();
   }
 }

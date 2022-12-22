@@ -16,6 +16,7 @@ class GridTitleWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //print(movie.image);
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, detailsMovieScreen,arguments: DetailsMovie(movie));
@@ -86,10 +87,12 @@ class GridTitleWidget extends StatelessWidget {
                     ),
                     child: CachedNetworkImage(
                       memCacheHeight: 400,
+                      key: UniqueKey(),
                       maxHeightDiskCache: 400,
                       imageUrl: movie.image,
                       fit: BoxFit.fill,
                       errorWidget: (context, url, error) {
+                        print(error);
                         if (error.toString() ==
                             "Failed host lookup: 'image.tmdb.org'") {
                           return Center(

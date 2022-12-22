@@ -32,8 +32,9 @@ Movie movie;
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.r),
                 child: CachedNetworkImage(
-                  memCacheHeight: 600,
-                  maxHeightDiskCache: 600,
+                  key: UniqueKey(),
+                  memCacheHeight: 400,
+                  maxHeightDiskCache: 400,
                   imageUrl: movie.image,
 
                   fit: BoxFit.fill,

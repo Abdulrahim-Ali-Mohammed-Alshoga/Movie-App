@@ -13,9 +13,9 @@ class MoviesWebServices {
     dio = Dio(baseOptions);
   }
 
-  Future<List<dynamic>> getMovies() async {
+  Future<List<dynamic>> getMovies(int numberPage) async {
     try {
-      Response response = await dio.get("discover/movie",queryParameters: {"with_genres":"History","page":1},
+      Response response = await dio.get("discover/movie",queryParameters: {"with_genres":"History","page":numberPage},
           options: Options(headers: {
             "X-RapidAPI-Key":
                 "36f399abf4msh3a16281da9a619cp1dc23ejsn0eb027021543",
