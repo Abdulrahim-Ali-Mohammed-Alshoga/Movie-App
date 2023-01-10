@@ -54,122 +54,119 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 430.h,
-      // color: Colors.deepOrange,
-      child: PageView.builder(
-        controller: _pageController,
-        scrollDirection: Axis.horizontal,
-        itemCount: widget.movies.length,
-        physics: const BouncingScrollPhysics(),
-        onPageChanged: (int page) {
-          setState(() {
-            _currentPage = page;
-          });
-        },
-        itemBuilder: (BuildContext context, int index) {
-          bool active = index == _currentPage;
-          isFavorite.add(false);
-          final double top = active ? 30.h : 70.h;
-          return Column(
-            children: [
-              GestureDetector(
-                onTap: (){
-                  Navigator.pushNamed(context, detailsMovieScreen,arguments: DetailsMovie(widget.movies[index]));
-                },
-                child: AnimatedContainer(
-                  duration: const Duration(seconds: 2),
-                  curve: Curves.easeInOutCubicEmphasized,
-                  margin: EdgeInsets.only(top: top, bottom: 10.h, right: 30.w),
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20.r),
-                    color: Colors.black.withOpacity(.2),
-                  ),
-                  child: Stack(
-                    alignment: Alignment.bottomRight,
-                    children: [
-                      ClipRRect(
-                          borderRadius: BorderRadius.circular(20).r,
-                          child: CachedNetworkImage(
-                              imageUrl: widget.movies[index].image,
-                              height: 265.h,
-                              key: UniqueKey(),
-                              memCacheHeight: 600,
-                              maxHeightDiskCache: 600,
-                              errorWidget: (context, url, error) {
-                                if (error.toString() ==
-                                    "Failed host lookup: 'image.tmdb.org'") {
-                                  return Center(
-                                      child: Icon(
-                                    Icons.wifi_off,
-                                    size: 70.sp,
-                                    color: MyColors.deepOrange,
-                                  ));
-                                }
-                                //   print(error.);
-
+    return PageView.builder(
+      controller: _pageController,
+      scrollDirection: Axis.horizontal,
+      itemCount: widget.movies.length>10?10:widget.movies.length,
+      physics: const BouncingScrollPhysics(),
+      onPageChanged: (int page) {
+        setState(() {
+          _currentPage = page;
+        });
+      },
+      itemBuilder: (BuildContext context, int index) {
+        bool active = index == _currentPage;
+        isFavorite.add(false);
+        final double top = active ? 30.h : 70.h;
+        return Column(
+          children: [
+            GestureDetector(
+              onTap: (){
+                Navigator.pushNamed(context, detailsMovieScreen,arguments: DetailsMovie(widget.movies[index]));
+              },
+              child: AnimatedContainer(
+                duration: const Duration(seconds: 2),
+                curve: Curves.easeInOutCubicEmphasized,
+                margin: EdgeInsets.only(top: top, bottom: 10.h, right: 30.w),
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(20.r),
+                  color: Colors.black.withOpacity(.2),
+                ),
+                child: Stack(
+                  alignment: Alignment.bottomRight,
+                  children: [
+                    ClipRRect(
+                        borderRadius: BorderRadius.circular(20).r,
+                        child: CachedNetworkImage(
+                            imageUrl: widget.movies[index].image,
+                            height: 265.h,
+                           cacheKey: widget.movies[index].image+1.toString(),
+                            memCacheHeight: 600,
+                            maxHeightDiskCache: 600,
+                            errorWidget: (context, url, error) {
+                              if (error.toString() ==
+                                  "Failed host lookup: 'image.tmdb.org'") {
                                 return Center(
-                                  child: Icon(
-                                    Icons.image_not_supported,
-                                    size: 70.sp,
-                                  ),
-                                );
-                              },
-                              placeholder: (context, url) {
-                                return const Center(
-                                  child: CircularProgressIndicator(
-                                      color: MyColors.deepOrange),
-                                );
-                              },
-                              fit: BoxFit.cover)),
-                      Positioned(
-                          top: 220.h,
+                                    child: Icon(
+                                  Icons.wifi_off,
+                                  size: 70.sp,
+                                  color: MyColors.deepOrange,
+                                ));
+                              }
+                              //   print(error.);
 
-                          child: IconButton(
-                            onPressed: (){
-                              setState(() {
-                                isFavorite[index]=!isFavorite[index];
-                              });
+                              return Center(
+                                child: Icon(
+                                  Icons.image_not_supported,
+                                  size: 70.sp,
+                                ),
+                              );
                             },
-                            icon:Icon(
-                                size: 25,
-                                isFavorite[index]? Icons.favorite:Icons.favorite_border),
-                            color: Colors.red,
-                          )),
-                    ],
-                  ),
+                            placeholder: (context, url) {
+                              return const Center(
+                                child: CircularProgressIndicator(
+                                    color: MyColors.deepOrange),
+                              );
+                            },
+                            fit: BoxFit.cover)
+                    ),
+                    Positioned(
+                        top: 220.h,
+
+                        child: IconButton(
+                          onPressed: (){
+                            setState(() {
+                              isFavorite[index]=!isFavorite[index];
+                            });
+                          },
+                          icon:Icon(
+                              size: 25,
+                              isFavorite[index]? Icons.favorite:Icons.favorite_border),
+                          color: Colors.red,
+                        )),
+                  ],
                 ),
               ),
-              Padding(
-                padding: EdgeInsets.only(right: 30.w, bottom: 5.h),
-                child: RatingBarIndicator(
-                  rating: widget.movies[index].rating / 2,
-                  itemBuilder: (context, index) => Icon(
-                    Icons.star,
-                    color: Colors.amber,
-                  ),
-                  itemCount: 5,
-                  itemSize: 15.0,
-                  unratedColor: Colors.grey,
-                  direction: Axis.horizontal,
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: 30.w, bottom: 5.h),
+              child: RatingBarIndicator(
+                rating: widget.movies[index].rating / 2,
+                itemBuilder: (context, index) => Icon(
+                  Icons.star,
+                  color: Colors.amber,
                 ),
+                itemCount: 5,
+                itemSize: 15.0,
+                unratedColor: Colors.grey,
+                direction: Axis.horizontal,
               ),
-              Padding(
-                padding: EdgeInsets.only(right: 30.w),
-                child: AutoSizeText(
-                  widget.movies[index].title,
-                  maxLines: 2,
-                  style: TextStyle(
-                      color: MyColors.white,
-                      fontSize: 17.sp,
-                      fontFamily: MyFont.titleFont),
-                  textAlign: TextAlign.center,
-                ),
-              )
-            ],
-          );
-        },
-      ),
+            ),
+            Padding(
+              padding: EdgeInsets.only(right: 30.w),
+              child: AutoSizeText(
+                widget.movies[index].title,
+                maxLines: 2,
+                style: TextStyle(
+                    color: MyColors.white,
+                    fontSize: 17.sp,
+                    fontFamily: MyFont.titleFont),
+                textAlign: TextAlign.center,
+              ),
+            )
+          ],
+        );
+      },
     );
   }
 }

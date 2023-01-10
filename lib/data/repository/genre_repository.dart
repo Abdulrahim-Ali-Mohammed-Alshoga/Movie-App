@@ -1,3 +1,4 @@
+import 'package:movies/data/models/genre.dart';
 import 'package:movies/data/models/movie.dart';
 import 'package:movies/data/web_services/movies_web_services.dart';
 
@@ -9,8 +10,8 @@ class GenreRepository {
 
   GenreRepository(this.genreWebServices);
 
-  Future<List<Movie>> getMovies() async {
-    final movies = await genreWebServices.getGenre();
-    return movies.map((movie) => Movie.fromJson(movie)).toList();
+  Future<List<Genre>> getGenre() async {
+    final genre = await genreWebServices.getGenre();
+    return genre.map((movie) => Genre.fromJson(movie)).toList();
   }
 }

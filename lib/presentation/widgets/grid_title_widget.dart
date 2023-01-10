@@ -11,8 +11,11 @@ import '../../constants/mycolor.dart';
 import '../../constants/name_page.dart';
 
 class GridTitleWidget extends StatelessWidget {
-  GridTitleWidget({Key? key, required this.movie}) : super(key: key);
   Movie movie;
+
+
+  GridTitleWidget({Key? key, required this.movie}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,10 +89,19 @@ class GridTitleWidget extends StatelessWidget {
                       ),
                     ),
                     child: CachedNetworkImage(
-                      memCacheHeight: 400,
-                      key: UniqueKey(),
-                      maxHeightDiskCache: 400,
+                      memCacheHeight: 600,
+
+    // imageBuilder: (context, imageProvider) => Container(
+    // decoration: BoxDecoration(
+    // image: DecorationImage(
+    // image: imageProvider,
+    // fit: BoxFit.cover,
+    // colorFilter:
+    // ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
+    // ),),
+                      maxHeightDiskCache: 600,
                       imageUrl: movie.image,
+                      cacheKey: movie.image,
                       fit: BoxFit.fill,
                       errorWidget: (context, url, error) {
                         print(error);
@@ -113,7 +125,7 @@ class GridTitleWidget extends StatelessWidget {
                         return const Center(
                           child: CircularProgressIndicator(
                               color: MyColors.deepOrange),
-                        );
+                        );;
                       },
                     )),
               ),

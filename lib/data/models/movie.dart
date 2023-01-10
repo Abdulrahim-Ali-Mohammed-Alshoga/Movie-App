@@ -1,11 +1,11 @@
 class Movie {
   late String image;
   late String imageBackdrop;
-  late int id;
-  late int vote;
+   dynamic id;
+   dynamic vote;
   late String title;
   late String language;
-  late double watch;
+   dynamic watch;
   dynamic rating;
   late String productionData;
   late String description;

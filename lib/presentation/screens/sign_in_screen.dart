@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
 import 'package:movies/business_logic/cubit/auth_cubit.dart';
 import 'package:movies/constants/name_page.dart';
 import 'package:movies/presentation/screens/home_screen.dart';
 import '../../constants/font.dart';
+import '../../constants/hive_name.dart';
 import '../../constants/mycolor.dart';
 import '../widgets/text_form_field_widget.dart';
 
@@ -21,12 +23,12 @@ class _SingInScreenState extends State<SingInScreen> {
   AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
   bool isPassword = true;
   final GlobalKey<FormState> globalKey = GlobalKey<FormState>();
-
+  var box = Hive.box(authDb);
   Future<void> singInFill() async {
     if (globalKey.currentState!.validate()) {
       globalKey.currentState!.save();
-      BlocProvider.of<AuthCubit>(context).changAuth();
-      BlocProvider.of<AuthCubit>(context).changTypeUserAuth(true);
+      await box.put(authTable, true);
+      await  box.put(typeAuthTable, true);
       Navigator.pushNamedAndRemoveUntil(context, splashScreen, (route) => false);
 
       // Navigator.pushNamed(context, signUpScreen, arguments: {

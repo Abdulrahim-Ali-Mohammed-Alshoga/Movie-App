@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
 import 'package:movies/business_logic/cubit/auth_cubit.dart';
 import 'package:movies/constants/name_page.dart';
 
+import '../../constants/hive_name.dart';
 import '../../constants/mycolor.dart';
 
 class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
@@ -24,19 +26,22 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
 
 class _AppBarWidgetState extends State<AppBarWidget> {
   bool isSearch = false;
-
+  var box = Hive.box(authDb);
   @override
   Widget build(BuildContext context) {
     return AppBar(
       actions: [
-        BlocProvider.of<AuthCubit>(context).typeAuth
+        IconButton(onPressed: (){
+          Navigator.pushNamed(context, searchMoviesScreen);
+        }, icon: Icon(Icons.search,)),
+        box.get(typeAuthTable,defaultValue:false)
             ? IconButton(
                 onPressed: () {
                   //  BlocProvider.of<SystemCubit>(context).changTheme();
                 },
                 icon: Icon(
                   Icons.person,
-                  size: 30.w,
+                 // size: 25.w,
                 ),
               )
             : GestureDetector(
@@ -46,9 +51,10 @@ class _AppBarWidgetState extends State<AppBarWidget> {
                 child: Padding(
                   padding: EdgeInsets.only(right: 10.w),
                   child: Image.asset(
-                      width: 38.w, height: 38.h, "assets/images/log_in.png"),
+                      width: 30.w, height: 30.h, "assets/images/log_in.png"),
                 ),
-              )
+              ),
+
       ],
       title: widget.nameAppBar,
     );

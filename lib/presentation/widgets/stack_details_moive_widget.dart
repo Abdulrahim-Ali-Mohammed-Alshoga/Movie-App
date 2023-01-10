@@ -11,6 +11,7 @@ class StackDetailsMovieWidget extends StatelessWidget {
   StackDetailsMovieWidget({Key? key, required this.movie}) : super(key: key);
   Movie movie;
 
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -87,8 +88,9 @@ class StackDetailsMovieWidget extends StatelessWidget {
                   imageUrl: movie.image,
                   key: UniqueKey(),
                   fit: BoxFit.fill,
-                  memCacheHeight: 400,
-                  maxHeightDiskCache: 400,
+                  cacheKey: movie.image,
+                  memCacheHeight: 600,
+                  maxHeightDiskCache: 600,
                   errorWidget: (context, url, error) {
                     if (error.toString() ==
                         "Failed host lookup: 'image.tmdb.org'") {

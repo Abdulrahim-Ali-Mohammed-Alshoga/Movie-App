@@ -4,7 +4,7 @@ import 'package:movies/business_logic/cubit/auth_state.dart';
 import 'package:movies/constants/hive_name.dart';
 
 class AuthCubit extends Cubit<AuthState>{
-  AuthCubit():super(AuthInitialState());
+  AuthCubit():super(AuthSuccess());
   bool typeAuth=false;
   var box = Hive.box(authDb);
 

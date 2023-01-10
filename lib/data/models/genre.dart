@@ -1,6 +1,6 @@
 class Genre{
   late String name;
-  late int id;
+  dynamic id;
   Genre.fromJson(Map<String,dynamic> json){
     name = json['name'];
     id = json['id'];

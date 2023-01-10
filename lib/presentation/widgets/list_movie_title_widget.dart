@@ -32,13 +32,13 @@ Movie movie;
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.r),
                 child: CachedNetworkImage(
-                  key: UniqueKey(),
-                  memCacheHeight: 400,
-                  maxHeightDiskCache: 400,
+                  memCacheHeight: 600,
+                  maxHeightDiskCache: 600,
                   imageUrl: movie.image,
-
+                 cacheKey:movie.image,
                   fit: BoxFit.fill,
                   errorWidget: (context, url, error) {
+                    print(error);
                     if (error.toString() ==
                         "Failed host lookup: 'image.tmdb.org'"
                     )
@@ -68,9 +68,9 @@ Movie movie;
             ),
 
             Expanded(
-              child: SizedBox(height: 140,
+              child: SizedBox(height: 150.h,
                 child: Padding(
-                  padding:  EdgeInsets.only(left: 10.w),
+                  padding:  EdgeInsets.only(left: 10.w,top: 8.h),
                   child: Column(
                     // mainAxisAlignment: MainAxisAlignment.center,
                      crossAxisAlignment: CrossAxisAlignment.start,

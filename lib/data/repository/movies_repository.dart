@@ -6,8 +6,8 @@ class MoviesRepository {
 
   MoviesRepository(this.moviesWebServices);
 
-  Future<List<Movie>> getMovies(int numberPage) async {
-    final movies = await moviesWebServices.getMovies(numberPage);
+  Future<List<Movie>> getMovies(dynamic numberPage,int genre) async {
+    final movies = await moviesWebServices.getMovies(numberPage,genre);
     return movies.map((movie) => Movie.fromJson(movie)).toList();
   }
 }

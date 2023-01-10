@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
 import 'package:movies/business_logic/cubit/auth_cubit.dart';
 import 'package:movies/constants/font.dart';
 import 'package:movies/constants/mycolor.dart';
 import 'package:movies/constants/name_page.dart';
 import 'package:movies/presentation/widgets/text_form_field_widget.dart';
+
+import '../../constants/hive_name.dart';
 
 class PersonalInformationScreen extends StatefulWidget {
   const PersonalInformationScreen({Key? key}) : super(key: key);
@@ -22,12 +25,13 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   final GlobalKey<FormState> globalKey = GlobalKey<FormState>();
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
   bool isPassword = true;
-
+  var box = Hive.box(authDb);
   Future<void> personalInfoFill() async {
     if (globalKey.currentState!.validate()) {
       globalKey.currentState!.save();
-      BlocProvider.of<AuthCubit>(context).changAuth();
-      BlocProvider.of<AuthCubit>(context).changTypeUserAuth(true);
+      await box.put(authTable, true);
+      await  box.put(typeAuthTable, false);
+
       Navigator.pushNamedAndRemoveUntil(
           context, splashScreen, (route) => false);
 
@@ -160,9 +164,8 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     ])),
                     GestureDetector(
                       onTap: () {
-                        BlocProvider.of<AuthCubit>(context).changAuth();
-                        BlocProvider.of<AuthCubit>(context)
-                            .changTypeUserAuth(false);
+                        box.put(authTable, true);
+                        box.put(typeAuthTable, false);
                         Navigator.pushNamedAndRemoveUntil(
                             context, splashScreen, (route) => false);
                       },

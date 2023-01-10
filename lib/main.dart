@@ -11,12 +11,13 @@ import 'package:movies/route_app.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+//  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
   FlutterNativeSplash.preserve(
       widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
+
   await Hive.initFlutter();
   await Hive.openBox(authDb);
-  runApp(BlocProvider<AuthCubit>(create: (context) =>
-  AuthCubit()..getAuth(),child: MyApp(routeApp: RouteApp(), themeApp: ThemeApp(),)));
+  runApp(MyApp(routeApp: RouteApp(), themeApp: ThemeApp(),));
 }
 
 class MyApp extends StatelessWidget {

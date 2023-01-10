@@ -22,14 +22,16 @@ class ListMoviesScreen extends StatefulWidget {
 class _ListMoviesScreenState extends State<ListMoviesScreen> {
   final scrollController=ScrollController();
  late List<Movie>movies;
+
  Future getMovies() async{
-    BlocProvider.of<MovieCubit>(context).getAllMovies();
+   BlocProvider.of<MovieCubit>(context).getAllMovies(widget.listMovies.genre.id,0);
 
   }
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    print(widget.listMovies.genre.id);
     scrollController.addListener(() {
       if(scrollController.offset==scrollController.position.maxScrollExtent){
        getMovies();
@@ -40,7 +42,7 @@ class _ListMoviesScreenState extends State<ListMoviesScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.listMovies.genre,style: TextStyle(fontFamily:MyFont.titleFont ),),
+        title: Text(widget.listMovies.genre.name,style: TextStyle(fontFamily:MyFont.titleFont ),),
         centerTitle: true,
       ),
       body:BlocBuilder<MovieCubit, MovieState>(
@@ -54,12 +56,13 @@ class _ListMoviesScreenState extends State<ListMoviesScreen> {
               padding: EdgeInsets.zero,
               itemCount:movies.length,
               itemBuilder: (BuildContext context, index) {
+              //  print(index);
 // if(index+1==movies.length){
 //
 //   isLoading=true;
 //   print(5555555555);
 // }
-                return GridTitleWidget(movie:movies[index]);
+                return GridTitleWidget(movie:movies[index],);
               },
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                   crossAxisCount: 2,
