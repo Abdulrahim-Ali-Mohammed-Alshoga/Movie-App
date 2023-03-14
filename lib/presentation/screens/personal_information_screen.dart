@@ -5,7 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:movies/business_logic/cubit/auth_cubit.dart';
 import 'package:movies/constants/font.dart';
 import 'package:movies/constants/mycolor.dart';
-import 'package:movies/constants/name_page.dart';
+import 'package:movies/constants/screen_name.dart';
 import 'package:movies/presentation/widgets/text_form_field_widget.dart';
 
 import '../../constants/hive_name.dart';
@@ -33,7 +33,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
       await  box.put(typeAuthTable, false);
 
       Navigator.pushNamedAndRemoveUntil(
-          context, splashScreen, (route) => false);
+          context, ScreenName.homeScreen, (route) => false);
 
       // Navigator.pushNamed(context, signUpScreen, arguments: {
       //   'name': name.text,
@@ -151,7 +151,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       WidgetSpan(
                           child: InkWell(
                         onTap: () {
-                          Navigator.pushNamed(context, singInScreen);
+                          Navigator.pushNamed(context, ScreenName.singInScreen);
                           //  Navigator.pushNamedAndRemoveUntil(context, singInScreen, (route) => false);
                         },
                         child: const Text(" SignIn",
@@ -167,7 +167,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                         box.put(authTable, true);
                         box.put(typeAuthTable, false);
                         Navigator.pushNamedAndRemoveUntil(
-                            context, splashScreen, (route) => false);
+                            context, ScreenName.homeScreen, (route) => false);
                       },
                       child: Text(
                         style: TextStyle(

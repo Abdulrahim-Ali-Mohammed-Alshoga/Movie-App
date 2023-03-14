@@ -16,29 +16,34 @@ import 'package:movies/presentation/screens/search_movies_screen.dart';
 import 'package:movies/presentation/screens/sign_in_screen.dart';
 import 'package:movies/presentation/screens/splash_screen.dart';
 
-import 'constants/name_page.dart';
-import 'data/repository/genre_repository.dart';
-import 'data/repository/search_movies_repository.dart';
-import 'data/web_services/genre_web_services.dart';
+import 'screen_name.dart';
+import '../data/repository/genre_repository.dart';
+import '../data/repository/search_movies_repository.dart';
+import '../data/web_services/genre_web_services.dart';
 
 class RouteApp {
+  RouteApp._();
 
-
-  Route? generateRoute(RouteSettings settings) {
+ static Route? generateRoute(RouteSettings settings) {
     print("kll");
     switch (settings.name) {
-      case splashScreen:
+      case ScreenName.homeScreen:
         return MaterialPageRoute(
           builder: (context) {
-            return SplashScreen();
+            return HomeScreen();
           },
         );
-
-      case personalInformationScreen:
+      case ScreenName.onboardScreen:
+        return MaterialPageRoute(
+          builder: (context) {
+            return OnBoardScreen();
+          },
+        );
+      case ScreenName.personalInformationScreen:
         return MaterialPageRoute(
           builder: (context) => PersonalInformationScreen(),
         );
-      case listMoviesScreen:
+      case ScreenName.listMoviesScreen:
         return MaterialPageRoute(
 
             builder: (context) {
@@ -50,16 +55,16 @@ class RouteApp {
         );
         }
                 );
-      case singInScreen:
+      case ScreenName.singInScreen:
         return MaterialPageRoute(
           builder: (context) => SingInScreen(),
         );
-      case detailsMovieScreen:
+      case ScreenName.detailsMovieScreen:
         return MaterialPageRoute(
           builder: (context) => DetailsMovieScreen(
               detailsMovie: settings.arguments as DetailsMovie),
         );
-      case searchMoviesScreen:
+      case ScreenName.searchMoviesScreen:
         return MaterialPageRoute(
           builder: (context) => BlocProvider<SearchMovieCubit>(
               create: (context) => SearchMovieCubit(

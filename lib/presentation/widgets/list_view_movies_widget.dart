@@ -5,11 +5,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/business_logic/cubit/genre_cubit.dart';
 import 'package:movies/business_logic/cubit/movie_state.dart';
+import 'package:movies/constants/image_asset_name.dart';
 import 'package:movies/constants/mycolor.dart';
-import 'package:movies/constants/name_page.dart';
+import 'package:movies/constants/screen_name.dart';
 import 'package:movies/data/repository/movies_repository.dart';
 import 'package:movies/data/web_services/movies_web_services.dart';
 import 'package:movies/presentation/widgets/page_view_home_widget.dart';
+import 'package:movies/presentation/widgets/shimmer/home/list_view_widget_shimmer.dart';
+import 'package:movies/presentation/widgets/shimmer/home/page_view_widget_shimmer.dart';
 
 import '../../business_logic/cubit/movie_cubit.dart';
 import '../../constants/arguments.dart';
@@ -58,7 +61,7 @@ genres=widget.genres;
 
     return ListView.builder(
 
-        itemCount: 3,
+        itemCount: 1,
         shrinkWrap: true,
 
         physics: const NeverScrollableScrollPhysics(),
@@ -75,14 +78,10 @@ genres=widget.genres;
                   height: 430.h,
                   child: BlocBuilder<MovieCubit, MovieState>(
                     builder: (context, state) {
-                      if (state is MovieLoading) {
-                        return const Center(
-                          child: CircularProgressIndicator(
-                            color: MyColors.deepOrange,
-                          ),
-                        );
+                      if (state is MovieLoading||state is MovieInitialState) {
+                        return const PageViewWidgetShimmer();
                       }
-                      if (state is MovieSuccess) {
+                      if (state is MovieSuccess ) {
                        movies.add(BlocProvider.of<MovieCubit>(context).movies);
                         return PageViewHomeWidget(
                           movies: movies[ind].reversed.toList(),
@@ -93,25 +92,20 @@ genres=widget.genres;
                           child: Padding(
                             padding: EdgeInsets.only(bottom: 130.h),
                             child: Image.asset(
-                              "assets/images/Interneton.png",
+                              ImageAssetName.offTheInternet,
                               width: 400.w,
                               height: 400.h,
                             ),
                           ),
                         );
                       }
-                      if (state is MovieInitialState) {
-                        return Center(
-                          child: SizedBox(
-                            height: .1.h,
-                          ),
-                        );
-                      } else {
+
+                       else {
                         return Center(
                           child: Padding(
                             padding: EdgeInsets.only(bottom: 130.h),
                             child: Image.asset(
-                              "assets/images/404Page.png",
+                             ImageAssetName.page_404,
                               width: 300.w,
                               height: 400.h,
                             ),
@@ -136,7 +130,7 @@ genres=widget.genres;
                       ),
                       GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, listMoviesScreen,
+                            Navigator.pushNamed(context, ScreenName.listMoviesScreen,
                                 arguments: ListMovies(movies[ind],
                                     genres[ind], movieCubit[ind]));
                           },
@@ -159,11 +153,7 @@ genres=widget.genres;
                     child: BlocBuilder<MovieCubit, MovieState>(
                       builder: (context, state) {
                         if (state is MovieLoading) {
-                          return const Center(
-                            child: CircularProgressIndicator(
-                              color: MyColors.deepOrange,
-                            ),
-                          );
+                          return const ListViewWidgetShimmer();
                         }
                         if (state is MovieSuccess) {
                           if(ind>0){
@@ -196,7 +186,7 @@ genres=widget.genres;
                                       ? GestureDetector(
                                     onTap: () {
                                       Navigator.pushNamed(
-                                          context, listMoviesScreen,
+                                          context, ScreenName.listMoviesScreen,
                                           arguments: ListMovies(
                                               movies[ind],
                                               genres[ind],
@@ -235,7 +225,7 @@ genres=widget.genres;
                             child: Padding(
                               padding: EdgeInsets.only(bottom: 130.h),
                               child: Image.asset(
-                                "assets/images/Interneton.png",
+                                ImageAssetName.offTheInternet,
                                 width: 400.w,
                                 height: 400.h,
                               ),
@@ -253,7 +243,7 @@ genres=widget.genres;
                             child: Padding(
                               padding: EdgeInsets.only(bottom: 130.h),
                               child: Image.asset(
-                                "assets/images/404Page.png",
+                               ImageAssetName.page_404,
                                 width: 300.w,
                                 height: 400.h,
                               ),

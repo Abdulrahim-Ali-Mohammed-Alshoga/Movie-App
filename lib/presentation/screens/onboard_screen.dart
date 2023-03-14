@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/constants/image_asset_name.dart';
 import '../../constants/font.dart';
 import '../../constants/mycolor.dart';
-import '../../constants/name_page.dart';
+import '../../constants/screen_name.dart';
 import '../widgets/page_view_on_board.dart';
 
 class OnBoardScreen extends StatefulWidget {
@@ -75,18 +76,18 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                 },
                 children: [
                   PageViewOnBoard(
-                      image: 'assets/images/1.png',
+                      image: ImageAssetName.onBoardImageOne,
                       textOne: "In love with movies ! ",
                       textTow:
                           "Get ready to try a new experience of cinema movies reservation"),
                   PageViewOnBoard(
-                    image: 'assets/images/2.png',
+                    image: ImageAssetName.onBoardImageTwo,
                     textOne: "Get in action",
                     textTow:
                         "Select you movie , book your chair , get ready to go",
                   ),
                   PageViewOnBoard(
-                      image: 'assets/images/3.png',
+                      image: ImageAssetName.onBoardImageThree,
                       textOne: "Now you're good to go ! ",
                       textTow:
                           "Just show your ticket to the doorman in the cinema place and get in , no more reservation lines"),
@@ -149,7 +150,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                         ),
                         onPressed: () {
                           Navigator.pushNamed(
-                              context, personalInformationScreen);
+                              context, ScreenName.personalInformationScreen);
                         },
                         child: Text(
                           'Get Started',

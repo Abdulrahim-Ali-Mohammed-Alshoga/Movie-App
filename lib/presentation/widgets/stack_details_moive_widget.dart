@@ -3,6 +3,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/data/models/movie.dart';
+import 'package:movies/presentation/widgets/show/image_shoe.dart';
 
 import '../../constants/font.dart';
 import '../../constants/mycolor.dart';
@@ -10,18 +11,18 @@ import '../../constants/mycolor.dart';
 class StackDetailsMovieWidget extends StatelessWidget {
   StackDetailsMovieWidget({Key? key, required this.movie}) : super(key: key);
   Movie movie;
-
+  bool checkImage = true;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 350.h,
+      height: 475.h,
       width: double.infinity,
       decoration: const BoxDecoration(
         color: MyColors.black,
       ),
       child: Stack(
-        clipBehavior: Clip.none,
+
         children: [
           CachedNetworkImage(
               imageUrl: movie.imageBackdrop,
@@ -50,7 +51,8 @@ class StackDetailsMovieWidget extends StatelessWidget {
               },
               placeholder: (context, url) {
                 return const Center(
-                  child: CircularProgressIndicator(color: MyColors.deepOrange),
+                  child:
+                      CircularProgressIndicator(color: MyColors.deepOrange),
                 );
               },
               fit: BoxFit.cover),
@@ -78,42 +80,49 @@ class StackDetailsMovieWidget extends StatelessWidget {
           Positioned(
             right: 240.w,
             left: 20.w,
-            top: 270.h,
-            bottom: -120.h,
-            child: Hero(
-              tag: movie.id,
-              child: Container(
-                color: MyColors.black,
-                child: CachedNetworkImage(
-                  imageUrl: movie.image,
-                  key: UniqueKey(),
-                  fit: BoxFit.fill,
-                  cacheKey: movie.image,
-                  memCacheHeight: 600,
-                  maxHeightDiskCache: 600,
-                  errorWidget: (context, url, error) {
-                    if (error.toString() ==
-                        "Failed host lookup: 'image.tmdb.org'") {
+            top: 260.h,
+bottom: 10,
+            child: GestureDetector(
+              onTap: () {
+                myImageShow(image:movie.image ,id: movie.id,context: context);
+              },
+              child: Hero(
+                tag: movie.id,
+                child: Container(
+                  color: MyColors.black,
+                  child: CachedNetworkImage(
+                    imageUrl: movie.image,
+                    key: UniqueKey(),
+                    fit: BoxFit.fill,
+                    cacheKey: movie.image,
+                    memCacheHeight: 600,
+                    maxHeightDiskCache: 600,
+                    errorWidget: (context, url, error) {
+                      checkImage = false;
+                      if (error.toString() ==
+                          "Failed host lookup: 'image.tmdb.org'") {
+                        return Center(
+                            child: Icon(
+                          Icons.wifi_off,
+                          size: 70.sp,
+                          color: MyColors.deepOrange,
+                        ));
+                      }
                       return Center(
-                          child: Icon(
-                        Icons.wifi_off,
-                        size: 70.sp,
-                        color: MyColors.deepOrange,
-                      ));
-                    }
-                    return Center(
-                      child: Icon(
-                        Icons.image_not_supported,
-                        size: 70.sp,
-                      ),
-                    );
-                  },
-                  placeholder: (context, url) {
-                    return const Center(
-                      child:
-                          CircularProgressIndicator(color: MyColors.deepOrange),
-                    );
-                  },
+                        child: Icon(
+                          Icons.image_not_supported,
+                          size: 70.sp,
+                        ),
+                      );
+                    },
+                    placeholder: (context, url) {
+                      checkImage = true;
+                      return const Center(
+                        child: CircularProgressIndicator(
+                            color: MyColors.deepOrange),
+                      );
+                    },
+                  ),
                 ),
               ),
             ),
@@ -121,7 +130,7 @@ class StackDetailsMovieWidget extends StatelessWidget {
           Positioned(
             right: 20.w,
             left: 190.w,
-            top: 270.h,
+            top: 250.h,
             bottom: -120.h,
             child: SingleChildScrollView(
               child: Column(

@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:movies/business_logic/cubit/auth_cubit.dart';
-import 'package:movies/constants/name_page.dart';
+import 'package:movies/constants/screen_name.dart';
 import 'package:movies/presentation/screens/home_screen.dart';
 import '../../constants/font.dart';
 import '../../constants/hive_name.dart';
@@ -29,7 +29,7 @@ class _SingInScreenState extends State<SingInScreen> {
       globalKey.currentState!.save();
       await box.put(authTable, true);
       await  box.put(typeAuthTable, true);
-      Navigator.pushNamedAndRemoveUntil(context, splashScreen, (route) => false);
+      Navigator.pushNamedAndRemoveUntil(context, ScreenName.homeScreen, (route) => false);
 
       // Navigator.pushNamed(context, signUpScreen, arguments: {
       //   'name': name.text,

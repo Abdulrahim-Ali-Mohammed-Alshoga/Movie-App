@@ -5,7 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/business_logic/cubit/genre_cubit.dart';
 import 'package:movies/business_logic/cubit/movie_cubit.dart';
 import 'package:movies/business_logic/cubit/movie_state.dart';
-import 'package:movies/constants/name_page.dart';
+import 'package:movies/constants/image_asset_name.dart';
+import 'package:movies/constants/screen_name.dart';
 import 'package:movies/data/models/genre.dart';
 import 'package:movies/data/models/movie.dart';
 import 'package:movies/presentation/widgets/app_bar_widget.dart';
@@ -16,6 +17,7 @@ import '../../constants/arguments.dart';
 import '../../constants/font.dart';
 import '../../constants/mycolor.dart';
 import '../widgets/list_view_movies_widget.dart';
+import '../widgets/shimmer/home/home_widget_shimmer.dart';
 import '../widgets/show_snack_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -68,26 +70,27 @@ int lengthListStart=0;
     super.initState();
 print(566666666666);
     BlocProvider.of<GenreCubit>(context).getAllGenre();
-    WidgetsBinding.instance.addObserver(this);
-    changConnect();
-    scrollController.addListener(() {
+    //WidgetsBinding.instance.addObserver(this);
+  //  changConnect();
+  //   scrollController.addListener(() {
+  //
+  //     // if(scrollController.offset==scrollController.position.maxScrollExtent){print("lll");
+  //     //   setState(() {
+  //     //     lengthListStart=lengthListEnd;
+  //     //     lengthListEnd+=1;
+  //     //   });
+  //     // //  getMovies();
+  //     // // setState(() {
+  //     // //   lengthList+=2;
+  //     // // });
+  //     // // if(lengthList<=genres.length){
+  //     // //
+  //     // //   print(lengthList);
+  //     // // }
+  //     // }
+    }
 
-      // if(scrollController.offset==scrollController.position.maxScrollExtent){print("lll");
-      //   setState(() {
-      //     lengthListStart=lengthListEnd;
-      //     lengthListEnd+=1;
-      //   });
-      // //  getMovies();
-      // // setState(() {
-      // //   lengthList+=2;
-      // // });
-      // // if(lengthList<=genres.length){
-      // //
-      // //   print(lengthList);
-      // // }
-      // }
-    });
-  }
+
 
   @override
   void dispose() {
@@ -136,17 +139,16 @@ print(566666666666);
       body: BlocBuilder<GenreCubit, GenreState>(
         builder: (context, state) {
           if (state is GenreLoading) {
-            return const Center(
-              child: CircularProgressIndicator(
-                color: MyColors.deepOrange,
-              ),
+            return  Padding(
+              padding: EdgeInsets.only(top: 10.h),
+              child: HomeWidgetShimmer(),
             );
           }
           if (state is GenreSuccess) {
             genre = BlocProvider.of<GenreCubit>(context).genre;
             print("555");
             return Padding(
-              padding: EdgeInsets.only(top: 10.h),
+              padding: EdgeInsets.only(top: 8.h),
               child: SingleChildScrollView(
                 controller: scrollController,
                 child: Column(
@@ -182,7 +184,7 @@ print(566666666666);
               child: Padding(
                 padding: EdgeInsets.only(bottom: 130.h),
                 child: Image.asset(
-                  "assets/images/Interneton.png",
+                  "assets/images/off_the _internet.png",
                   width: 400.w,
                   height: 400.h,
                 ),
@@ -200,7 +202,7 @@ print(566666666666);
               child: Padding(
                 padding: EdgeInsets.only(bottom: 130.h),
                 child: Image.asset(
-                  "assets/images/404Page.png",
+                 ImageAssetName.page_404,
                   width: 300.w,
                   height: 400.h,
                 ),

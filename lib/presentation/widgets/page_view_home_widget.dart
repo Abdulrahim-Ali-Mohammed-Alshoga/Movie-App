@@ -10,7 +10,7 @@ import 'package:movies/constants/mycolor.dart';
 import 'package:movies/data/models/movie.dart';
 
 import '../../constants/arguments.dart';
-import '../../constants/name_page.dart';
+import '../../constants/screen_name.dart';
 
 class PageViewHomeWidget extends StatefulWidget {
   List<Movie> movies;
@@ -25,15 +25,7 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
   final PageController _pageController = PageController(viewportFraction: .50);
   int _currentPage = 0;
   double width = 180.w;
-  List<bool>  isFavorite=[];
-
-  time() {
-    Timer(const Duration(seconds: 2), () {
-      setState(() {
-        width = 0.0;
-      });
-    });
-  }
+  List<bool> isFavorite = [];
 
   @override
   void initState() {
@@ -57,7 +49,7 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
     return PageView.builder(
       controller: _pageController,
       scrollDirection: Axis.horizontal,
-      itemCount: widget.movies.length>10?10:widget.movies.length,
+      itemCount: widget.movies.length > 10 ? 10 : widget.movies.length,
       physics: const BouncingScrollPhysics(),
       onPageChanged: (int page) {
         setState(() {
@@ -71,8 +63,9 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
         return Column(
           children: [
             GestureDetector(
-              onTap: (){
-                Navigator.pushNamed(context, detailsMovieScreen,arguments: DetailsMovie(widget.movies[index]));
+              onTap: () {
+                Navigator.pushNamed(context, ScreenName.detailsMovieScreen,
+                    arguments: DetailsMovie(widget.movies[index]));
               },
               child: AnimatedContainer(
                 duration: const Duration(seconds: 2),
@@ -80,7 +73,7 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
                 margin: EdgeInsets.only(top: top, bottom: 10.h, right: 30.w),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.r),
-                  color: Colors.black.withOpacity(.2),
+                  color: const Color(0xfff0f0f0).withOpacity(.3),
                 ),
                 child: Stack(
                   alignment: Alignment.bottomRight,
@@ -90,7 +83,7 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
                         child: CachedNetworkImage(
                             imageUrl: widget.movies[index].image,
                             height: 265.h,
-                           cacheKey: widget.movies[index].image+1.toString(),
+                            cacheKey: widget.movies[index].image + 1.toString(),
                             memCacheHeight: 600,
                             maxHeightDiskCache: 600,
                             errorWidget: (context, url, error) {
@@ -118,20 +111,20 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
                                     color: MyColors.deepOrange),
                               );
                             },
-                            fit: BoxFit.cover)
-                    ),
+                            fit: BoxFit.cover)),
                     Positioned(
                         top: 220.h,
-
                         child: IconButton(
-                          onPressed: (){
+                          onPressed: () {
                             setState(() {
-                              isFavorite[index]=!isFavorite[index];
+                              isFavorite[index] = !isFavorite[index];
                             });
                           },
-                          icon:Icon(
+                          icon: Icon(
                               size: 25,
-                              isFavorite[index]? Icons.favorite:Icons.favorite_border),
+                              isFavorite[index]
+                                  ? Icons.favorite
+                                  : Icons.favorite_border),
                           color: Colors.red,
                         )),
                   ],

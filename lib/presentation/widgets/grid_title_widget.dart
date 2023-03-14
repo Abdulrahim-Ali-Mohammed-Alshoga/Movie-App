@@ -8,7 +8,7 @@ import 'package:movies/data/models/movie.dart';
 import '../../constants/arguments.dart';
 import '../../constants/font.dart';
 import '../../constants/mycolor.dart';
-import '../../constants/name_page.dart';
+import '../../constants/screen_name.dart';
 
 class GridTitleWidget extends StatelessWidget {
   Movie movie;
@@ -22,7 +22,7 @@ class GridTitleWidget extends StatelessWidget {
     //print(movie.image);
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, detailsMovieScreen,arguments: DetailsMovie(movie));
+        Navigator.pushNamed(context, ScreenName.detailsMovieScreen,arguments: DetailsMovie(movie));
       },
       child: Hero(
         tag: movie.id,

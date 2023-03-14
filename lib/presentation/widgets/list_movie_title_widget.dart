@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/constants/font.dart';
-import 'package:movies/constants/name_page.dart';
+import 'package:movies/constants/screen_name.dart';
 import 'package:movies/data/models/movie.dart';
 
 import '../../constants/arguments.dart';
@@ -16,7 +16,7 @@ Movie movie;
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-       Navigator.pushNamed(context, detailsMovieScreen,arguments: DetailsMovie(movie));
+       Navigator.pushNamed(context, ScreenName.detailsMovieScreen,arguments: DetailsMovie(movie));
       },
       child: Container(
         width: 320.w,

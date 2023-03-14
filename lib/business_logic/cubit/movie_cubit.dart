@@ -14,6 +14,7 @@ class MovieCubit extends Cubit<MovieState> {
   int numberPage=1;
   void getAllMovies(int genre, int time) async{
     print(movies.length);
+    print("movies.length");
     Timer(
       Duration(seconds: time),
       () async {
@@ -23,7 +24,7 @@ class MovieCubit extends Cubit<MovieState> {
             emit(MovieLoading());
           }
           try {
-            movies.addAll(await moviesRepository.getMovies(numberPage, genre));
+           movies.addAll(await moviesRepository.getMovies(numberPage, genre));
 
             print(numberPage);
             emit(MovieSuccess());

@@ -3,13 +3,14 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/constants/image_asset_name.dart';
 
 import '../../business_logic/cubit/movie_cubit.dart';
 import '../../business_logic/cubit/movie_state.dart';
 import '../../constants/arguments.dart';
 import '../../constants/font.dart';
 import '../../constants/mycolor.dart';
-import '../../constants/name_page.dart';
+import '../../constants/screen_name.dart';
 import '../../data/models/movie.dart';
 import '../widgets/app_bar_widget.dart';
 import '../widgets/list_view_movies_widget.dart';
@@ -185,7 +186,7 @@ class _SecandState extends State<Secand> {
               child: Padding(
                 padding: EdgeInsets.only(bottom: 130.h),
                 child: Image.asset(
-                  "assets/images/Interneton.png",
+                  "assets/images/off_the _internet.png",
                   width: 400.w,
                   height: 400.h,
                 ),
@@ -203,7 +204,7 @@ class _SecandState extends State<Secand> {
               child: Padding(
                 padding: EdgeInsets.only(bottom: 130.h),
                 child: Image.asset(
-                  "assets/images/404Page.png",
+                  ImageAssetName.page_404,
                   width: 300.w,
                   height: 400.h,
                 ),

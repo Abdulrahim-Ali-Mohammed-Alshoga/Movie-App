@@ -3,9 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
 import 'package:movies/business_logic/cubit/auth_cubit.dart';
-import 'package:movies/constants/name_page.dart';
+import 'package:movies/constants/screen_name.dart';
 
 import '../../constants/hive_name.dart';
+import '../../constants/image_asset_name.dart';
 import '../../constants/mycolor.dart';
 
 class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
@@ -32,7 +33,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
     return AppBar(
       actions: [
         IconButton(onPressed: (){
-          Navigator.pushNamed(context, searchMoviesScreen);
+          Navigator.pushNamed(context, ScreenName.searchMoviesScreen);
         }, icon: Icon(Icons.search,)),
         box.get(typeAuthTable,defaultValue:false)
             ? IconButton(
@@ -46,12 +47,12 @@ class _AppBarWidgetState extends State<AppBarWidget> {
               )
             : GestureDetector(
                 onTap: () {
-                  Navigator.pushNamed(context, personalInformationScreen);
+                  Navigator.pushNamed(context, ScreenName.personalInformationScreen);
                 },
                 child: Padding(
                   padding: EdgeInsets.only(right: 10.w),
                   child: Image.asset(
-                      width: 30.w, height: 30.h, "assets/images/log_in.png"),
+                      width: 30.w, height: 30.h, ImageAssetName.logIn),
                 ),
               ),
 

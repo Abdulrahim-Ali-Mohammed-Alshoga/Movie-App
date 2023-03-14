@@ -31,7 +31,7 @@ class _DetailsMovieScreenState extends State<DetailsMovieScreen> {
           children: [
             StackDetailsMovieWidget(movie: movie),
             Padding(
-              padding: const EdgeInsets.only(top: 140, left: 20),
+              padding: const EdgeInsets.only(top: 0, left: 20),
               child: Row(
                 children: [
                   Text(
@@ -44,11 +44,11 @@ class _DetailsMovieScreenState extends State<DetailsMovieScreen> {
                   ),
                   RatingBarIndicator(
                     rating: movie.rating / 2,
-                    itemBuilder: (context, index) => Icon(
+                    itemBuilder: (context, index) => const Icon(
                       Icons.star,
                       color: Colors.amber,
                     ),
-                    itemPadding: EdgeInsets.only(bottom: 0),
+                    itemPadding: const EdgeInsets.only(bottom: 0),
                     itemCount: 5,
                     itemSize: 20.0,
                     unratedColor: Colors.grey,
@@ -112,7 +112,7 @@ class _DetailsMovieScreenState extends State<DetailsMovieScreen> {
             ),
             Padding(
               padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
-              child: Text(
+              child: SelectableText(
                 movie.description,
                 style: TextStyle(
                     color: Colors.grey,
@@ -125,4 +125,6 @@ class _DetailsMovieScreenState extends State<DetailsMovieScreen> {
       ),
     );
   }
+
+
 }
