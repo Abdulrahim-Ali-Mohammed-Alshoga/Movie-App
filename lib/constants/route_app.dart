@@ -5,7 +5,7 @@ import 'package:movies/business_logic/cubit/movie_cubit.dart';
 import 'package:movies/business_logic/cubit/search_movie_cubit.dart';
 import 'package:movies/constants/arguments.dart';
 import 'package:movies/data/repository/movies_repository.dart';
-import 'package:movies/data/web_services/movies_web_services.dart';
+import 'package:movies/data/web_services/movies_web_service.dart';
 import 'package:movies/data/web_services/search_movies_web_services.dart';
 import 'package:movies/presentation/screens/details_movie_screen.dart';
 import 'package:movies/presentation/screens/home_screen.dart';
@@ -19,7 +19,7 @@ import 'package:movies/presentation/screens/splash_screen.dart';
 import 'screen_name.dart';
 import '../data/repository/genre_repository.dart';
 import '../data/repository/search_movies_repository.dart';
-import '../data/web_services/genre_web_services.dart';
+import '../data/web_services/genre_web_service.dart';
 
 class RouteApp {
   RouteApp._();

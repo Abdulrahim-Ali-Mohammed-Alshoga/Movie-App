@@ -1,12 +1,12 @@
 import 'package:movies/data/models/genre.dart';
 import 'package:movies/data/models/movie.dart';
-import 'package:movies/data/web_services/movies_web_services.dart';
+import 'package:movies/data/web_services/movies_web_service.dart';
 
-import '../web_services/genre_web_services.dart';
-import '../web_services/genre_web_services.dart';
+import '../web_services/genre_web_service.dart';
+import '../web_services/genre_web_service.dart';
 
 class GenreRepository {
-  GenreWebServices genreWebServices;
+  GenreWebService genreWebServices;
 
   GenreRepository(this.genreWebServices);
 

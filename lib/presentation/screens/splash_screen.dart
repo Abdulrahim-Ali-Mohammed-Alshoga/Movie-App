@@ -12,8 +12,8 @@ import '../../business_logic/cubit/genre_cubit.dart';
 import '../../business_logic/cubit/movie_cubit.dart';
 import '../../data/repository/genre_repository.dart';
 import '../../data/repository/movies_repository.dart';
-import '../../data/web_services/genre_web_services.dart';
-import '../../data/web_services/movies_web_services.dart';
+import '../../data/web_services/genre_web_service.dart';
+import '../../data/web_services/movies_web_service.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -25,7 +25,7 @@ class SplashScreen extends StatefulWidget {
 class _SplashScreenState extends State<SplashScreen> {
   @override
   bool isCheak = false;
-  GenreCubit genreCubit = GenreCubit(GenreRepository(GenreWebServices()));
+  GenreCubit genreCubit = GenreCubit(GenreRepository(GenreWebService()));
   var box;
 
   void initState() {

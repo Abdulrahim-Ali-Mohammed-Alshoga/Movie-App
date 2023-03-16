@@ -25,7 +25,7 @@ class StackDetailsMovieWidget extends StatelessWidget {
 
         children: [
           CachedNetworkImage(
-              imageUrl: movie.imageBackdrop,
+              imageUrl:" movie.imageBackdrop!",
               key: UniqueKey(),
               height: 350.h,
               memCacheHeight: 700,
@@ -84,14 +84,14 @@ class StackDetailsMovieWidget extends StatelessWidget {
 bottom: 10,
             child: GestureDetector(
               onTap: () {
-                myImageShow(image:movie.image ,id: movie.id,context: context);
+                myImageShow(image:movie.image! ,id: movie.id,context: context);
               },
               child: Hero(
                 tag: movie.id,
                 child: Container(
                   color: MyColors.black,
                   child: CachedNetworkImage(
-                    imageUrl: movie.image,
+                    imageUrl: movie.image!,
                     key: UniqueKey(),
                     fit: BoxFit.fill,
                     cacheKey: movie.image,
@@ -138,7 +138,7 @@ bottom: 10,
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: 65.h, left: 8.w),
-                    child: AutoSizeText(movie.title,
+                    child: AutoSizeText(movie.title!,
                         maxLines: 2,
                         style: TextStyle(
                             color: MyColors.white,
@@ -153,7 +153,7 @@ bottom: 10,
                         SizedBox(
                           width: 10.w,
                         ),
-                        Text(movie.productionData,
+                        Text("movie.productionData!",
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 15.sp,
@@ -169,7 +169,7 @@ bottom: 10,
                         SizedBox(
                           width: 10.w,
                         ),
-                        Text(movie.language,
+                        Text("movie.language!",
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 15.sp,
@@ -186,7 +186,7 @@ bottom: 10,
                         SizedBox(
                           width: 10.w,
                         ),
-                        Text(movie.watch.toInt().toString(),
+                        Text("movie.watch.toInt().toString()",
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 15.sp,

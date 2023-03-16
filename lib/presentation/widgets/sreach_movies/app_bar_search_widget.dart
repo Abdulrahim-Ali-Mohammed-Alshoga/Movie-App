@@ -3,9 +3,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/data/models/movie.dart';
 
-import '../../business_logic/cubit/search_movie_cubit.dart';
-import '../../constants/font.dart';
-import '../../constants/mycolor.dart';
+import '../../../business_logic/cubit/search_movie_cubit.dart';
+import '../../../constants/font.dart';
+import '../../../constants/mycolor.dart';
 class AppBarSearchWidget extends StatefulWidget implements PreferredSizeWidget {
   const AppBarSearchWidget({Key? key}) : super(key: key);
 
@@ -23,9 +23,11 @@ class _AppBarSearchWidgetState extends State<AppBarSearchWidget> {
   getMovie(){
     BlocProvider.of<SearchMovieCubit>(context).movies=[];
      BlocProvider.of<SearchMovieCubit>(context).numberPage=1;
+     BlocProvider.of<SearchMovieCubit>(context).nameMovie=controller.text;
 
-     BlocProvider.of<SearchMovieCubit>(context).getSearchMovie(controller.text);
+     BlocProvider.of<SearchMovieCubit>(context).getSearchMovie();
   }
+
   @override
   Widget build(BuildContext context) {
     return  AppBar(
@@ -58,7 +60,7 @@ class _AppBarSearchWidgetState extends State<AppBarSearchWidget> {
                   });
                 }
               },
-              icon: Icon(
+              icon: const Icon(
                 Icons.search,
                 color: MyColors.white,
               )),
@@ -74,6 +76,7 @@ class _AppBarSearchWidgetState extends State<AppBarSearchWidget> {
             setState(() {
               print(666622);
               isClean = false;
+
             });
           } else if (controller.text.isEmpty) {
             setState(() {

@@ -5,6 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/business_logic/cubit/genre_cubit.dart';
 import 'package:movies/business_logic/cubit/movie_cubit.dart';
 import 'package:movies/business_logic/cubit/movie_state.dart';
+import 'package:movies/business_logic/cubit/now_playing_movies/now_playing_movies_cubit.dart';
+import 'package:movies/business_logic/cubit/upcoming_movies/upcoming_movies_cubit.dart';
 import 'package:movies/constants/image_asset_name.dart';
 import 'package:movies/constants/screen_name.dart';
 import 'package:movies/data/models/genre.dart';
@@ -16,6 +18,8 @@ import '../../business_logic/cubit/genre_state.dart';
 import '../../constants/arguments.dart';
 import '../../constants/font.dart';
 import '../../constants/mycolor.dart';
+import '../widgets/home/now_playing_movie_widgets/list_view_now_playing_movies_widget.dart';
+import '../widgets/home/upcoming_movie_widgets/list_view_upcoming_movies_widget.dart';
 import '../widgets/list_view_movies_widget.dart';
 import '../widgets/shimmer/home/home_widget_shimmer.dart';
 import '../widgets/show_snack_bar.dart';
@@ -70,6 +74,8 @@ int lengthListStart=0;
     super.initState();
 print(566666666666);
     BlocProvider.of<GenreCubit>(context).getAllGenre();
+    BlocProvider.of<NowPlayingMovieCubit>(context).getAllMovies(numberPage: 1);
+    BlocProvider.of<UpcomingMovieCubit>(context).getAllMovies(numberPage: 1);
     //WidgetsBinding.instance.addObserver(this);
   //  changConnect();
   //   scrollController.addListener(() {
@@ -172,8 +178,9 @@ print(566666666666);
 
                     Padding(
                       padding: EdgeInsets.only(left: 15.w),
-                      child: ListViewMoviesWidget(genres: genre,end:lengthListEnd,start: lengthListStart, ),
-                    )
+                      child: ListViewUpcomingMoviesWidget(),
+                    ),
+                    ListViewNowPlayingMoviesWidget(),
                   ],
                 ),
               ),

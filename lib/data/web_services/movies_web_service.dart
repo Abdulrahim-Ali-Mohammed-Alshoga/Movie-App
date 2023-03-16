@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:movies/constants/conction.dart';
 
-class MoviesWebServices {
+class MoviesWebService{
   late Dio dio;
 
   MoviesWebServices() {

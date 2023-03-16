@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:movies/constants/conction.dart';
 
-class GenreWebServices {
+class GenreWebService{
   late Dio dio;
 
-  GenreWebServices() {
+  GenreWebService() {
     BaseOptions baseOptions = BaseOptions(
         baseUrl: Conction.baseUrl,
         receiveDataWhenStatusError: true,

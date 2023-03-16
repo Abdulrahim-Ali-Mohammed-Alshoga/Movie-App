@@ -91,7 +91,7 @@ class _DetailsMovieScreenState extends State<DetailsMovieScreen> {
                           fontSize: 17.sp),
                     ),
                     TextSpan(
-                      text: "${movie.vote} vote",
+                      text: "${"movie.vote"} vote",
                       style: TextStyle(
                           color: Colors.grey,
                           fontSize: 18.sp,
@@ -113,7 +113,7 @@ class _DetailsMovieScreenState extends State<DetailsMovieScreen> {
             Padding(
               padding: const EdgeInsets.only(top: 10, left: 20, right: 20),
               child: SelectableText(
-                movie.description,
+                "movie.description!",
                 style: TextStyle(
                     color: Colors.grey,
                     fontSize: 15.sp,

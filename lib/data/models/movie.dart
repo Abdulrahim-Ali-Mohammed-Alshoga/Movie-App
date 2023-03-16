@@ -1,23 +1,23 @@
 class Movie {
-  late String image;
-  late String imageBackdrop;
+   String? image;
+  // late String? imageBackdrop;
    dynamic id;
-   dynamic vote;
-  late String title;
-  late String language;
-   dynamic watch;
+   // dynamic vote;
+  late String? title;
+  // late String? language;
+  //  dynamic watch;
   dynamic rating;
-  late String productionData;
-  late String description;
+  late String? productionData;
+  late String? description;
 
   //late List<dynamic> genres;
   Movie.fromJson(Map<String, dynamic> json) {
     image = json['poster_path'];
-    imageBackdrop = json['backdrop_path'];
+    // imageBackdrop = json['backdrop_path'];
     id = json['id'];
-    vote = json['vote_count'];
-    language = json['original_language'];
-    watch = json['popularity'];
+    // vote = json['vote_count'];
+    // language = json['original_language'];
+    // watch = json['popularity'];
     title = json['title'];
     rating = json['vote_average'];
     productionData = json['release_date'];

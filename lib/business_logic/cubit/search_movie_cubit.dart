@@ -10,7 +10,8 @@ class SearchMovieCubit extends Cubit<SearchMovieState>{
   SearchMoviesRepository searchMoviesRepository;
   List<Movie> movies=[];
   int numberPage=1;
-  getSearchMovie(String name)async {
+  late String nameMovie;
+  getSearchMovie()async {
     print(555557);
     var connectivityResult = await (Connectivity().checkConnectivity());
     if (connectivityResult != ConnectivityResult.none) {
@@ -18,10 +19,11 @@ class SearchMovieCubit extends Cubit<SearchMovieState>{
         emit(SearchMovieLoading());
       }
       try {
-        movies.addAll(await searchMoviesRepository.getSearchMovies(name, numberPage));
+        movies.addAll(await searchMoviesRepository.getSearchMovies(name: nameMovie, numberPage: numberPage));
         numberPage++;
         emit(SearchMovieSuccess());
       } catch (e) {
+        print(e);
         emit(SearchMovieFailure());
       }
     } else {

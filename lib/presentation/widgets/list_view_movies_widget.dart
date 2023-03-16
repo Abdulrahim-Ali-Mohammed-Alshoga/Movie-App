@@ -9,7 +9,7 @@ import 'package:movies/constants/image_asset_name.dart';
 import 'package:movies/constants/mycolor.dart';
 import 'package:movies/constants/screen_name.dart';
 import 'package:movies/data/repository/movies_repository.dart';
-import 'package:movies/data/web_services/movies_web_services.dart';
+import 'package:movies/data/web_services/movies_web_service.dart';
 import 'package:movies/presentation/widgets/page_view_home_widget.dart';
 import 'package:movies/presentation/widgets/shimmer/home/list_view_widget_shimmer.dart';
 import 'package:movies/presentation/widgets/shimmer/home/page_view_widget_shimmer.dart';
@@ -20,7 +20,7 @@ import '../../constants/font.dart';
 import '../../data/models/genre.dart';
 import '../../data/models/movie.dart';
 import '../../data/repository/genre_repository.dart';
-import '../../data/web_services/genre_web_services.dart';
+import '../../data/web_services/genre_web_service.dart';
 import 'list_movie_title_widget.dart';
 class ListViewMoviesWidget extends StatefulWidget {
   List<Genre> genres;
@@ -68,7 +68,7 @@ genres=widget.genres;
         itemBuilder: (BuildContext context, ind) {
           print(ind);
           print("tttttttttt");
-          movieCubit.add(MovieCubit(MoviesRepository(MoviesWebServices())));
+          movieCubit.add(MovieCubit(MoviesRepository(MoviesWebService())));
           return BlocProvider.value(
             value: movieCubit[ind]..getAllMovies(genres[ind].id, ind * 3),
             child: Column(

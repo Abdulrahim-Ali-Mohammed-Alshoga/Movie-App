@@ -8,6 +8,7 @@ import 'package:movies/constants/screen_name.dart';
 import 'package:movies/data/models/movie.dart';
 
 import '../../constants/arguments.dart';
+import '../../constants/image_network_name.dart';
 import '../../constants/mycolor.dart';
 class ListMovieTitleWidget extends StatelessWidget {
    ListMovieTitleWidget({Key? key,required this.movie}) : super(key: key);
@@ -34,7 +35,7 @@ Movie movie;
                 child: CachedNetworkImage(
                   memCacheHeight: 600,
                   maxHeightDiskCache: 600,
-                  imageUrl: movie.image,
+                  imageUrl: ImageNetworkName.rootImages+movie.image!,
                  cacheKey:movie.image,
                   fit: BoxFit.fill,
                   errorWidget: (context, url, error) {
@@ -75,7 +76,7 @@ Movie movie;
                     // mainAxisAlignment: MainAxisAlignment.center,
                      crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AutoSizeText(movie.title,
+                      AutoSizeText(movie.title!,
                         maxLines: 2,
                         style: TextStyle(
                             fontSize: 16.sp, fontFamily: MyFont.titleFont,color: MyColors.white)
@@ -94,7 +95,7 @@ Movie movie;
                         ),
                       ),
                       Flexible(
-                        child:Text(movie.description,
+                        child:Text(movie.description!,
                           maxLines: 4,
 
                      overflow:TextOverflow.ellipsis ,

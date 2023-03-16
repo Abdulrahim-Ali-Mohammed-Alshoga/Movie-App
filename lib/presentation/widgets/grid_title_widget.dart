@@ -7,22 +7,22 @@ import 'package:movies/data/models/movie.dart';
 
 import '../../constants/arguments.dart';
 import '../../constants/font.dart';
+import '../../constants/image_network_name.dart';
 import '../../constants/mycolor.dart';
 import '../../constants/screen_name.dart';
 
 class GridTitleWidget extends StatelessWidget {
   Movie movie;
 
-
   GridTitleWidget({Key? key, required this.movie}) : super(key: key);
-
 
   @override
   Widget build(BuildContext context) {
     //print(movie.image);
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, ScreenName.detailsMovieScreen,arguments: DetailsMovie(movie));
+        Navigator.pushNamed(context, ScreenName.detailsMovieScreen,
+            arguments: DetailsMovie(movie));
       },
       child: Hero(
         tag: movie.id,
@@ -36,19 +36,13 @@ class GridTitleWidget extends StatelessWidget {
                 child: GridTile(
                     footer: Container(
                       height: 25.h,
-
-                      decoration:
-                  BoxDecoration(
-                        boxShadow:[
-                          BoxShadow(
-                          color: Colors.black54.withOpacity(.62),
-                          offset: Offset(0.0,14.0),
-                          blurRadius: 30,
-                          spreadRadius: 15
-                        ),
-
-                        ]
-                      ),
+                      decoration: BoxDecoration(boxShadow: [
+                        BoxShadow(
+                            color: Colors.black54.withOpacity(.62),
+                            offset: Offset(0.0, 14.0),
+                            blurRadius: 30,
+                            spreadRadius: 15),
+                      ]),
                       child: Padding(
                         padding: EdgeInsets.symmetric(horizontal: 10.w),
                         child: Row(
@@ -62,7 +56,8 @@ class GridTitleWidget extends StatelessWidget {
                                   Icons.favorite),
                             ),
                             Text(
-                              movie.rating.toString(),
+                              double.parse("${movie.rating}")
+                                  .toStringAsFixed(1),
                               style: TextStyle(
                                 overflow: TextOverflow.ellipsis,
                                 fontSize: 12,
@@ -73,13 +68,14 @@ class GridTitleWidget extends StatelessWidget {
                                 color: Colors.white.withOpacity(.8), size: 9),
                             Expanded(
                               child: Text(
-                                movie.productionData.substring(0, 4),
+                                movie.productionData == null||movie.productionData ==""
+                                    ? "0000"
+                                    : movie.productionData!.substring(0, 4),
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
                                   overflow: TextOverflow.ellipsis,
                                   fontSize: 12,
                                   fontWeight: FontWeight.bold,
-
                                   color: Colors.white.withOpacity(.8),
                                 ),
                               ),
@@ -91,16 +87,18 @@ class GridTitleWidget extends StatelessWidget {
                     child: CachedNetworkImage(
                       memCacheHeight: 600,
 
-    // imageBuilder: (context, imageProvider) => Container(
-    // decoration: BoxDecoration(
-    // image: DecorationImage(
-    // image: imageProvider,
-    // fit: BoxFit.cover,
-    // colorFilter:
-    // ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
-    // ),),
+                      // imageBuilder: (context, imageProvider) => Container(
+                      // decoration: BoxDecoration(
+                      // image: DecorationImage(
+                      // image: imageProvider,
+                      // fit: BoxFit.cover,
+                      // colorFilter:
+                      // ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
+                      // ),),
                       maxHeightDiskCache: 600,
-                      imageUrl: movie.image,
+                      imageUrl: movie.image == null
+                          ? "لل"
+                          : ImageNetworkName.rootImages + movie.image!,
                       cacheKey: movie.image,
                       fit: BoxFit.fill,
                       errorWidget: (context, url, error) {
@@ -125,7 +123,7 @@ class GridTitleWidget extends StatelessWidget {
                         return const Center(
                           child: CircularProgressIndicator(
                               color: MyColors.deepOrange),
-                        );;
+                        );
                       },
                     )),
               ),

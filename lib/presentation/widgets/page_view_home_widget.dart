@@ -10,6 +10,7 @@ import 'package:movies/constants/mycolor.dart';
 import 'package:movies/data/models/movie.dart';
 
 import '../../constants/arguments.dart';
+import '../../constants/image_network_name.dart';
 import '../../constants/screen_name.dart';
 
 class PageViewHomeWidget extends StatefulWidget {
@@ -81,9 +82,9 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
                     ClipRRect(
                         borderRadius: BorderRadius.circular(20).r,
                         child: CachedNetworkImage(
-                            imageUrl: widget.movies[index].image,
+                            imageUrl: ImageNetworkName.rootImages+widget.movies[index].image!,
                             height: 265.h,
-                            cacheKey: widget.movies[index].image + 1.toString(),
+                            cacheKey:  "${widget.movies[index].image}1",
                             memCacheHeight: 600,
                             maxHeightDiskCache: 600,
                             errorWidget: (context, url, error) {
@@ -148,7 +149,7 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
             Padding(
               padding: EdgeInsets.only(right: 30.w),
               child: AutoSizeText(
-                widget.movies[index].title,
+                widget.movies[index].title!,
                 maxLines: 2,
                 style: TextStyle(
                     color: MyColors.white,
