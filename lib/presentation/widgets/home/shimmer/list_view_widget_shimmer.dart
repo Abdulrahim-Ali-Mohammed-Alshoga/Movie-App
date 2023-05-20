@@ -2,7 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies/presentation/widgets/shimmer/home/shimmer_widget.dart';
+import 'package:movies/presentation/widgets/shimmer_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
 import '../../../../constants/font.dart';
@@ -26,12 +26,23 @@ class ListViewWidgetShimmer extends StatelessWidget {
               width: 320.w,
               child: Row(
                 children: [
-                  ShimmerWidget(
-                      color: Colors.grey.withOpacity(.3),
-                      margin: EdgeInsets.only(left: 12.r),
-                      height: 150.h,
-                      width: 130.w,
-                      circular: 20.r),
+                  Stack(
+
+                    children: [
+                      ShimmerWidget(
+                          color: Colors.grey.withOpacity(.3),
+                          margin: EdgeInsets.only(left: 12.r),
+                          height: 150.h,
+                          width: 130.w,
+                          circular: 20.r),
+                      const Positioned(
+                        bottom: 5,
+                        right: 7,
+                        child: Icon(
+                            color: Colors.red, size: 22, Icons.favorite_border),
+                      ),
+                    ],
+                  ),
                   Expanded(
                     child: SizedBox(
                       height: 150.h,

@@ -1,12 +1,12 @@
 class Movie {
    String? image;
   // late String? imageBackdrop;
-   dynamic id;
+ late num id;
    // dynamic vote;
   late String? title;
   // late String? language;
   //  dynamic watch;
-  dynamic rating;
+ late num rating;
   late String? productionData;
   late String? description;
 

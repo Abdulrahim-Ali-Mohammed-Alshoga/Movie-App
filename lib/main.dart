@@ -1,22 +1,33 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:hive_flutter/adapters.dart';
+import 'package:movies/app/app_hive.dart';
 import 'package:movies/constants/hive_name.dart';
 import 'package:movies/constants/theme_app.dart';
-import 'package:movies/presentation/screens/my_app.dart';
+import 'package:movies/app/my_app.dart';
+
+import 'app/dependency_injection.dart';
+import 'business_logic/cubit/favorite/favorite_cubit.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+ // await initAppModule();
 //  IntegrationTestWidgetsFlutterBinding.ensureInitialized();
+
   FlutterNativeSplash.preserve(
       widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
-
-  await Hive.initFlutter();
-  await Hive.openBox(authDb);
+  await AppHive().getInitHive;
+  await initAppModule();
   Future.delayed(const Duration(milliseconds: 1))
       .then((value) => FlutterNativeSplash.remove());
-  runApp(MyApp(
-    isHomeScreen:Hive.box(authDb).get(authTable, defaultValue: false),
-    themeApp: ThemeApp(),
+  var box = Hive.box(AuthHiveDB.authDB);
+  runApp(BlocProvider<FavoriteCubit>(
+    create: (context) => FavoriteCubit(),
+    child: MyApp(
+      isHomeScreen: box.get(AuthHiveDB.isAuthTable, defaultValue: false),
+      themeApp: ThemeApp(),
+      isSkip: box.get(AuthHiveDB.isSkip, defaultValue: false),
+    ),
   ));
 }

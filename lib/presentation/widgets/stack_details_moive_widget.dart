@@ -3,7 +3,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/data/models/movie.dart';
-import 'package:movies/presentation/widgets/show/image_shoe.dart';
 
 import '../../constants/font.dart';
 import '../../constants/mycolor.dart';
@@ -84,7 +83,7 @@ class StackDetailsMovieWidget extends StatelessWidget {
 bottom: 10,
             child: GestureDetector(
               onTap: () {
-                myImageShow(image:movie.image! ,id: movie.id,context: context);
+               // myImageShow(image:movie.image! ,id: movie.id,context: context);
               },
               child: Hero(
                 tag: movie.id,

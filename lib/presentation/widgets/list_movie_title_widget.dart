@@ -10,6 +10,8 @@ import 'package:movies/data/models/movie.dart';
 import '../../constants/arguments.dart';
 import '../../constants/image_network_name.dart';
 import '../../constants/mycolor.dart';
+import '../../data/models/hive/movie_hive.dart';
+import 'icon_favorite_button_widget.dart';
 class ListMovieTitleWidget extends StatelessWidget {
    ListMovieTitleWidget({Key? key,required this.movie}) : super(key: key);
 Movie movie;
@@ -17,9 +19,9 @@ Movie movie;
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: (){
-       Navigator.pushNamed(context, ScreenName.detailsMovieScreen,arguments: DetailsMovie(movie));
+       Navigator.pushNamed(context, ScreenName.detailsMovieScreen,arguments: DetailsMovieArgument(detailsMovie: movie));
       },
-      child: Container(
+      child: SizedBox(
         width: 320.w,
         child: Row(
           children: [
@@ -32,38 +34,56 @@ Movie movie;
                   borderRadius: BorderRadius.circular(20.r)),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.r),
-                child: CachedNetworkImage(
-                  memCacheHeight: 600,
-                  maxHeightDiskCache: 600,
-                  imageUrl: ImageNetworkName.rootImages+movie.image!,
-                 cacheKey:movie.image,
-                  fit: BoxFit.fill,
-                  errorWidget: (context, url, error) {
-                    print(error);
-                    if (error.toString() ==
-                        "Failed host lookup: 'image.tmdb.org'"
-                    )
-                    {
-                      return  Center(
+                child: Stack(
+                  fit: StackFit.expand,
+                  children: [
+                    CachedNetworkImage(
+                      memCacheHeight: 600,
+                      maxHeightDiskCache: 600,
+                      imageUrl: ImageNetworkName.rootImages+movie.image!,
+                     cacheKey:movie.image,
+                      fit: BoxFit.fill,
+                      errorWidget: (context, url, error) {
+                        print(error);
+                        if (error.toString() ==
+                            "Failed host lookup: 'image.tmdb.org'"
+                        )
+                        {
+                          return  Center(
+                              child: Icon(
+                                Icons.wifi_off,
+                                size: 30.sp,
+                                color: MyColors.deepOrange,
+                              ));
+                        }
+                        return  Center(
                           child: Icon(
-                            Icons.wifi_off,
+                            Icons.image_not_supported,
                             size: 30.sp,
-                            color: MyColors.deepOrange,
-                          ));
-                    }
-                    return  Center(
-                      child: Icon(
-                        Icons.image_not_supported,
-                        size: 30.sp,
+                          ),
+                        );
+                      },
+                      placeholder: (context, url) {
+                        return const Center(
+                          child:  CircularProgressIndicator(
+                              color: MyColors.deepOrange
+                          ),
+                        );},
+                    ),
+                    Positioned.fill(
+                      bottom: 5,
+                    right: 7,
+                      child: Align(
+                        alignment: Alignment.bottomRight,
+                        child: IconFavoriteButtonWidget(paddingSize: 0,size: 22,movieHive:  MovieHive(
+                            image:movie.image,
+                            id: movie.id,
+                            rating: movie.rating!,
+                            productionData:
+                            movie.productionData),),
                       ),
-                    );
-                  },
-                  placeholder: (context, url) {
-                    return const Center(
-                      child:  CircularProgressIndicator(
-                          color: MyColors.deepOrange
-                      ),
-                    );},
+                    ),
+                  ],
                 ),
               ),
             ),

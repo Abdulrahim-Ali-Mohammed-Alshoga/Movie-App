@@ -3,15 +3,21 @@ import 'dart:async';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:hive/hive.dart';
+import 'package:movies/business_logic/cubit/favorite/favorite_cubit.dart';
 import 'package:movies/constants/font.dart';
 import 'package:movies/constants/mycolor.dart';
 import 'package:movies/data/models/movie.dart';
 
 import '../../constants/arguments.dart';
+import '../../constants/hive_name.dart';
 import '../../constants/image_network_name.dart';
 import '../../constants/screen_name.dart';
+import '../../data/models/hive/movie_hive.dart';
+import 'icon_favorite_button_widget.dart';
 
 class PageViewHomeWidget extends StatefulWidget {
   List<Movie> movies;
@@ -26,7 +32,8 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
   final PageController _pageController = PageController(viewportFraction: .50);
   int _currentPage = 0;
   double width = 180.w;
-  List<bool> isFavorite = [];
+  var box = Hive.box<MovieHive>(MovieFavoriteHiveDB.movieDB);
+
 
   @override
   void initState() {
@@ -59,14 +66,15 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
       },
       itemBuilder: (BuildContext context, int index) {
         bool active = index == _currentPage;
-        isFavorite.add(false);
+
         final double top = active ? 30.h : 70.h;
         return Column(
           children: [
             GestureDetector(
               onTap: () {
                 Navigator.pushNamed(context, ScreenName.detailsMovieScreen,
-                    arguments: DetailsMovie(widget.movies[index]));
+                    arguments: DetailsMovieArgument(
+                        detailsMovie: widget.movies[index]));
               },
               child: AnimatedContainer(
                 duration: const Duration(seconds: 2),
@@ -82,9 +90,10 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
                     ClipRRect(
                         borderRadius: BorderRadius.circular(20).r,
                         child: CachedNetworkImage(
-                            imageUrl: ImageNetworkName.rootImages+widget.movies[index].image!,
+                            imageUrl: ImageNetworkName.rootImages +
+                                widget.movies[index].image!,
                             height: 265.h,
-                            cacheKey:  "${widget.movies[index].image}1",
+                            cacheKey: "${widget.movies[index].image}1",
                             memCacheHeight: 600,
                             maxHeightDiskCache: 600,
                             errorWidget: (context, url, error) {
@@ -115,18 +124,15 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
                             fit: BoxFit.cover)),
                     Positioned(
                         top: 220.h,
-                        child: IconButton(
-                          onPressed: () {
-                            setState(() {
-                              isFavorite[index] = !isFavorite[index];
-                            });
-                          },
-                          icon: Icon(
-                              size: 25,
-                              isFavorite[index]
-                                  ? Icons.favorite
-                                  : Icons.favorite_border),
-                          color: Colors.red,
+                        child: IconFavoriteButtonWidget(
+                          size: 25,
+                          paddingSize: 12,
+                          movieHive: MovieHive(
+                              image: widget.movies[index].image,
+                              id: widget.movies[index].id,
+                              rating: widget.movies[index].rating,
+                              productionData:
+                                  widget.movies[index].productionData),
                         )),
                   ],
                 ),

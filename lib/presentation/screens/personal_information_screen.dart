@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
-import 'package:movies/business_logic/cubit/auth_cubit.dart';
+
 import 'package:movies/constants/font.dart';
 import 'package:movies/constants/mycolor.dart';
-import 'package:movies/constants/screen_name.dart';
+
 import 'package:movies/presentation/widgets/text_form_field_widget.dart';
 
+import '../../constants/arguments.dart';
 import '../../constants/hive_name.dart';
+import '../../constants/screen_name.dart';
 
 class PersonalInformationScreen extends StatefulWidget {
   const PersonalInformationScreen({Key? key}) : super(key: key);
@@ -25,15 +27,18 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
   final GlobalKey<FormState> globalKey = GlobalKey<FormState>();
   AutovalidateMode autoValidateMode = AutovalidateMode.disabled;
   bool isPassword = true;
-  var box = Hive.box(authDb);
+  var box = Hive.box(AuthHiveDB.authDB);
+
   Future<void> personalInfoFill() async {
     if (globalKey.currentState!.validate()) {
+      final navigator = Navigator.of(context);
       globalKey.currentState!.save();
-      await box.put(authTable, true);
-      await  box.put(typeAuthTable, false);
+      await box.put(AuthHiveDB.isAuthTable, true);
+      box.put(AuthHiveDB.isSkip, false);
 
-      Navigator.pushNamedAndRemoveUntil(
-          context, ScreenName.homeScreen, (route) => false);
+      navigator.pushNamedAndRemoveUntil(
+          ScreenName.navigationBarScreen, (route) => false,
+          arguments: NavigationBarArgument(isSkip: false));
 
       // Navigator.pushNamed(context, signUpScreen, arguments: {
       //   'name': name.text,
@@ -164,10 +169,12 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     ])),
                     GestureDetector(
                       onTap: () {
-                        box.put(authTable, true);
-                        box.put(typeAuthTable, false);
-                        Navigator.pushNamedAndRemoveUntil(
-                            context, ScreenName.homeScreen, (route) => false);
+                        box.put(AuthHiveDB.isAuthTable, true);
+                        box.put(AuthHiveDB.isSkip, true);
+
+                        Navigator.pushNamedAndRemoveUntil(context,
+                            ScreenName.navigationBarScreen, (route) => false,
+                            arguments: NavigationBarArgument(isSkip: true));
                       },
                       child: Text(
                         style: TextStyle(

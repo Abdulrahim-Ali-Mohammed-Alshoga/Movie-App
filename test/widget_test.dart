@@ -11,12 +11,12 @@ import 'package:movies/constants/theme_app.dart';
 
 import 'package:movies/main.dart';
 import 'package:movies/constants/route_app.dart';
-import 'package:movies/presentation/screens/my_app.dart';
+import 'package:movies/app/my_app.dart';
 
 void main() {
   testWidgets('Counter increments smoke test', (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget( MyApp(themeApp: ThemeApp(),isHomeScreen: false,));
+    await tester.pumpWidget( MyApp(themeApp: ThemeApp(),isHomeScreen: false,isSkip: false,));
 
     // Verify that our counter starts at 0.
     expect(find.text('0'), findsOneWidget);

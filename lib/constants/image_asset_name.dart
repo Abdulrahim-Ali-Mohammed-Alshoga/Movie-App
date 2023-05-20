@@ -6,7 +6,7 @@ class ImageAssetName{
   static const String onBoardImageTwo='$rootImages/2.png';
   static const String onBoardImageThree='$rootImages/3.png';
   static const String logIn='$rootImages/log_in.png';
-  static const String offTheInternet='$rootImages/off_the_internet.png';
+  static const String offTheInternet='$rootImages/off_the _internet.png';
   static const String page_404='$rootImages/page_404.png';
 
 }

@@ -12,12 +12,7 @@ class NowPlayingMovieCubit extends Cubit<NowPlayingMovieState> {
   NowPlayingMoviesRepository nowPlayingMoviesRepository;
   List<Movie> movies = [];
   int numberPage=1;
-  void getAllMovies({required int numberPage}) async{
-    print(movies.length);
-    print("movies.length");
-
-    var connectivityResult = await (Connectivity().checkConnectivity());
-    if (connectivityResult != ConnectivityResult.none) {
+  Future<void> getAllMovies({required int numberPage}) async{
       if (movies.isEmpty) {
         emit(NowPlayingMovieLoading());
       }
@@ -36,11 +31,7 @@ class NowPlayingMovieCubit extends Cubit<NowPlayingMovieState> {
         else{emit(NowPlayingMovieFailure());}
 
       }
-    } else {
-      if (movies.isEmpty) {
-        emit(NowPlayingNotConnected());
-      }
-    }
+
 
   }
 }

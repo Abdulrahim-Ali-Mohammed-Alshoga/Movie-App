@@ -3,18 +3,18 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies/business_logic/cubit/genre_cubit.dart';
-import 'package:movies/business_logic/cubit/movie_state.dart';
+import 'package:movies/business_logic/cubit/genre/genre_cubit.dart';
+import 'package:movies/business_logic/cubit/movies_by_genre/movie_state.dart';
 import 'package:movies/constants/image_asset_name.dart';
 import 'package:movies/constants/mycolor.dart';
 import 'package:movies/constants/screen_name.dart';
 import 'package:movies/data/repository/movies_repository.dart';
-import 'package:movies/data/web_services/movies_web_service.dart';
+import 'package:movies/data/web_services/movies_by_genre_web_service.dart';
 import 'package:movies/presentation/widgets/page_view_home_widget.dart';
-import 'package:movies/presentation/widgets/shimmer/home/list_view_widget_shimmer.dart';
-import 'package:movies/presentation/widgets/shimmer/home/page_view_widget_shimmer.dart';
+import 'package:movies/presentation/widgets/home/shimmer/list_view_widget_shimmer.dart';
+import 'package:movies/presentation/widgets/home/shimmer/page_view_widget_shimmer.dart';
 
-import '../../business_logic/cubit/movie_cubit.dart';
+import '../../business_logic/cubit/movies_by_genre/movie_cubit.dart';
 import '../../constants/arguments.dart';
 import '../../constants/font.dart';
 import '../../data/models/genre.dart';
@@ -37,7 +37,7 @@ class _ListViewMoviesWidgetState extends State<ListViewMoviesWidget> {
   late List<List<Movie>> movies = [];
  late List<Genre> genres=[];
 
-  late List<MovieCubit> movieCubit = [];
+  late List<MoviesByGenreCubit> movieCubit = [];
 
   Future getMovies(BuildContext context, int index) async {
     Timer(Duration(seconds: 3 * index), () {
@@ -68,37 +68,26 @@ genres=widget.genres;
         itemBuilder: (BuildContext context, ind) {
           print(ind);
           print("tttttttttt");
-          movieCubit.add(MovieCubit(MoviesRepository(MoviesWebService())));
+          movieCubit.add(MoviesByGenreCubit(MoviesByGenreRepository(MoviesByGenreWebService())));
           return BlocProvider.value(
-            value: movieCubit[ind]..getAllMovies(genres[ind].id, ind * 3),
+            value: movieCubit[ind]..getMoviesByGenre(genres[ind].id),
             child: Column(
               children: [
                 ind==0?
                 SizedBox(
                   height: 430.h,
-                  child: BlocBuilder<MovieCubit, MovieState>(
+                  child: BlocBuilder<MoviesByGenreCubit, MoviesByGenreState>(
                     builder: (context, state) {
-                      if (state is MovieLoading||state is MovieInitialState) {
+                      if (state is MoviesByGenreLoading||state is MoviesByGenreInitialState) {
                         return const PageViewWidgetShimmer();
                       }
-                      if (state is MovieSuccess ) {
-                       movies.add(BlocProvider.of<MovieCubit>(context).movies);
+                      if (state is MoviesByGenreSuccess ) {
+                       movies.add(BlocProvider.of<MoviesByGenreCubit>(context).movies);
                         return PageViewHomeWidget(
                           movies: movies[ind].reversed.toList(),
                         );
                       }
-                      if (state is NotConnected) {
-                        return Center(
-                          child: Padding(
-                            padding: EdgeInsets.only(bottom: 130.h),
-                            child: Image.asset(
-                              ImageAssetName.offTheInternet,
-                              width: 400.w,
-                              height: 400.h,
-                            ),
-                          ),
-                        );
-                      }
+
 
                        else {
                         return Center(
@@ -121,7 +110,7 @@ genres=widget.genres;
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
-                        genres[ind].name,
+                        genres[ind].name!,
                         textAlign: TextAlign.start,
                         style: TextStyle(
                             fontSize: 16.sp,
@@ -131,8 +120,8 @@ genres=widget.genres;
                       GestureDetector(
                           onTap: () {
                             Navigator.pushNamed(context, ScreenName.listMoviesScreen,
-                                arguments: ListMovies(movies[ind],
-                                    genres[ind], movieCubit[ind]));
+                                arguments: ListMoviesArgument(movies: movies[ind],
+                                  genre:   genres[ind], movieCubit: movieCubit[ind]));
                           },
                           child: const Icon(
                             Icons.keyboard_arrow_right,
@@ -150,15 +139,15 @@ genres=widget.genres;
                             bottomLeft: Radius.circular(10),
                             topLeft: Radius.circular(10)),
                         color: Colors.grey.withOpacity(.22)),
-                    child: BlocBuilder<MovieCubit, MovieState>(
+                    child: BlocBuilder<MoviesByGenreCubit, MoviesByGenreState>(
                       builder: (context, state) {
-                        if (state is MovieLoading) {
+                        if (state is MoviesByGenreLoading) {
                           return const ListViewWidgetShimmer();
                         }
-                        if (state is MovieSuccess) {
+                        if (state is MoviesByGenreSuccess) {
                           if(ind>0){
                             movies
-                                .add(BlocProvider.of<MovieCubit>(context).movies);
+                                .add(BlocProvider.of<MoviesByGenreCubit>(context).movies);
                           }
 
 
@@ -187,10 +176,10 @@ genres=widget.genres;
                                     onTap: () {
                                       Navigator.pushNamed(
                                           context, ScreenName.listMoviesScreen,
-                                          arguments: ListMovies(
-                                              movies[ind],
-                                              genres[ind],
-                                              movieCubit[ind]));
+                                          arguments: ListMoviesArgument(
+                                           movies:    movies[ind],
+                                            genre:   genres[ind],
+                                              movieCubit:  movieCubit[ind]));
                                     },
                                     child: Container(
                                       margin: EdgeInsets.symmetric(
@@ -220,19 +209,8 @@ genres=widget.genres;
                             },
                           );
                         }
-                        if (state is NotConnected) {
-                          return Center(
-                            child: Padding(
-                              padding: EdgeInsets.only(bottom: 130.h),
-                              child: Image.asset(
-                                ImageAssetName.offTheInternet,
-                                width: 400.w,
-                                height: 400.h,
-                              ),
-                            ),
-                          );
-                        }
-                        if (state is MovieInitialState) {
+
+                        if (state is MoviesByGenreInitialState) {
                           return Center(
                             child: SizedBox(
                               height: .1.h,

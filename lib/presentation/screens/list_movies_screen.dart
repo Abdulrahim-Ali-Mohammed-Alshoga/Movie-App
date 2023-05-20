@@ -5,14 +5,14 @@ import 'package:movies/constants/arguments.dart';
 import 'package:movies/constants/mycolor.dart';
 import 'package:movies/presentation/widgets/grid_title_widget.dart';
 
-import '../../business_logic/cubit/movie_cubit.dart';
-import '../../business_logic/cubit/movie_state.dart';
+import '../../business_logic/cubit/movies_by_genre/movie_cubit.dart';
+import '../../business_logic/cubit/movies_by_genre/movie_state.dart';
 import '../../constants/font.dart';
 import '../../data/models/movie.dart';
 
 class ListMoviesScreen extends StatefulWidget {
   ListMoviesScreen({Key? key, required this.listMovies}) : super(key: key);
-  ListMovies listMovies;
+  ListMoviesArgument listMovies;
 
   @override
   State<ListMoviesScreen> createState() => _ListMoviesScreenState();
@@ -23,10 +23,10 @@ class _ListMoviesScreenState extends State<ListMoviesScreen> {
   late List<Movie> movies;
   bool isLoading = false;
 
-  Future getMovies() async {
-    BlocProvider.of<MovieCubit>(context)
-        .getAllMovies(widget.listMovies.genre.id, 0);
-  }
+  // Future getMovies() async {
+  //   BlocProvider.of<MovieCubit>(context)
+  //       .getAllMovies(widget.listMovies.genre.id, 0);
+  // }
 
   @override
   void initState() {
@@ -36,7 +36,7 @@ class _ListMoviesScreenState extends State<ListMoviesScreen> {
     scrollController.addListener(() {
       if (scrollController.offset ==
           scrollController.position.maxScrollExtent) {
-        getMovies();
+       // getMovies();
       }
     });
   }
@@ -47,22 +47,23 @@ class _ListMoviesScreenState extends State<ListMoviesScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.listMovies.genre.name,
+            "44",
+           // widget.listMovies.genre.name,
             style: TextStyle(fontFamily: MyFont.titleFont),
           ),
           centerTitle: true,
         ),
-        body: BlocConsumer<MovieCubit, MovieState>(
+        body: BlocConsumer<MoviesByGenreCubit, MoviesByGenreState>(
           listener: (context, state) {
-            if (state is MovieLoading) {
+            if (state is MoviesByGenreLoading) {
               isLoading = true;
             } else {
               isLoading = false;
             }
           },
           builder: (context, state) {
-            if (state is MovieSuccess) {
-              movies = BlocProvider.of<MovieCubit>(context).movies;
+            if (state is MoviesByGenreSuccess) {
+              movies = BlocProvider.of<MoviesByGenreCubit>(context).movies;
               return Column(
                 children: [
                   GridView.builder(
@@ -82,7 +83,11 @@ class _ListMoviesScreenState extends State<ListMoviesScreen> {
 //   print(5555555555);
 // }
                       return GridTitleWidget(
-                        movie: movies[index],
+
+                        productionData: movies[index].productionData,
+                        image: movies[index].image,
+                        id: movies[index].id,
+                        rating: movies[index].rating,
                       );
                     },
                     gridDelegate:
@@ -92,7 +97,6 @@ class _ListMoviesScreenState extends State<ListMoviesScreen> {
                             crossAxisSpacing: 1,
                             mainAxisSpacing: 1),
                   ),
-
                 ],
               );
             } else {

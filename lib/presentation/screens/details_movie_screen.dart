@@ -11,7 +11,7 @@ import '../../constants/mycolor.dart';
 
 class DetailsMovieScreen extends StatefulWidget {
   DetailsMovieScreen({Key? key, required this.detailsMovie}) : super(key: key);
-  DetailsMovie detailsMovie;
+  DetailsMovieArgument detailsMovie;
 
   @override
   State<DetailsMovieScreen> createState() => _DetailsMovieScreenState();

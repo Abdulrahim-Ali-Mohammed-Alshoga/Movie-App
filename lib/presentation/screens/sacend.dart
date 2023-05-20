@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/constants/image_asset_name.dart';
 
-import '../../business_logic/cubit/movie_cubit.dart';
-import '../../business_logic/cubit/movie_state.dart';
+import '../../business_logic/cubit/movies_by_genre/movie_cubit.dart';
+import '../../business_logic/cubit/movies_by_genre/movie_state.dart';
 import '../../constants/arguments.dart';
 import '../../constants/font.dart';
 import '../../constants/mycolor.dart';
@@ -96,34 +96,34 @@ class _SecandState extends State<Secand> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(
-          nameAppBar: RichText(
-        text: TextSpan(children: <TextSpan>[
-          TextSpan(
-              text: "Cinema",
-              style: TextStyle(
-                  fontFamily: MyFont.mainFont,
-                  color: MyColors.white,
-                  fontSize: 30.sp)),
-          TextSpan(
-              text: "Batool",
-              style: TextStyle(
-                  fontFamily: MyFont.mainFont,
-                  color: MyColors.deepOrange,
-                  fontSize: 30.sp)),
-        ]),
-      )),
-      body: BlocBuilder<MovieCubit, MovieState>(
+      // appBar: AppBarWidget(
+      //     nameAppBar: RichText(
+      //   text: TextSpan(children: <TextSpan>[
+      //     TextSpan(
+      //         text: "Cinema",
+      //         style: TextStyle(
+      //             fontFamily: MyFont.mainFont,
+      //             color: MyColors.white,
+      //             fontSize: 30.sp)),
+      //     TextSpan(
+      //         text: "Batool",
+      //         style: TextStyle(
+      //             fontFamily: MyFont.mainFont,
+      //             color: MyColors.deepOrange,
+      //             fontSize: 30.sp)),
+      //   ]),
+      // )),
+      body: BlocBuilder<MoviesByGenreCubit, MoviesByGenreState>(
         builder: (context, state) {
-          if (state is MovieLoading) {
+          if (state is MoviesByGenreLoading) {
             return const Center(
               child: CircularProgressIndicator(
                 color: MyColors.deepOrange,
               ),
             );
           }
-          if (state is MovieSuccess) {
-            movies = BlocProvider.of<MovieCubit>(context).movies;
+          if (state is MoviesByGenreSuccess) {
+            movies = BlocProvider.of<MoviesByGenreCubit>(context).movies;
             print("555");
             return Padding(
               padding: EdgeInsets.only(top: 10.h),
@@ -181,19 +181,8 @@ class _SecandState extends State<Secand> {
               ),
             );
           }
-          if (state is NotConnected) {
-            return Center(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 130.h),
-                child: Image.asset(
-                  "assets/images/off_the _internet.png",
-                  width: 400.w,
-                  height: 400.h,
-                ),
-              ),
-            );
-          }
-          if (state is MovieInitialState) {
+
+          if (state is MoviesByGenreInitialState) {
             return Center(
               child: SizedBox(
                 height: .1.h,

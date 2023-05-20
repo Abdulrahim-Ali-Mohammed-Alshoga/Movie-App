@@ -3,18 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/business_logic/cubit/upcoming_movies/upcoming_movies_cubit.dart';
 import 'package:movies/business_logic/cubit/upcoming_movies/upcoming_movies_state.dart';
-import '../../../../business_logic/cubit/movie_cubit.dart';
-import '../../../../business_logic/cubit/movie_state.dart';
-import '../../../../constants/font.dart';
+
 import '../../../../constants/image_asset_name.dart';
-import '../../../../constants/mycolor.dart';
 import '../../../../data/models/movie.dart';
-import '../../../../data/repository/upcoming_movies_repository.dart';
-import '../../../../data/web_services/upcoming_movies_web_services.dart';
-import '../../list_movie_title_widget.dart';
 import '../../page_view_home_widget.dart';
-import '../../shimmer/home/list_view_widget_shimmer.dart';
-import '../../shimmer/home/page_view_widget_shimmer.dart';
+import '../shimmer/page_view_widget_shimmer.dart';
 
 class ListViewUpcomingMoviesWidget extends StatelessWidget {
   ListViewUpcomingMoviesWidget({Key? key}) : super(key: key);
@@ -46,18 +39,7 @@ class ListViewUpcomingMoviesWidget extends StatelessWidget {
                         movies: movies.reversed.toList(),
                       );
                     }
-                    if (state is UpcomingNotConnected) {
-                      return Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(bottom: 130.h),
-                          child: Image.asset(
-                            ImageAssetName.offTheInternet,
-                            width: 400.w,
-                            height: 400.h,
-                          ),
-                        ),
-                      );
-                    } else {
+                     else {
                       return Center(
                         child: Padding(
                           padding: EdgeInsets.only(bottom: 130.h),

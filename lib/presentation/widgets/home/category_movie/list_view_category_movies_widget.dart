@@ -1,19 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies/business_logic/cubit/now_playing_movies/now_playing_movies_cubit.dart';
+import 'package:movies/business_logic/cubit/genre/genre_cubit.dart';
+import 'package:movies/business_logic/cubit/genre/genre_state.dart';
+import 'package:movies/business_logic/cubit/movies_by_genre/movie_cubit.dart';
+import 'package:movies/business_logic/cubit/movies_by_genre/movie_state.dart';
+import 'package:movies/constants/screen_name.dart';
+import 'package:movies/data/models/genre.dart';
 
+import '../../../../business_logic/cubit/now_playing_movies/now_playing_movies_cubit.dart';
 import '../../../../business_logic/cubit/now_playing_movies/now_playing_movies_state.dart';
 import '../../../../constants/font.dart';
 import '../../../../constants/image_asset_name.dart';
 import '../../../../constants/mycolor.dart';
 import '../../../../data/models/movie.dart';
 import '../../list_movie_title_widget.dart';
-import '../../shimmer/home/list_view_widget_shimmer.dart';
+import '../shimmer/list_view_widget_shimmer.dart';
 
-class ListViewNowPlayingMoviesWidget extends StatelessWidget {
-  ListViewNowPlayingMoviesWidget({Key? key}) : super(key: key);
+class ListViewCategoryMoviesWidget extends StatefulWidget {
+  const ListViewCategoryMoviesWidget({Key? key}) : super(key: key);
+
+  @override
+  State<ListViewCategoryMoviesWidget> createState() =>
+      _ListViewCategoryMoviesWidgetState();
+}
+
+class _ListViewCategoryMoviesWidgetState
+    extends State<ListViewCategoryMoviesWidget> {
+  late List<Genre> genres;
   late List<Movie> movies = [];
+  Genre? select;
 
   @override
   Widget build(BuildContext context) {
@@ -24,13 +40,58 @@ class ListViewNowPlayingMoviesWidget extends StatelessWidget {
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(
-                "NowPlaying",
-                textAlign: TextAlign.start,
-                style: TextStyle(
-                    fontSize: 16.sp,
-                    fontFamily: MyFont.titleFont,
-                    color: MyColors.white),
+              Row(
+                children: [
+                  Text(
+                    "Movie : ",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                        fontSize: 18.sp,
+                        fontFamily: MyFont.titleFont,
+                        color: MyColors.white),
+                  ),
+                  SizedBox(
+                    width: 7.w,
+                  ),
+                  BlocConsumer<GenreCubit, GenreState>(
+                    builder: (context, state) {
+                      genres = BlocProvider.of<GenreCubit>(context).genre;
+
+                      return DropdownButtonHideUnderline(
+                        child: DropdownButton<Genre>(
+                            iconEnabledColor: MyColors.deepOrange,
+                            value: select ?? genres[0],
+                            alignment: Alignment.center,
+                            dropdownColor: MyColors.black,
+                            items: genres
+                                .map((e) => DropdownMenuItem(
+                                    value: e,
+                                    child: Text(
+                                      e.name!,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                          fontSize: 18.sp,
+                                          fontFamily: MyFont.titleFont,
+                                          color: MyColors.deepOrange),
+                                    )))
+                                .toList(),
+                            onChanged: (selected) {
+                              setState(() {
+                                print(selected?.id);
+                                select = selected;
+                                BlocProvider.of<MoviesByGenreCubit>(context)
+                                    .getMoviesByGenre(selected?.id);
+                              });
+                            }),
+                      );
+                    },
+                    listener: (context, state) {
+                      if (state is GenreInitialState) {
+                       Navigator.pushNamed(context, ScreenName.onboardScreen);
+                      }
+                    },
+                  )
+                ],
               ),
               GestureDetector(
                   onTap: () {
@@ -54,14 +115,13 @@ class ListViewNowPlayingMoviesWidget extends StatelessWidget {
                     bottomLeft: Radius.circular(10),
                     topLeft: Radius.circular(10)),
                 color: Colors.grey.withOpacity(.22)),
-            child: BlocBuilder<NowPlayingMovieCubit, NowPlayingMovieState>(
+            child: BlocBuilder<MoviesByGenreCubit, MoviesByGenreState>(
               builder: (context, state) {
-                if (state is NowPlayingMovieLoading) {
+                if (state is MoviesByGenreLoading) {
                   return const ListViewWidgetShimmer();
                 }
-                if (state is NowPlayingMovieSuccess) {
-                  movies =
-                      BlocProvider.of<NowPlayingMovieCubit>(context).movies;
+                if (state is MoviesByGenreSuccess) {
+                  movies = BlocProvider.of<MoviesByGenreCubit>(context).movies;
 
                   return ListView.builder(
                     scrollDirection: Axis.horizontal,
@@ -115,19 +175,8 @@ class ListViewNowPlayingMoviesWidget extends StatelessWidget {
                     },
                   );
                 }
-                if (state is NowPlayingNotConnected) {
-                  return Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: 130.h),
-                      child: Image.asset(
-                        ImageAssetName.offTheInternet,
-                        width: 400.w,
-                        height: 400.h,
-                      ),
-                    ),
-                  );
-                }
-                if (state is NowPlayingMovieInitialState) {
+
+                if (state is MoviesByGenreInitialState) {
                   return Center(
                     child: SizedBox(
                       height: .1.h,

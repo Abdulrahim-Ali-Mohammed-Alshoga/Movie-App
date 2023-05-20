@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/data/models/movie.dart';
 
-import '../../../business_logic/cubit/search_movie_cubit.dart';
+import '../../../business_logic/cubit/search_movies/search_movie_cubit.dart';
 import '../../../constants/font.dart';
 import '../../../constants/mycolor.dart';
 class AppBarSearchWidget extends StatefulWidget implements PreferredSizeWidget {

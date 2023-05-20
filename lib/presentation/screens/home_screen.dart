@@ -2,26 +2,17 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies/business_logic/cubit/genre_cubit.dart';
-import 'package:movies/business_logic/cubit/movie_cubit.dart';
-import 'package:movies/business_logic/cubit/movie_state.dart';
-import 'package:movies/business_logic/cubit/now_playing_movies/now_playing_movies_cubit.dart';
-import 'package:movies/business_logic/cubit/upcoming_movies/upcoming_movies_cubit.dart';
-import 'package:movies/constants/image_asset_name.dart';
-import 'package:movies/constants/screen_name.dart';
+import 'package:movies/business_logic/cubit/genre/genre_cubit.dart';
+import 'package:movies/business_logic/cubit/home/home_cubit.dart';
+import 'package:movies/business_logic/cubit/home/home_state.dart';
 import 'package:movies/data/models/genre.dart';
-import 'package:movies/data/models/movie.dart';
-import 'package:movies/presentation/widgets/app_bar_widget.dart';
-import 'package:movies/presentation/widgets/page_view_home_widget.dart';
-
-import '../../business_logic/cubit/genre_state.dart';
-import '../../constants/arguments.dart';
 import '../../constants/font.dart';
 import '../../constants/mycolor.dart';
-import '../widgets/home/now_playing_movie_widgets/list_view_now_playing_movies_widget.dart';
-import '../widgets/home/upcoming_movie_widgets/list_view_upcoming_movies_widget.dart';
-import '../widgets/list_view_movies_widget.dart';
-import '../widgets/shimmer/home/home_widget_shimmer.dart';
+import '../widgets/home/category_movie/list_view_category_movies_widget.dart';
+import '../widgets/home/now_playing_movie/list_view_now_playing_movies_widget.dart';
+import '../widgets/home/upcoming_movie/list_view_upcoming_movies_widget.dart';
+import '../widgets/image_off_the_internet.dart';
+import '../widgets/home/shimmer/home_widget_shimmer.dart';
 import '../widgets/show_snack_bar.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -72,10 +63,10 @@ int lengthListStart=0;
   void initState() {
     // TODO: implement initState
     super.initState();
-print(566666666666);
-    BlocProvider.of<GenreCubit>(context).getAllGenre();
-    BlocProvider.of<NowPlayingMovieCubit>(context).getAllMovies(numberPage: 1);
-    BlocProvider.of<UpcomingMovieCubit>(context).getAllMovies(numberPage: 1);
+print("566666666666");
+      BlocProvider.of<HomeCubit>(context).getAllMovies(mounted: mounted, context: context);
+
+
     //WidgetsBinding.instance.addObserver(this);
   //  changConnect();
   //   scrollController.addListener(() {
@@ -125,32 +116,16 @@ print(566666666666);
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(
-          nameAppBar: RichText(
-        text: TextSpan(children: <TextSpan>[
-          TextSpan(
-              text: "Cinema",
-              style: TextStyle(
-                  fontFamily: MyFont.mainFont,
-                  color: MyColors.white,
-                  fontSize: 30.sp)),
-          TextSpan(
-              text: "Batool",
-              style: TextStyle(
-                  fontFamily: MyFont.mainFont,
-                  color: MyColors.deepOrange,
-                  fontSize: 30.sp)),
-        ]),
-      )),
-      body: BlocBuilder<GenreCubit, GenreState>(
+
+      body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
-          if (state is GenreLoading) {
+          if (state   is HomeLoading) {
             return  Padding(
               padding: EdgeInsets.only(top: 10.h),
               child: HomeWidgetShimmer(),
             );
           }
-          if (state is GenreSuccess) {
+          if (state is HomeSuccess) {
             genre = BlocProvider.of<GenreCubit>(context).genre;
             print("555");
             return Padding(
@@ -181,40 +156,34 @@ print(566666666666);
                       child: ListViewUpcomingMoviesWidget(),
                     ),
                     ListViewNowPlayingMoviesWidget(),
+                    const ListViewCategoryMoviesWidget(),
                   ],
                 ),
               ),
             );
           }
-          if (state is GenreNotConnected) {
-            return Center(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 130.h),
-                child: Image.asset(
-                  "assets/images/off_the _internet.png",
-                  width: 400.w,
-                  height: 400.h,
-                ),
-              ),
-            );
+          if (state is HomeNotConnected) {
+            return const ImageOffTheInternet();
           }
-          if (state is GenreInitialState) {
-            return Center(
-              child: SizedBox(
-                height: .1.h,
-              ),
-            );
-          } else {
-            return Center(
-              child: Padding(
-                padding: EdgeInsets.only(bottom: 130.h),
-                child: Image.asset(
-                 ImageAssetName.page_404,
-                  width: 300.w,
-                  height: 400.h,
-                ),
-              ),
-            );
+          // if (state is GenreInitialState) {
+          //   return Center(
+          //     child: SizedBox(
+          //       height: .1.h,
+          //     ),
+          //   );
+          // }
+          else {
+            return const SizedBox(height: 1,);
+            // return Center(
+            //   child: Padding(
+            //     padding: EdgeInsets.only(bottom: 130.h),
+            //     child: Image.asset(
+            //      ImageAssetName.page_404,
+            //       width: 300.w,
+            //       height: 400.h,
+            //     ),
+            //   ),
+            // );
           }
         },
       ),

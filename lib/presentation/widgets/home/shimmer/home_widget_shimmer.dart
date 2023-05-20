@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies/presentation/widgets/shimmer/home/page_view_widget_shimmer.dart';
+import 'package:movies/presentation/widgets/home/shimmer/page_view_widget_shimmer.dart';
 import 'package:shimmer/shimmer.dart';
-import '../../home/title_wdget_home.dart';
+import '../title_wdget_home.dart';
 import 'list_view_widget_shimmer.dart';
 
 class HomeWidgetShimmer extends StatefulWidget {

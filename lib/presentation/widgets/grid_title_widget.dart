@@ -10,22 +10,34 @@ import '../../constants/font.dart';
 import '../../constants/image_network_name.dart';
 import '../../constants/mycolor.dart';
 import '../../constants/screen_name.dart';
+import '../../data/models/hive/movie_hive.dart';
+import 'icon_favorite_button_widget.dart';
 
 class GridTitleWidget extends StatelessWidget {
-  Movie movie;
+  num id;
+  num? rating;
+  String? productionData;
+  String? image;
 
-  GridTitleWidget({Key? key, required this.movie}) : super(key: key);
+
+  GridTitleWidget(
+      {Key? key,
+
+      required this.productionData,
+      required this.id,
+      required this.rating,
+      required this.image})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    //print(movie.image);
     return GestureDetector(
       onTap: () {
-        Navigator.pushNamed(context, ScreenName.detailsMovieScreen,
-            arguments: DetailsMovie(movie));
+        // Navigator.pushNamed(context, ScreenName.detailsMovieScreen,
+        //     arguments: DetailsMovieArgument( detailsMovie: movie));
       },
       child: Hero(
-        tag: movie.id,
+        tag: id,
         child: Card(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10).r),
@@ -39,7 +51,7 @@ class GridTitleWidget extends StatelessWidget {
                       decoration: BoxDecoration(boxShadow: [
                         BoxShadow(
                             color: Colors.black54.withOpacity(.62),
-                            offset: Offset(0.0, 14.0),
+                            offset: const Offset(0.0, 14.0),
                             blurRadius: 30,
                             spreadRadius: 15),
                       ]),
@@ -48,29 +60,28 @@ class GridTitleWidget extends StatelessWidget {
                         child: Row(
                           //mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Padding(
-                              padding: EdgeInsets.only(right: 5.w),
-                              child: const Icon(
-                                  color: Colors.white,
-                                  size: 15,
-                                  Icons.favorite),
-                            ),
+                            IconFavoriteButtonWidget(paddingSize: 0,size: 15,movieHive:  MovieHive(
+                                image:image,
+                                id: id,
+                                rating: rating!,
+                                productionData:
+                               productionData),),
                             Text(
-                              double.parse("${movie.rating}")
-                                  .toStringAsFixed(1),
+                              double.parse("$rating").toStringAsFixed(1),
                               style: TextStyle(
                                 overflow: TextOverflow.ellipsis,
                                 fontSize: 12,
                                 color: Colors.white.withOpacity(.8),
                               ),
                             ),
-                            Icon(Icons.star,
-                                color: Colors.white.withOpacity(.8), size: 9),
+                           Icon(Icons.star,
+                                  color: Colors.white.withOpacity(.8), size: 9),
+
                             Expanded(
                               child: Text(
-                                movie.productionData == null||movie.productionData ==""
+                                productionData == null || productionData == ""
                                     ? "0000"
-                                    : movie.productionData!.substring(0, 4),
+                                    : productionData!.substring(0, 4),
                                 textAlign: TextAlign.end,
                                 style: TextStyle(
                                   overflow: TextOverflow.ellipsis,
@@ -96,10 +107,10 @@ class GridTitleWidget extends StatelessWidget {
                       // ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
                       // ),),
                       maxHeightDiskCache: 600,
-                      imageUrl: movie.image == null
+                      imageUrl: image == null
                           ? "لل"
-                          : ImageNetworkName.rootImages + movie.image!,
-                      cacheKey: movie.image,
+                          : ImageNetworkName.rootImages + image!,
+                      cacheKey: image,
                       fit: BoxFit.fill,
                       errorWidget: (context, url, error) {
                         print(error);

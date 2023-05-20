@@ -10,20 +10,12 @@ class UpcomingMovieCubit extends Cubit<UpcomingMovieState> {
   UpcomingMoviesRepository upcomingMoviesRepository;
   List<Movie> movies = [];
   int numberPage=1;
-  void getAllMovies({required int numberPage}) async{
-    print(movies.length);
-    print("movies.length");
-
-        var connectivityResult = await (Connectivity().checkConnectivity());
-        if (connectivityResult != ConnectivityResult.none) {
+ Future<void>  getAllMovies({required int numberPage}) async{
           if (movies.isEmpty) {
             emit(UpcomingMovieLoading());
           }
           try {
             movies.addAll(await upcomingMoviesRepository.getUpcomingMovies(numberPage));
-
-            print(movies);
-            print("numberPage");
             emit(UpcomingMovieSuccess());
             numberPage+=1;
           } catch (e) {
@@ -34,11 +26,7 @@ class UpcomingMovieCubit extends Cubit<UpcomingMovieState> {
             else{emit(UpcomingMovieFailure());}
 
           }
-        } else {
-          if (movies.isEmpty) {
-            emit(UpcomingNotConnected());
-          }
-        }
+
 
   }
 }

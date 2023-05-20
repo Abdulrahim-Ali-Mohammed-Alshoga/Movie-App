@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies/presentation/widgets/shimmer/home/shimmer_widget.dart';
+import 'package:movies/presentation/widgets/shimmer_widget.dart';
 import 'package:shimmer/shimmer.dart';
 
 class PageViewWidgetShimmer extends StatefulWidget {

@@ -1,6 +1,7 @@
 class ScreenName{
   ScreenName._();
  static const String onboardScreen="/onboard_screen";
+ static const String navigationBarScreen="/navigation_bar_screen";
   static const String homeScreen="/home_screen";
   static const String personalInformationScreen="/personal_information_screen";
   static const String singInScreen="/sing_in_screen";

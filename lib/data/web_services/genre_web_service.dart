@@ -18,9 +18,9 @@ class GenreWebService{
   // 709d1c122fmshfe0fd6fbaca18f5p110cdcjsnbf924af9b188
   Future<List<dynamic>> getGenre() async {
     Response response = await dio.get("genre/movie/list",
-        queryParameters: {'api_key': Conction.apiKye},
+        queryParameters: {"api_key": Conction.apiKye},
     );
-    //  print(response.data["results"]);
+        //  print(response.data["results"]);
      print(response.data["genres"]);
 
     return response.data["genres"];

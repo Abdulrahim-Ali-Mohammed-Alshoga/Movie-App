@@ -5,6 +5,7 @@ import 'package:hive/hive.dart';
 import 'package:movies/business_logic/cubit/auth_cubit.dart';
 import 'package:movies/constants/screen_name.dart';
 import 'package:movies/presentation/screens/home_screen.dart';
+import '../../constants/arguments.dart';
 import '../../constants/font.dart';
 import '../../constants/hive_name.dart';
 import '../../constants/mycolor.dart';
@@ -23,13 +24,17 @@ class _SingInScreenState extends State<SingInScreen> {
   AutovalidateMode _autoValidateMode = AutovalidateMode.disabled;
   bool isPassword = true;
   final GlobalKey<FormState> globalKey = GlobalKey<FormState>();
-  var box = Hive.box(authDb);
+  var box = Hive.box(AuthHiveDB.authDB);
+
   Future<void> singInFill() async {
     if (globalKey.currentState!.validate()) {
+      final navigator = Navigator.of(context);
+      await box.put(AuthHiveDB.isAuthTable, true);
+      box.put(AuthHiveDB.isSkip, false);
       globalKey.currentState!.save();
-      await box.put(authTable, true);
-      await  box.put(typeAuthTable, true);
-      Navigator.pushNamedAndRemoveUntil(context, ScreenName.homeScreen, (route) => false);
+      navigator.pushNamedAndRemoveUntil(
+          ScreenName.navigationBarScreen, (route) => false,
+          arguments: NavigationBarArgument(isSkip: false));
 
       // Navigator.pushNamed(context, signUpScreen, arguments: {
       //   'name': name.text,
@@ -95,7 +100,8 @@ class _SingInScreenState extends State<SingInScreen> {
                     validator: (value) {
                       if (value!.isEmpty) {
                         return 'Emile cannot be empty';
-                      } else if (!value.contains("@")||!value.contains(".com")) {
+                      } else if (!value.contains("@") ||
+                          !value.contains(".com")) {
                         return 'This is not Email';
                       }
                       return null;

@@ -15,7 +15,7 @@ class NowPlayingMoviesWebServices {
     dio = Dio(baseOptions);
   }
 
-  Future<List<dynamic>> getNowPlayingMovies(dynamic numberPage) async {
+  Future<List<dynamic>> getNowPlayingMovies(int numberPage) async {
     Response response = await dio.get('movie/now_playing',
       queryParameters: {"api_key": Conction.apiKye, "page": numberPage},
 

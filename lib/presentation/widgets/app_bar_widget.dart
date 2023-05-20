@@ -11,9 +11,11 @@ import '../../constants/mycolor.dart';
 
 class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   Widget nameAppBar;
+  bool isSkip;
 
   AppBarWidget({
     Key? key,
+    required this.isSkip,
     required this.nameAppBar,
   }) : super(key: key);
 
@@ -27,7 +29,7 @@ class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
 
 class _AppBarWidgetState extends State<AppBarWidget> {
   bool isSearch = false;
-  var box = Hive.box(authDb);
+  //var box = Hive.box(AuthHiveDB.authDB);
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -35,7 +37,7 @@ class _AppBarWidgetState extends State<AppBarWidget> {
         IconButton(onPressed: (){
           Navigator.pushNamed(context, ScreenName.searchMoviesScreen);
         }, icon: Icon(Icons.search,)),
-        box.get(typeAuthTable,defaultValue:false)
+        !widget.isSkip
             ? IconButton(
                 onPressed: () {
                   //  BlocProvider.of<SystemCubit>(context).changTheme();
