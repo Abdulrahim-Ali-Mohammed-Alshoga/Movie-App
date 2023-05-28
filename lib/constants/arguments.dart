@@ -1,14 +1,11 @@
 
-import 'package:movies/data/models/genre.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/data/models/movie.dart';
 
-import '../business_logic/cubit/movies_by_genre/movie_cubit.dart';
-
 class ListMoviesArgument{
-  final List<Movie> movies;
-  final Genre  genre;
-  final MoviesByGenreCubit movieCubit;
-  ListMoviesArgument({required this.movies, required this.genre, required this.movieCubit});
+  //final List<Movie> movies;
+  final String  name;
+  ListMoviesArgument({required this.name});
 }
 class DetailsMovieArgument{
  final Movie detailsMovie;

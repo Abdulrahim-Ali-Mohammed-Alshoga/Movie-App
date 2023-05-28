@@ -27,7 +27,12 @@ class FavoriteCubit extends Cubit<FavoriteState>{
 
         movieFavorites.removeAt(i);
         await box.deleteAt(i);
-        emit(FavoriteSuccess());
+        if(movieFavorites.isNotEmpty){
+          emit(FavoriteSuccess());
+        }
+       else{
+          emit(FavoriteInitialState());
+        }
       }
     }}
   bool isMovieFavorite(num id) {

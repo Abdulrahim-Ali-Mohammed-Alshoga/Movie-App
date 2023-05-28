@@ -2,6 +2,7 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/app/dependency_injection.dart';
 import 'package:movies/business_logic/cubit/genre/genre_cubit.dart';
 import 'package:movies/business_logic/cubit/home/home_cubit.dart';
 import 'package:movies/business_logic/cubit/home/home_state.dart';
@@ -24,13 +25,14 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   bool isBackground = false;
-  final scrollController=ScrollController();
+  final scrollController = ScrollController();
   bool firstRun = true;
   late ConnectivityResult result = ConnectivityResult.none;
   late ConnectivityResult outResult;
-  late List<Genre> genre;
-int lengthListEnd=1;
-int lengthListStart=0;
+
+  int lengthListEnd = 1;
+  int lengthListStart = 0;
+
   initAction() {
     if (!isBackground) {
       ShowSnackBarWidget.checkInternetConnectivity(context, result.index);
@@ -63,31 +65,29 @@ int lengthListStart=0;
   void initState() {
     // TODO: implement initState
     super.initState();
-print("566666666666");
-      BlocProvider.of<HomeCubit>(context).getAllMovies(mounted: mounted, context: context);
 
+    BlocProvider.of<HomeCubit>(context)
+        .getAllMovies(mounted: mounted, context: context);
 
     //WidgetsBinding.instance.addObserver(this);
-  //  changConnect();
-  //   scrollController.addListener(() {
-  //
-  //     // if(scrollController.offset==scrollController.position.maxScrollExtent){print("lll");
-  //     //   setState(() {
-  //     //     lengthListStart=lengthListEnd;
-  //     //     lengthListEnd+=1;
-  //     //   });
-  //     // //  getMovies();
-  //     // // setState(() {
-  //     // //   lengthList+=2;
-  //     // // });
-  //     // // if(lengthList<=genres.length){
-  //     // //
-  //     // //   print(lengthList);
-  //     // // }
-  //     // }
-    }
-
-
+    //  changConnect();
+    //   scrollController.addListener(() {
+    //
+    //     // if(scrollController.offset==scrollController.position.maxScrollExtent){print("lll");
+    //     //   setState(() {
+    //     //     lengthListStart=lengthListEnd;
+    //     //     lengthListEnd+=1;
+    //     //   });
+    //     // //  getMovies();
+    //     // // setState(() {
+    //     // //   lengthList+=2;
+    //     // // });
+    //     // // if(lengthList<=genres.length){
+    //     // //
+    //     // //   print(lengthList);
+    //     // // }
+    //     // }
+  }
 
   @override
   void dispose() {
@@ -116,54 +116,64 @@ print("566666666666");
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: BlocBuilder<HomeCubit, HomeState>(
         builder: (context, state) {
-          if (state   is HomeLoading) {
-            return  Padding(
+          if (state is HomeLoading) {
+            return Padding(
               padding: EdgeInsets.only(top: 10.h),
-              child: HomeWidgetShimmer(),
+              child: const HomeWidgetShimmer(),
             );
           }
           if (state is HomeSuccess) {
-            genre = BlocProvider.of<GenreCubit>(context).genre;
-            print("555");
             return Padding(
               padding: EdgeInsets.only(top: 8.h),
-              child: SingleChildScrollView(
-                controller: scrollController,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Center(
-                      child: Padding(
-                        padding: EdgeInsets.only(right: 30.w),
-                        child: Text(
-                          "Recent Movies",
-                          style: TextStyle(
-                              fontSize: 16.sp,
-                              fontFamily: MyFont.titleFont,
-                              color: MyColors.white),
+              child: ScrollConfiguration(
+                //وقف لون glow effect اي اللون الذي يظهر عند السحب للاعلى والاسفل في ListView او SingleChildScrollView وغيرها
+                behavior:
+                    const MaterialScrollBehavior().copyWith(overscroll: false),
+                child: SingleChildScrollView(
+                  //طريقة اخر لوقف لون glow effect اي اللون الذي يظهر عند السحب للاعلى والاسفل في ListView او SingleChildScrollView وغيرها
+                  // physics: const BouncingScrollPhysics(),
+                  controller: scrollController,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Center(
+                        child: Padding(
+                          padding: EdgeInsets.only(right: 30.w),
+                          child: Text(
+                            "Recent Movies",
+                            style: TextStyle(
+                                fontSize: 16.sp,
+                                fontFamily: MyFont.titleFont,
+                                color: MyColors.white),
+                          ),
                         ),
                       ),
-                    ),
-                    // PageViewHomeWidget(
-                    //   movies: movies,
-                    // ),
+                      // PageViewHomeWidget(
+                      //   movies: movies,
+                      // ),
 
-                    Padding(
-                      padding: EdgeInsets.only(left: 15.w),
-                      child: ListViewUpcomingMoviesWidget(),
-                    ),
-                    ListViewNowPlayingMoviesWidget(),
-                    const ListViewCategoryMoviesWidget(),
-                  ],
+                      Padding(
+                        padding: EdgeInsets.only(left: 15.w),
+                        child: ListViewUpcomingMoviesWidget(),
+                      ),
+
+                      ListViewNowPlayingMoviesWidget(),
+                      const ListViewCategoryMoviesWidget(),
+                    ],
+                  ),
                 ),
               ),
             );
           }
           if (state is HomeNotConnected) {
-            return const ImageOffTheInternet();
+            return ImageOffTheInternet(
+              onPressed: () {
+                BlocProvider.of<HomeCubit>(context)
+                    .getAllMovies(mounted: mounted, context: context);
+              },
+            );
           }
           // if (state is GenreInitialState) {
           //   return Center(
@@ -173,7 +183,9 @@ print("566666666666");
           //   );
           // }
           else {
-            return const SizedBox(height: 1,);
+            return const SizedBox(
+              height: 1,
+            );
             // return Center(
             //   child: Padding(
             //     padding: EdgeInsets.only(bottom: 130.h),

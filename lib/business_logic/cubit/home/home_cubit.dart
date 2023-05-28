@@ -22,12 +22,16 @@ class HomeCubit extends Cubit<HomeState> {
             .getAllMovies(numberPage: 1);
         BlocProvider.of<GenreCubit>(context).getAllGenre();
         BlocProvider.of<NowPlayingMovieCubit>(context)
-            .getAllMovies(numberPage: 1);
+            .getAllMovies();
       } catch (e) {
         print(e);
       }
     } else {
       emit(HomeNotConnected());
     }
+  }
+  void get()  {
+print('objectlllllllllllp');
+    emit(HomeFailure());
   }
 }

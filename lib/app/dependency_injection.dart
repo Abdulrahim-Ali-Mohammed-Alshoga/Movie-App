@@ -1,9 +1,12 @@
 
 import 'package:get_it/get_it.dart';
 import 'package:movies/business_logic/cubit/search_movies/search_movie_cubit.dart';
+import 'package:movies/data/repository/now_playing_movies_repository.dart';
 import 'package:movies/data/repository/search_movies_repository.dart';
+import 'package:movies/data/web_services/now_playing_movies_web_service.dart';
 import 'package:movies/data/web_services/search_movies_web_services.dart';
 
+import '../business_logic/cubit/now_playing_movies/now_playing_movies_cubit.dart';
 import '../business_logic/cubit/upcoming_movies/upcoming_movies_cubit.dart';
 import '../data/network/network_information.dart';
 import '../data/repository/upcoming_movies_repository.dart';
@@ -46,4 +49,17 @@ Future<void> initSearchScreen() async {
      instance.registerLazySingleton<UpcomingMovieCubit>(
              () => UpcomingMovieCubit(instance()));
    }}
+Future<void> initNowPlayingMovies() async {
+  // app module, its a module where we put all generic dependencies
+  if(!GetIt.I.isRegistered<NowPlayingMoviesWebServices>()) {
+    instance.registerLazySingleton<NowPlayingMoviesWebServices>(
+            () => NowPlayingMoviesWebServices());
+
+    instance.registerLazySingleton<NowPlayingMoviesRepository>(
+            () => NowPlayingMoviesRepository(instance()));
+
+    // network info
+    instance.registerLazySingleton<NowPlayingMovieCubit>(
+            () => NowPlayingMovieCubit(instance()));
+  }}
 

@@ -13,9 +13,9 @@ class SearchMoviesWebServices {
     dio = Dio(baseOptions);
   }
 
-  Future<List<dynamic>> getSearchMovies(String name, int numberPage) async {
+  Future<List<dynamic>> getSearchMovies(String name) async {
     Response response = await dio.get("search/movie",
-        queryParameters: {"api_key": Conction.apiKye,"query": name, "page": numberPage},
+        queryParameters: {"api_key": Conction.apiKye,"query": name},
  );
      print(response.data["results"]);
 

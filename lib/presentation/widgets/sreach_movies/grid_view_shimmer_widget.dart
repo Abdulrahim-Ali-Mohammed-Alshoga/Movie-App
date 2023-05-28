@@ -9,6 +9,7 @@ class GridViewWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+
       cacheExtent: 100,
       shrinkWrap: true,
        controller: scrollController,
@@ -16,7 +17,7 @@ class GridViewWidget extends StatelessWidget {
       padding: EdgeInsets.zero,
       itemCount: isShimmer?8:movies.length,
       itemBuilder: (BuildContext context, index) {
-        return  isShimmer?GridTitleShimmerWidget():GridTitleWidget(
+        return  isShimmer?const GridTitleShimmerWidget():GridTitleWidget(
 
           rating: movies[index].rating,
           id: movies[index].id,

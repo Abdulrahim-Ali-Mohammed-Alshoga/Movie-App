@@ -3,10 +3,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/business_logic/cubit/now_playing_movies/now_playing_movies_cubit.dart';
 
+import '../../../../app/dependency_injection.dart';
 import '../../../../business_logic/cubit/now_playing_movies/now_playing_movies_state.dart';
+import '../../../../constants/arguments.dart';
 import '../../../../constants/font.dart';
 import '../../../../constants/image_asset_name.dart';
 import '../../../../constants/mycolor.dart';
+import '../../../../constants/screen_name.dart';
 import '../../../../data/models/movie.dart';
 import '../../list_movie_title_widget.dart';
 import '../shimmer/list_view_widget_shimmer.dart';
@@ -82,12 +85,13 @@ class ListViewNowPlayingMoviesWidget extends StatelessWidget {
                           isLastMovie
                               ? GestureDetector(
                                   onTap: () {
-                                    // Navigator.pushNamed(
-                                    //     context, ScreenName.listMoviesScreen,
-                                    //     arguments: ListMovies(
-                                    //         movies[ind],
-                                    //         genres[ind],
-                                    //         movieCubit[ind]));
+                                    Navigator.pushNamed(
+
+                                        context, ScreenName.listMoviesScreen,arguments: ListMoviesArgument(name: "Now playing"));
+                                        // arguments: ListMovies(
+                                        //     movies[ind],
+                                        //     genres[ind],
+                                        //     movieCubit[ind]));
                                   },
                                   child: Container(
                                     margin:

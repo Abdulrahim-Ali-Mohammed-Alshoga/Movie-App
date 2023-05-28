@@ -5,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/constants/image_asset_name.dart';
 
-import '../../business_logic/cubit/movies_by_genre/movie_cubit.dart';
-import '../../business_logic/cubit/movies_by_genre/movie_state.dart';
+import '../../business_logic/cubit/movies_by_genre/movie_by_genre_cubit.dart';
+import '../../business_logic/cubit/movies_by_genre/movie_by_genre_state.dart';
 import '../../constants/arguments.dart';
 import '../../constants/font.dart';
 import '../../constants/mycolor.dart';

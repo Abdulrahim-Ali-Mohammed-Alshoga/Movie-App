@@ -5,8 +5,8 @@ class SearchMoviesRepository{
 
   SearchMoviesWebServices searchMoviesWebServices;
   SearchMoviesRepository(this.searchMoviesWebServices);
-  Future<List<Movie>> getSearchMovies({required String name, required int numberPage}) async{
-    final movies = await searchMoviesWebServices.getSearchMovies(name, numberPage);
+  Future<List<Movie>> getSearchMovies({required String name}) async{
+    final movies = await searchMoviesWebServices.getSearchMovies(name);
     return movies.map((movie) => Movie.fromJson(movie)).toList();
   }
 }

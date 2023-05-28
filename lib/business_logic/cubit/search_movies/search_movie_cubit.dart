@@ -12,17 +12,17 @@ class SearchMovieCubit extends Cubit<SearchMovieState>{
   SearchMoviesRepository searchMoviesRepository;
   NetworkInfo networkInformation;
   List<Movie> movies=[];
-  int numberPage=1;
-  late String nameMovie;
-  getSearchMovie()async {
 
+
+  getSearchMovie({required String nameMovie})async {
+    movies.clear();
     if (await networkInformation.isConnected) {
       if (movies.isEmpty) {
         emit(SearchMovieLoading());
       }
       try {
-        movies.addAll(await searchMoviesRepository.getSearchMovies(name: nameMovie, numberPage: numberPage));
-        numberPage++;
+
+        movies.addAll(await searchMoviesRepository.getSearchMovies(name: nameMovie));
 
         emit(SearchMovieSuccess());
       } catch (e) {

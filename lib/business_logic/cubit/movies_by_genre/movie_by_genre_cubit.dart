@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:movies/business_logic/cubit/movies_by_genre/movie_state.dart';
+import 'package:movies/business_logic/cubit/movies_by_genre/movie_by_genre_state.dart';
 import 'package:movies/data/models/movie.dart';
 import 'package:movies/data/repository/movies_repository.dart';
 
@@ -12,8 +12,9 @@ class MoviesByGenreCubit extends Cubit<MoviesByGenreState> {
   MoviesByGenreRepository moviesByGenreRepository;
   List<Movie> movies = [];
   int numberPage=1;
-  int checkGenre=0;
+  int checkGenre=-1;
   void getMoviesByGenre(int? genre) async{
+
 if(checkGenre!=genre){
   movies.clear();
   numberPage=1;

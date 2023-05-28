@@ -3,9 +3,12 @@ import 'package:movies/constants/font.dart';
 import 'package:movies/constants/mycolor.dart';
 
 class ShowSnackBarWidget {
+  static GlobalKey<ScaffoldMessengerState> key =
+GlobalKey<ScaffoldMessengerState>();
   static checkInternetConnectivity(BuildContext context, int network) {
       final snackBar = SnackBar(
       duration: const Duration(seconds: 3),
+
       content:  Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -17,7 +20,19 @@ class ShowSnackBarWidget {
       behavior: SnackBarBehavior.floating,
       backgroundColor: network == 4 ? MyColors.grey : Colors.green,
     );
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-
+    //ScaffoldMessenger.of(context).showSnackBar(snackBar);
+key.currentState!.showSnackBar(snackBar);
   }
 }
+
+
+// class SnackBarGlobal {
+//   static GlobalKey<ScaffoldMessengerState> key =
+//   GlobalKey<ScaffoldMessengerState>();
+//
+//   static void show(String message) {
+//     key.currentState!
+//       ..hideCurrentSnackBar()
+//       ..showSnackBar(SnackBar(content: Text(message)));
+//   }
+// }

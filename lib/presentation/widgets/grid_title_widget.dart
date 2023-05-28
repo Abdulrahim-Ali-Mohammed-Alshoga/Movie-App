@@ -11,6 +11,7 @@ import '../../constants/image_network_name.dart';
 import '../../constants/mycolor.dart';
 import '../../constants/screen_name.dart';
 import '../../data/models/hive/movie_hive.dart';
+import 'cached_network_image_widget.dart';
 import 'icon_favorite_button_widget.dart';
 
 class GridTitleWidget extends StatelessWidget {
@@ -95,49 +96,51 @@ class GridTitleWidget extends StatelessWidget {
                         ),
                       ),
                     ),
-                    child: CachedNetworkImage(
-                      memCacheHeight: 600,
-
-                      // imageBuilder: (context, imageProvider) => Container(
-                      // decoration: BoxDecoration(
-                      // image: DecorationImage(
-                      // image: imageProvider,
-                      // fit: BoxFit.cover,
-                      // colorFilter:
-                      // ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
-                      // ),),
-                      maxHeightDiskCache: 600,
-                      imageUrl: image == null
-                          ? "لل"
-                          : ImageNetworkName.rootImages + image!,
-                      cacheKey: image,
-                      fit: BoxFit.fill,
-                      errorWidget: (context, url, error) {
-                        print(error);
-                        if (error.toString() ==
-                            "Failed host lookup: 'image.tmdb.org'") {
-                          return Center(
-                              child: Icon(
-                            Icons.wifi_off,
-                            size: 30.sp,
-                            color: MyColors.deepOrange,
-                          ));
-                        }
-                        return Center(
-                          child: Icon(
-                            Icons.image_not_supported,
-                            size: 30.sp,
-                          ),
-                        );
-                      },
-                      placeholder: (context, url) {
-                        return const Center(
-                          child: CircularProgressIndicator(
-                              color: MyColors.deepOrange),
-                        );
-                      },
-                    )),
-              ),
+                    child:
+    CachedNetworkImageWidget(image: image,)
+                    // CachedNetworkImage(
+                    //   memCacheHeight: 600,
+                    //
+                    //   // imageBuilder: (context, imageProvider) => Container(
+                    //   // decoration: BoxDecoration(
+                    //   // image: DecorationImage(
+                    //   // image: imageProvider,
+                    //   // fit: BoxFit.cover,
+                    //   // colorFilter:
+                    //   // ColorFilter.mode(Colors.red, BlendMode.colorBurn)),
+                    //   // ),),
+                    //   maxHeightDiskCache: 600,
+                    //   imageUrl: image == null
+                    //       ? "لل"
+                    //       : ImageNetworkName.rootImages + image!,
+                    //   cacheKey: image,
+                    //   fit: BoxFit.fill,
+                    //   errorWidget: (context, url, error) {
+                    //     print(error);
+                    //     if (error.toString() ==
+                    //         "Failed host lookup: 'image.tmdb.org'") {
+                    //       return Center(
+                    //           child: Icon(
+                    //         Icons.wifi_off,
+                    //         size: 30.sp,
+                    //         color: MyColors.deepOrange,
+                    //       ));
+                    //     }
+                    //     return Center(
+                    //       child: Icon(
+                    //         Icons.image_not_supported,
+                    //         size: 30.sp,
+                    //       ),
+                    //     );
+                    //   },
+                    //   placeholder: (context, url) {
+                    //     return const Center(
+                    //       child: CircularProgressIndicator(
+                    //           color: MyColors.deepOrange),
+                    //     );
+                    //   },
+                    // )),
+                ) ),
             )),
       ),
     );

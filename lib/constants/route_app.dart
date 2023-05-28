@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/app/dependency_injection.dart';
+import 'package:movies/business_logic/cubit/now_playing_movies/now_playing_movies_cubit.dart';
 import 'package:movies/business_logic/cubit/search_movies/search_movie_cubit.dart';
 import 'package:movies/constants/arguments.dart';
 import 'package:movies/data/web_services/search_movies_web_services.dart';
@@ -38,6 +39,7 @@ class RouteApp {
         );
       case ScreenName.navigationBarScreen:
         initUpcomingMovie();
+        initNowPlayingMovies();
         return MaterialPageRoute(
           builder: (context) {
             NavigationBarArgument navigationBarArgument=settings.arguments as NavigationBarArgument;
@@ -50,13 +52,11 @@ class RouteApp {
         );
       case ScreenName.listMoviesScreen:
         return MaterialPageRoute(
-
             builder: (context) {
-              ListMoviesArgument listMovies = settings.arguments as ListMoviesArgument;
+            ListMoviesArgument listMovies = settings.arguments as ListMoviesArgument;
         return  BlocProvider.value(
-          value: listMovies.movieCubit,
-          child: ListMoviesScreen(
-                listMovies: listMovies ),
+          value:instance<NowPlayingMovieCubit>(),
+          child: ListMoviesScreen(listMovies: listMovies),
         );
         }
                 );

@@ -12,15 +12,13 @@ class NowPlayingMovieCubit extends Cubit<NowPlayingMovieState> {
   NowPlayingMoviesRepository nowPlayingMoviesRepository;
   List<Movie> movies = [];
   int numberPage=1;
-  Future<void> getAllMovies({required int numberPage}) async{
+  Future<void> getAllMovies() async{
+    print(numberPage);
       if (movies.isEmpty) {
         emit(NowPlayingMovieLoading());
       }
       try {
         movies.addAll(await nowPlayingMoviesRepository.getNewPlayingMovies(numberPage));
-
-        print(movies);
-        print("numberPage");
         emit(NowPlayingMovieSuccess());
         numberPage+=1;
       } catch (e) {
@@ -28,7 +26,7 @@ class NowPlayingMovieCubit extends Cubit<NowPlayingMovieState> {
         if(e.toString()=="Connecting timed out [10000ms]"){
 
         }
-        else{emit(NowPlayingMovieFailure());}
+      //  else{emit(NowPlayingMovieFailure());}
 
       }
 

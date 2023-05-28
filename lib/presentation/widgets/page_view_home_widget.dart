@@ -17,6 +17,7 @@ import '../../constants/hive_name.dart';
 import '../../constants/image_network_name.dart';
 import '../../constants/screen_name.dart';
 import '../../data/models/hive/movie_hive.dart';
+import 'cached_network_image_widget.dart';
 import 'icon_favorite_button_widget.dart';
 
 class PageViewHomeWidget extends StatefulWidget {
@@ -89,39 +90,7 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
                   children: [
                     ClipRRect(
                         borderRadius: BorderRadius.circular(20).r,
-                        child: CachedNetworkImage(
-                            imageUrl: ImageNetworkName.rootImages +
-                                widget.movies[index].image!,
-                            height: 265.h,
-                            cacheKey: "${widget.movies[index].image}1",
-                            memCacheHeight: 600,
-                            maxHeightDiskCache: 600,
-                            errorWidget: (context, url, error) {
-                              if (error.toString() ==
-                                  "Failed host lookup: 'image.tmdb.org'") {
-                                return Center(
-                                    child: Icon(
-                                  Icons.wifi_off,
-                                  size: 70.sp,
-                                  color: MyColors.deepOrange,
-                                ));
-                              }
-                              //   print(error.);
-
-                              return Center(
-                                child: Icon(
-                                  Icons.image_not_supported,
-                                  size: 70.sp,
-                                ),
-                              );
-                            },
-                            placeholder: (context, url) {
-                              return const Center(
-                                child: CircularProgressIndicator(
-                                    color: MyColors.deepOrange),
-                              );
-                            },
-                            fit: BoxFit.cover)),
+                        child: CachedNetworkImageWidget(image: widget.movies[index].image,height: 265.h,)),
                     Positioned(
                         top: 220.h,
                         child: IconFavoriteButtonWidget(

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/business_logic/cubit/home/home_cubit.dart';
-import 'package:movies/business_logic/cubit/movies_by_genre/movie_cubit.dart';
+import 'package:movies/business_logic/cubit/movies_by_genre/movie_by_genre_cubit.dart';
 import 'package:movies/business_logic/cubit/search_movies/search_movie_cubit.dart';
 import 'package:movies/data/repository/movies_repository.dart';
 import 'package:movies/data/web_services/movies_by_genre_web_service.dart';
@@ -49,7 +49,8 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
     // TODO: implement initState
 
     page = [
-      MultiBlocProvider(providers: [
+      MultiBlocProvider(
+          providers: [
         BlocProvider<GenreCubit>(
           create: (context) => genreCubit,
         ),
@@ -60,7 +61,7 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
           create: (context) => HomeCubit(instance<NetworkInfo>()),
         ),
         BlocProvider<NowPlayingMovieCubit>(
-          create: (context) => nowPlayingMovieCubit,
+          create: (context) => instance<NowPlayingMovieCubit>(),
         ),
         BlocProvider<MoviesByGenreCubit>(
           create: (context) => moviesByGenreCubit,

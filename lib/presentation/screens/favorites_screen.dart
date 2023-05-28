@@ -25,31 +25,43 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     // box.clear();
   }
 
-  late List<MovieHive> movies;
+  List<MovieHive> movies = [];
   ScrollController scrollController = ScrollController();
+
   @override
   Widget build(BuildContext context) {
     BlocProvider.of<FavoriteCubit>(context).getMovieFavorite();
-    return BlocConsumer<FavoriteCubit,FavoriteState>(builder: (context, state) {
-      if(state is FavoriteSuccess||state is FavoriteAdd){
-        movies=BlocProvider.of<FavoriteCubit>(context).movieFavorites.reversed.toList();
-        return    GridViewWidget(scrollController: scrollController,movies: movies,);
-
-      }
-      else{
-       return EmptyWidget(
-          icon: Icons.favorite,
-          title: "Your Favorites is Empty",
-        );
-      }
-    }, listener: (context, state) {
-      if(state is FavoriteAdd){
-        scrollController.jumpTo(0);
-      }
-    },);
+    return BlocConsumer<FavoriteCubit, FavoriteState>(
+      builder: (context, state) {
+        movies = BlocProvider.of<FavoriteCubit>(context)
+            .movieFavorites
+            .reversed
+            .toList();
+        if (state is FavoriteSuccess || state is FavoriteAdd) {
+          return ScrollConfiguration(
+              behavior:
+                  const MaterialScrollBehavior().copyWith(overscroll: false),
+              child: GridViewWidget(
+                scrollController: scrollController,
+                movies: movies,
+              ));
+        } else {
+          return EmptyWidget(
+            icon: Icons.favorite,
+            title: "Your Favorites is Empty",
+          );
+        }
+      },
+      listener: (context, state) {
+        if (state is FavoriteAdd) {
+          print(movies.length);
+          if (movies.isNotEmpty) {
+            scrollController.jumpTo(0);
+          }
+        }
+      },
+    );
   }
-
-
 }
 // void initState() {
 //   listLength=getLength();

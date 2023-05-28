@@ -7,8 +7,8 @@ import '../../../business_logic/cubit/search_movies/search_movie_cubit.dart';
 import '../../../constants/font.dart';
 import '../../../constants/mycolor.dart';
 class AppBarSearchWidget extends StatefulWidget implements PreferredSizeWidget {
-  const AppBarSearchWidget({Key? key}) : super(key: key);
-
+   AppBarSearchWidget({Key? key,required this.controller}) : super(key: key);
+  TextEditingController controller;
   @override
   State<AppBarSearchWidget> createState() => _AppBarSearchWidgetState();
   @override
@@ -19,13 +19,12 @@ class AppBarSearchWidget extends StatefulWidget implements PreferredSizeWidget {
 class _AppBarSearchWidgetState extends State<AppBarSearchWidget> {
   bool isClean = true;
   FocusNode focusNode = FocusNode();
-  bool isSearch = true;TextEditingController controller = TextEditingController();
+  bool isSearch = true;
+  //
   getMovie(){
-    BlocProvider.of<SearchMovieCubit>(context).movies=[];
-     BlocProvider.of<SearchMovieCubit>(context).numberPage=1;
-     BlocProvider.of<SearchMovieCubit>(context).nameMovie=controller.text;
 
-     BlocProvider.of<SearchMovieCubit>(context).getSearchMovie();
+
+     BlocProvider.of<SearchMovieCubit>(context).getSearchMovie(nameMovie: widget.controller.text);
   }
 
   @override
@@ -38,7 +37,7 @@ class _AppBarSearchWidgetState extends State<AppBarSearchWidget> {
               splashRadius: 1,
               onPressed: () {
                 // widget.actionSearch(widget.controller.text);
-                controller.clear();
+                widget.controller.clear();
                 setState(() {
                   isClean = true;
                   isSearch = true;
@@ -52,7 +51,7 @@ class _AppBarSearchWidgetState extends State<AppBarSearchWidget> {
           IconButton(
               splashRadius: 1,
               onPressed: () {
-                if (controller.text.isNotEmpty) {
+                if (widget.controller.text.isNotEmpty) {
                   getMovie();
                   focusNode.unfocus();
                   setState(() {
@@ -72,13 +71,13 @@ class _AppBarSearchWidgetState extends State<AppBarSearchWidget> {
           }
         },
         onChanged: (v) {
-          if (isClean && controller.text.isNotEmpty) {
+          if (isClean && widget.controller.text.isNotEmpty) {
             setState(() {
               print(666622);
               isClean = false;
 
             });
-          } else if (controller.text.isEmpty) {
+          } else if (widget.controller.text.isEmpty) {
             setState(() {
               isClean = true;
             });
@@ -90,7 +89,7 @@ class _AppBarSearchWidgetState extends State<AppBarSearchWidget> {
             color: MyColors.white,
             fontFamily: MyFont.titleFont,
             fontSize: 16.sp),
-        controller: controller,
+        controller: widget.controller,
         autofocus: isSearch ? true : false,
         focusNode: focusNode,
         maxLines: 1,

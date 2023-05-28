@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies/business_logic/cubit/upcoming_movies/upcoming_movies_cubit.dart';
+import 'package:movies/business_logic/cubit/network/network_cubit.dart';
+import 'package:movies/business_logic/cubit/network/network_state.dart';
 import 'package:movies/constants/screen_name.dart';
-import 'package:movies/data/web_services/upcoming_movies_web_services.dart';
-
-import '../business_logic/cubit/genre/genre_cubit.dart';
-import '../business_logic/cubit/now_playing_movies/now_playing_movies_cubit.dart';
 import '../constants/arguments.dart';
 import '../constants/route_app.dart';
 import '../constants/theme_app.dart';
-import '../data/repository/genre_repository.dart';
-import '../data/repository/now_playing_movies_repository.dart';
-import '../data/repository/upcoming_movies_repository.dart';
-import '../data/web_services/genre_web_service.dart';
-import '../data/web_services/now_playing_movies_web_service.dart';
+import '../presentation/widgets/show_snack_bar.dart';
 
 class MyApp extends StatelessWidget {
   MyApp({super.key, required this.themeApp,required this.isSkip, required this.isHomeScreen});
@@ -22,43 +15,59 @@ class MyApp extends StatelessWidget {
   bool isHomeScreen;
   bool isSkip;
   ThemeApp themeApp;
-
+  final _inputKey = GlobalKey<FormState>();
+  final _messangerKey = GlobalKey<ScaffoldMessengerState>();
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
 
     return ScreenUtilInit(
-      designSize: Size(411.4, 843.4),
+      designSize: const Size(411.4, 843.4),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (BuildContext context, Widget? child) {
-        return MaterialApp(
-          debugShowCheckedModeBanner: false,
-          onGenerateRoute: RouteApp.generateRoute,
-          onGenerateInitialRoutes: (String initialRouteName) {
-            if(isHomeScreen) {
-              return [
-                RouteApp.generateRoute(RouteSettings(
-                    name: ScreenName.navigationBarScreen,
-                    arguments: NavigationBarArgument(isSkip: isHomeScreen)))!,
-              ];
-            }  else{
-              return [
-                RouteApp.generateRoute(const RouteSettings(
-                    name: ScreenName.onboardScreen,
-                ))!,
-              ];
-            }
+        return BlocListener<NetworkCubit,NetworkState>(
+          listener: (contextt, state) {
+if(state is NetworkIsConnected)
+  {
+   // checkInternetConnectivity(contextt,4);
+    ShowSnackBarWidget.checkInternetConnectivity(context, 0);
+  }
+else if(state is NetworkIsNotConnected)
+{
+  ShowSnackBarWidget.checkInternetConnectivity(context,4);
+}
           },
-          // initialRoute:
-          // isHomeScreen ? ScreenName.navigationBarScreen : ScreenName
-          //     .onboardScreen,
-          title: "Cinema Batool",
-          color: Colors.black,
-          theme: ThemeApp().lightTheme,
+          child: MaterialApp(
+            scaffoldMessengerKey: ShowSnackBarWidget.key,
+            debugShowCheckedModeBanner: false,
+            onGenerateRoute: RouteApp.generateRoute,
+            onGenerateInitialRoutes: (String initialRouteName) {
+              if(isHomeScreen) {
+                return [
+                  RouteApp.generateRoute(RouteSettings(
+                      name: ScreenName.navigationBarScreen,
+                      arguments: NavigationBarArgument(isSkip: isHomeScreen)))!,
+                ];
+              }  else{
+                return [
+                  RouteApp.generateRoute(const RouteSettings(
+                      name: ScreenName.onboardScreen,
+                  ))!,
+                ];
+              }
+            },
+            // initialRoute:
+            // isHomeScreen ? ScreenName.navigationBarScreen : ScreenName
+            //     .onboardScreen,
+            title: "Cinema Batool",
+            color: Colors.black,
+            theme: ThemeApp().lightTheme,
+          ),
         );
       },
     );
   }
 }
+

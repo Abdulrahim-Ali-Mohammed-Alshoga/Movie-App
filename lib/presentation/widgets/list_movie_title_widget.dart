@@ -11,6 +11,7 @@ import '../../constants/arguments.dart';
 import '../../constants/image_network_name.dart';
 import '../../constants/mycolor.dart';
 import '../../data/models/hive/movie_hive.dart';
+import 'cached_network_image_widget.dart';
 import 'icon_favorite_button_widget.dart';
 class ListMovieTitleWidget extends StatelessWidget {
    ListMovieTitleWidget({Key? key,required this.movie}) : super(key: key);
@@ -37,39 +38,7 @@ Movie movie;
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    CachedNetworkImage(
-                      memCacheHeight: 600,
-                      maxHeightDiskCache: 600,
-                      imageUrl: ImageNetworkName.rootImages+movie.image!,
-                     cacheKey:movie.image,
-                      fit: BoxFit.fill,
-                      errorWidget: (context, url, error) {
-                        print(error);
-                        if (error.toString() ==
-                            "Failed host lookup: 'image.tmdb.org'"
-                        )
-                        {
-                          return  Center(
-                              child: Icon(
-                                Icons.wifi_off,
-                                size: 30.sp,
-                                color: MyColors.deepOrange,
-                              ));
-                        }
-                        return  Center(
-                          child: Icon(
-                            Icons.image_not_supported,
-                            size: 30.sp,
-                          ),
-                        );
-                      },
-                      placeholder: (context, url) {
-                        return const Center(
-                          child:  CircularProgressIndicator(
-                              color: MyColors.deepOrange
-                          ),
-                        );},
-                    ),
+                    CachedNetworkImageWidget(image: movie.image!),
                     Positioned.fill(
                       bottom: 5,
                     right: 7,

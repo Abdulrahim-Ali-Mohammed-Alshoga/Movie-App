@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/business_logic/cubit/genre/genre_cubit.dart';
-import 'package:movies/business_logic/cubit/movies_by_genre/movie_state.dart';
+import 'package:movies/business_logic/cubit/movies_by_genre/movie_by_genre_state.dart';
 import 'package:movies/constants/image_asset_name.dart';
 import 'package:movies/constants/mycolor.dart';
 import 'package:movies/constants/screen_name.dart';
@@ -14,7 +14,7 @@ import 'package:movies/presentation/widgets/page_view_home_widget.dart';
 import 'package:movies/presentation/widgets/home/shimmer/list_view_widget_shimmer.dart';
 import 'package:movies/presentation/widgets/home/shimmer/page_view_widget_shimmer.dart';
 
-import '../../business_logic/cubit/movies_by_genre/movie_cubit.dart';
+import '../../business_logic/cubit/movies_by_genre/movie_by_genre_cubit.dart';
 import '../../constants/arguments.dart';
 import '../../constants/font.dart';
 import '../../data/models/genre.dart';
@@ -119,9 +119,9 @@ genres=widget.genres;
                       ),
                       GestureDetector(
                           onTap: () {
-                            Navigator.pushNamed(context, ScreenName.listMoviesScreen,
-                                arguments: ListMoviesArgument(movies: movies[ind],
-                                  genre:   genres[ind], movieCubit: movieCubit[ind]));
+                            // Navigator.pushNamed(context, ScreenName.listMoviesScreen,
+                            //     arguments: ListMoviesArgument(movies: movies[ind],
+                            //       genre:   genres[ind], movieCubit: movieCubit[ind]));
                           },
                           child: const Icon(
                             Icons.keyboard_arrow_right,
@@ -174,12 +174,13 @@ genres=widget.genres;
                                   isLastMovie
                                       ? GestureDetector(
                                     onTap: () {
-                                      Navigator.pushNamed(
-                                          context, ScreenName.listMoviesScreen,
-                                          arguments: ListMoviesArgument(
-                                           movies:    movies[ind],
-                                            genre:   genres[ind],
-                                              movieCubit:  movieCubit[ind]));
+                                      // Navigator.pushNamed(
+                                      //     // context, ScreenName.listMoviesScreen,
+                                      //     // arguments: ListMoviesArgument(
+                                      //     //  movies:    movies[ind],
+                                      //     //   genre:   genres[ind],
+                                      //     //     movieCubit:  movieCubit[ind])
+                                      // );
                                     },
                                     child: Container(
                                       margin: EdgeInsets.symmetric(

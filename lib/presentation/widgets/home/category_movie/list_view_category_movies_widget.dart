@@ -3,8 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/business_logic/cubit/genre/genre_cubit.dart';
 import 'package:movies/business_logic/cubit/genre/genre_state.dart';
-import 'package:movies/business_logic/cubit/movies_by_genre/movie_cubit.dart';
-import 'package:movies/business_logic/cubit/movies_by_genre/movie_state.dart';
+import 'package:movies/business_logic/cubit/movies_by_genre/movie_by_genre_cubit.dart';
+import 'package:movies/business_logic/cubit/movies_by_genre/movie_by_genre_state.dart';
 import 'package:movies/constants/screen_name.dart';
 import 'package:movies/data/models/genre.dart';
 
@@ -80,15 +80,17 @@ class _ListViewCategoryMoviesWidgetState
                                 print(selected?.id);
                                 select = selected;
                                 BlocProvider.of<MoviesByGenreCubit>(context)
-                                    .getMoviesByGenre(selected?.id);
+                                    .getMoviesByGenre(selected!.name=='All'?0:selected.id);
                               });
                             }),
                       );
                     },
                     listener: (context, state) {
-                      if (state is GenreInitialState) {
-                       Navigator.pushNamed(context, ScreenName.onboardScreen);
-                      }
+
+if(state is GenreSuccess){BlocProvider.of<MoviesByGenreCubit>(context).getMoviesByGenre(0);}
+
+
+
                     },
                   )
                 ],
@@ -175,7 +177,6 @@ class _ListViewCategoryMoviesWidgetState
                     },
                   );
                 }
-
                 if (state is MoviesByGenreInitialState) {
                   return Center(
                     child: SizedBox(
