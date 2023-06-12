@@ -1,5 +1,5 @@
 import 'package:movies/data/models/movie.dart';
-import 'package:movies/data/web_services/movies_by_genre_web_service.dart';
+import 'package:movies/data/web_services/genre_movies_web_service.dart';
 
 import '../web_services/upcoming_movies_web_services.dart';
 

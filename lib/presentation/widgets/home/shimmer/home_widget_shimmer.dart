@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/presentation/widgets/home/shimmer/page_view_widget_shimmer.dart';
-import 'package:shimmer/shimmer.dart';
+import '../../../../constants/color_manager.dart';
 import '../title_wdget_home.dart';
 import 'list_view_widget_shimmer.dart';
 
@@ -28,9 +28,9 @@ class _HomeWidgetShimmerState extends State<HomeWidgetShimmer> {
           ),
           SizedBox(
             height: 430.h,
-            child: Padding(
-              padding: const EdgeInsets.only(left: 15),
-              child: const PageViewWidgetShimmer(),
+            child: const Padding(
+              padding: EdgeInsets.only(left: 15),
+              child: PageViewWidgetShimmer(),
             ),
           ),
           Padding(
@@ -41,11 +41,11 @@ class _HomeWidgetShimmerState extends State<HomeWidgetShimmer> {
           Container(
               height: 180,
               margin: EdgeInsets.only(top: 10.h, bottom: 15.h,left: 15),
-              decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
+              decoration: const BoxDecoration(
+                  borderRadius: BorderRadius.only(
                       bottomLeft: Radius.circular(10),
                       topLeft: Radius.circular(10)),
-                  color: Colors.grey.withOpacity(.22)),
+                  color: ColorManager.greyOpacity22),
               child: const ListViewWidgetShimmer()),
         ],
       ),

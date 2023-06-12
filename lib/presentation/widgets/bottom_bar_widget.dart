@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:movies/constants/mycolor.dart';
+import 'package:movies/constants/color_manager.dart';
 import 'package:movies/presentation/screens/home_screen.dart';
 import 'package:movies/presentation/screens/search_movies_screen.dart';
-
 import '../../constants/font.dart';
 class BottomBarWidget extends StatefulWidget {
   const BottomBarWidget({Key? key}) : super(key: key);
@@ -41,7 +40,7 @@ class _BottomBarWidgetState extends State<BottomBarWidget> {
         ),
         child: BottomAppBar(
             elevation: 0.0,
-            color: Colors.transparent,
+            color: Colors.yellow,
             child: SizedBox(
               height: 75,
               width: MediaQuery.of(context).size.width,
@@ -161,8 +160,8 @@ class IconBottomBar extends StatelessWidget {
                 icon,
                 size: 30,
                 color: selected
-                    ?  MyColors.white.withOpacity(0.6)
-                    : Colors.grey,
+                    ?  ColorManager.whiteOpacity60
+                    : ColorManager.grey,
               ),
             ),
           ),

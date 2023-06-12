@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/constants/color_manager.dart';
 import 'package:movies/presentation/widgets/shimmer_widget.dart';
-import 'package:shimmer/shimmer.dart';
 
 class PageViewWidgetShimmer extends StatefulWidget {
   const PageViewWidgetShimmer({Key? key}) : super(key: key);
@@ -58,7 +57,7 @@ class _PageViewWidgetShimmerState extends State<PageViewWidgetShimmer> {
               margin: EdgeInsets.only(top: top, bottom: 10.h, right: 30.w),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.r),
-                color: Colors.black.withOpacity(.2),
+                color: ColorManager.blackOpacity20,
               ),
               child: Stack(
                 alignment: Alignment.bottomRight,
@@ -66,25 +65,25 @@ class _PageViewWidgetShimmerState extends State<PageViewWidgetShimmer> {
                   ShimmerWidget(
                       circular: 20.r,
                       height: 265.h,
-                      color: Colors.grey.withOpacity(.4)),
+                      color: ColorManager.greyOpacity40),
                   const Positioned(
                     bottom: 15,
                     right: 15,
                     child: Icon(
-                        color: Colors.red, size: 25, Icons.favorite_border),
+                        color: ColorManager.red, size: 25, Icons.favorite_border),
                   ),
                 ],
               ),
             ),
             ShimmerWidget(
-              color: Colors.grey.withOpacity(.4),
+              color: ColorManager.greyOpacity40,
               margin: EdgeInsets.only(top: 5, right: 30.w),
               height: 10,
               circular: 4,
             ),
             ShimmerWidget(
               margin: EdgeInsets.only(right: 30.w, top: 10),
-              color: Colors.grey.withOpacity(.4),
+              color: ColorManager.greyOpacity40,
               height: 10,
               circular: 4,
             ),

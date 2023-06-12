@@ -1,4 +1,3 @@
-import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/business_logic/cubit/search_movies/search_movie_state.dart';
 import 'package:movies/data/models/movie.dart';

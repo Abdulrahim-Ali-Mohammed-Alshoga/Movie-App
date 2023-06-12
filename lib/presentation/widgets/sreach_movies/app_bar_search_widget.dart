@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies/data/models/movie.dart';
-
+import 'package:movies/constants/color_manager.dart';
 import '../../../business_logic/cubit/search_movies/search_movie_cubit.dart';
 import '../../../constants/font.dart';
-import '../../../constants/mycolor.dart';
 class AppBarSearchWidget extends StatefulWidget implements PreferredSizeWidget {
    AppBarSearchWidget({Key? key,required this.controller}) : super(key: key);
   TextEditingController controller;
@@ -61,7 +59,7 @@ class _AppBarSearchWidgetState extends State<AppBarSearchWidget> {
               },
               icon: const Icon(
                 Icons.search,
-                color: MyColors.white,
+                color: ColorManager.white,
               )),
       ],
       title: TextFormField(
@@ -84,9 +82,9 @@ class _AppBarSearchWidgetState extends State<AppBarSearchWidget> {
           }
         },
         keyboardType: TextInputType.text,
-        cursorColor: Colors.white,
+        cursorColor: ColorManager.white,
         style: TextStyle(
-            color: MyColors.white,
+            color: ColorManager.white,
             fontFamily: MyFont.titleFont,
             fontSize: 16.sp),
         controller: widget.controller,
@@ -109,7 +107,7 @@ class _AppBarSearchWidgetState extends State<AppBarSearchWidget> {
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide.none,
           ),
-          hintStyle: TextStyle(color: MyColors.grey),
+          hintStyle: TextStyle(color: ColorManager.grey),
           hintText: "Search",
         ),
       ),

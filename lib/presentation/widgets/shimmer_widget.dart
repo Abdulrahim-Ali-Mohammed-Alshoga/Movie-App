@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shimmer/shimmer.dart';
+import '../../constants/color_manager.dart';
 
 class ShimmerWidget extends StatelessWidget {
   ShimmerWidget(
@@ -18,8 +19,8 @@ class ShimmerWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Shimmer.fromColors(
       period: const Duration(seconds: 3),
-      highlightColor: Colors.grey,
-      baseColor: const Color(0xfff0f0f0),
+      highlightColor: ColorManager.grey,
+      baseColor: ColorManager.whiteDark,
       child: Container(
         height: height,
         width: width,

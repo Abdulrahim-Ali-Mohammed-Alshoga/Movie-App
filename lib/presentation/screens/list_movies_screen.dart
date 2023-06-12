@@ -1,12 +1,12 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/business_logic/cubit/now_playing_movies/now_playing_movies_cubit.dart';
 import 'package:movies/business_logic/cubit/now_playing_movies/now_playing_movies_state.dart';
-import 'package:movies/presentation/widgets/grid_title_widget.dart';
 import 'package:movies/presentation/widgets/sreach_movies/grid_view_shimmer_widget.dart';
+import '../../business_logic/cubit/upcoming_movies/upcoming_movies_cubit.dart';
+import '../../business_logic/cubit/upcoming_movies/upcoming_movies_state.dart';
 import '../../constants/arguments.dart';
 import '../../constants/font.dart';
 import '../../data/models/movie.dart';
@@ -24,7 +24,7 @@ class _ListMoviesScreenState extends State<ListMoviesScreen> {
   late List<Movie> movies;
   bool isLoading = true;
   Future getMovies() async {
-    BlocProvider.of<NowPlayingMovieCubit>(context)
+    BlocProvider.of<UpcomingMovieCubit>(context)
         .getAllMovies();
   }
   @override
@@ -62,20 +62,19 @@ class _ListMoviesScreenState extends State<ListMoviesScreen> {
     return Scaffold(
         appBar: AppBar(
           title: Text(
-            widget.listMovies.name,
+            widget.listMovies.namePage,
            // widget.listMovies.genre.name,
-            style: TextStyle(fontFamily: MyFont.titleFont),
+            style: const TextStyle(fontFamily: MyFont.titleFont),
           ),
           centerTitle: true,
         ),
-        body: BlocConsumer<NowPlayingMovieCubit, NowPlayingMovieState>(
+        body: BlocConsumer<UpcomingMovieCubit, UpcomingMovieState>(
           listener: (context, state) {
               isLoading = true;
-              print("llllllllllllllllll");
           },
           builder: (context, state) {
-            if (state is NowPlayingMovieSuccess ) {
-              movies = BlocProvider.of<NowPlayingMovieCubit>(context).movies;
+            if (state is UpcomingMovieSuccess ) {
+              movies = BlocProvider.of<UpcomingMovieCubit>(context).movies;
               return
                 Column(
                   children: [

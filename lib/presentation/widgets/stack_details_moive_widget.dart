@@ -3,9 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/data/models/movie.dart';
-
 import '../../constants/font.dart';
-import '../../constants/mycolor.dart';
+import '../../constants/color_manager.dart';
 
 class StackDetailsMovieWidget extends StatelessWidget {
   StackDetailsMovieWidget({Key? key, required this.movie}) : super(key: key);
@@ -18,7 +17,7 @@ class StackDetailsMovieWidget extends StatelessWidget {
       height: 475.h,
       width: double.infinity,
       decoration: const BoxDecoration(
-        color: MyColors.black,
+        color: ColorManager.black,
       ),
       child: Stack(
 
@@ -36,7 +35,7 @@ class StackDetailsMovieWidget extends StatelessWidget {
                       child: Icon(
                     Icons.wifi_off,
                     size: 70.sp,
-                    color: MyColors.deepOrange,
+                    color: ColorManager.deepOrange,
                   ));
                 }
                 //   print(error.);
@@ -51,14 +50,14 @@ class StackDetailsMovieWidget extends StatelessWidget {
               placeholder: (context, url) {
                 return const Center(
                   child:
-                      CircularProgressIndicator(color: MyColors.deepOrange),
+                      CircularProgressIndicator(color: ColorManager.deepOrange),
                 );
               },
               fit: BoxFit.cover),
           Opacity(
             opacity: .5,
             child: Container(
-              color: MyColors.black,
+              color: ColorManager.black,
             ),
           ),
           Positioned(
@@ -69,7 +68,7 @@ class StackDetailsMovieWidget extends StatelessWidget {
             child: Container(
               decoration: BoxDecoration(boxShadow: [
                 BoxShadow(
-                    color: MyColors.black,
+                    color: ColorManager.black,
                     blurRadius: 55,
                     spreadRadius: 55,
                     offset: Offset(0.0, 30.0.h))
@@ -88,7 +87,7 @@ bottom: 10,
               child: Hero(
                 tag: movie.id,
                 child: Container(
-                  color: MyColors.black,
+                  color: ColorManager.black,
                   child: CachedNetworkImage(
                     imageUrl: movie.image!,
                     key: UniqueKey(),
@@ -104,7 +103,7 @@ bottom: 10,
                             child: Icon(
                           Icons.wifi_off,
                           size: 70.sp,
-                          color: MyColors.deepOrange,
+                          color: ColorManager.deepOrange,
                         ));
                       }
                       return Center(
@@ -118,7 +117,7 @@ bottom: 10,
                       checkImage = true;
                       return const Center(
                         child: CircularProgressIndicator(
-                            color: MyColors.deepOrange),
+                            color: ColorManager.deepOrange),
                       );
                     },
                   ),
@@ -140,7 +139,7 @@ bottom: 10,
                     child: AutoSizeText(movie.title!,
                         maxLines: 2,
                         style: TextStyle(
-                            color: MyColors.white,
+                            color: ColorManager.white,
                             fontSize: 20.sp,
                             fontFamily: MyFont.titleFont)),
                   ),
@@ -148,13 +147,13 @@ bottom: 10,
                     padding: EdgeInsets.only(top: 10.h, left: 8.w),
                     child: Row(
                       children: [
-                        Icon(Icons.event, color: Colors.grey, size: 15.sp),
+                        Icon(Icons.event, color: ColorManager.grey, size: 15.sp),
                         SizedBox(
                           width: 10.w,
                         ),
                         Text("movie.productionData!",
                             style: TextStyle(
-                              color: Colors.grey,
+                              color: ColorManager.grey,
                               fontSize: 15.sp,
                             )),
                       ],
@@ -164,13 +163,13 @@ bottom: 10,
                     padding: EdgeInsets.only(top: 3.h, left: 8.w),
                     child: Row(
                       children: [
-                        Icon(Icons.language, color: Colors.grey, size: 15.sp),
+                        Icon(Icons.language, color: ColorManager.grey, size: 15.sp),
                         SizedBox(
                           width: 10.w,
                         ),
                         Text("movie.language!",
                             style: TextStyle(
-                              color: Colors.grey,
+                              color: ColorManager.grey,
                               fontSize: 15.sp,
                             )),
                       ],
@@ -181,13 +180,13 @@ bottom: 10,
                     child: Row(
                       children: [
                         Icon(Icons.remove_red_eye,
-                            color: Colors.grey, size: 15.w),
+                            color: ColorManager.grey, size: 15.w),
                         SizedBox(
                           width: 10.w,
                         ),
                         Text("movie.watch.toInt().toString()",
                             style: TextStyle(
-                              color: Colors.grey,
+                              color: ColorManager.grey,
                               fontSize: 15.sp,
                             )),
                       ],
@@ -207,7 +206,7 @@ bottom: 10,
                   icon: Icon(
                     Icons.arrow_back_ios,
                     size: 24.h,
-                    color: MyColors.white,
+                    color: ColorManager.white,
                   ))),
         ],
       ),

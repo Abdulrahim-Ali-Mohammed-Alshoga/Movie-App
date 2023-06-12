@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
-
 import 'package:movies/constants/font.dart';
-import 'package:movies/constants/mycolor.dart';
-
 import 'package:movies/presentation/widgets/text_form_field_widget.dart';
-
 import '../../constants/arguments.dart';
+import '../../constants/color_manager.dart';
 import '../../constants/hive_name.dart';
 import '../../constants/screen_name.dart';
 
@@ -72,7 +68,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                   style: TextStyle(
                       fontSize: 25.sp,
                       fontFamily: MyFont.mainFont,
-                      color: MyColors.white),
+                      color: ColorManager.white),
                 ),
                 SizedBox(height: 10.h),
                 Text(
@@ -80,7 +76,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                   style: TextStyle(
                       fontSize: 15.sp,
                       fontFamily: MyFont.mainFont,
-                      color: MyColors.grey),
+                      color: ColorManager.grey),
                 ),
                 SizedBox(height: 60.h),
                 TextFormFieldWidget(
@@ -109,7 +105,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                         child: Icon(
                           isPassword ? Icons.visibility : Icons.visibility_off,
                           // size: 20,
-                          color: MyColors.white,
+                          color: ColorManager.white,
                         )),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -148,7 +144,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                           child: Text(
                         "Already have an account ! ",
                         style: TextStyle(
-                          color: MyColors.white,
+                          color: ColorManager.white,
                           fontSize: 12,
                           fontFamily: MyFont.mainFont,
                         ),
@@ -161,7 +157,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                         },
                         child: const Text(" SignIn",
                             style: TextStyle(
-                              color: MyColors.deepOrange,
+                              color: ColorManager.deepOrange,
                               fontSize: 12,
                               fontFamily: MyFont.mainFont,
                             )),
@@ -178,7 +174,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                       },
                       child: Text(
                         style: TextStyle(
-                          color: MyColors.white,
+                          color: ColorManager.white,
                           fontSize: 12.sp,
                           fontFamily: MyFont.mainFont,
                         ),
@@ -196,7 +192,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                     borderRadius: BorderRadius.circular(10),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: MyColors.deepOrange),
+                            backgroundColor: ColorManager.deepOrange),
                         onPressed: () {
                           personalInfoFill();
                         },
@@ -206,7 +202,7 @@ class _PersonalInformationScreenState extends State<PersonalInformationScreen> {
                             style: TextStyle(
                                 fontSize: 25.sp,
                                 fontFamily: MyFont.mainFont,
-                                color: MyColors.white),
+                                color: ColorManager.white),
                           ),
                         )),
                   ),

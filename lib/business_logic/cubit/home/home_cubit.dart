@@ -19,7 +19,7 @@ class HomeCubit extends Cubit<HomeState> {
       try {
         emit(HomeSuccess());
         BlocProvider.of<UpcomingMovieCubit>(context)
-            .getAllMovies(numberPage: 1);
+            .getAllMovies();
         BlocProvider.of<GenreCubit>(context).getAllGenre();
         BlocProvider.of<NowPlayingMovieCubit>(context)
             .getAllMovies();

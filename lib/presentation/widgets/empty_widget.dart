@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import '../../constants/color_manager.dart';
 import '../../constants/font.dart';
-import '../../constants/mycolor.dart';
 class EmptyWidget extends StatelessWidget {
    EmptyWidget({Key? key,required this.icon,required this.title}) : super(key: key);
 IconData icon;
@@ -16,7 +15,7 @@ String title;
           children: [
              Icon(
               icon,
-              color: MyColors.white,
+              color: ColorManager.white,
               size: 37,
             ),
             SizedBox(
@@ -26,7 +25,7 @@ String title;
               title,
               style: TextStyle(
                   fontFamily: MyFont.titleFont,
-                  color: MyColors.white,
+                  color: ColorManager.white,
                   fontSize: 22.sp),
             )
           ]),

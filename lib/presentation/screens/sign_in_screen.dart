@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
-import 'package:movies/business_logic/cubit/auth_cubit.dart';
 import 'package:movies/constants/screen_name.dart';
-import 'package:movies/presentation/screens/home_screen.dart';
 import '../../constants/arguments.dart';
+import '../../constants/color_manager.dart';
 import '../../constants/font.dart';
 import '../../constants/hive_name.dart';
-import '../../constants/mycolor.dart';
 import '../widgets/text_form_field_widget.dart';
 
 class SingInScreen extends StatefulWidget {
@@ -69,19 +66,19 @@ class _SingInScreenState extends State<SingInScreen> {
                       style: TextStyle(
                           fontSize: 30.sp,
                           fontFamily: MyFont.mainFont,
-                          color: MyColors.white)),
+                          color: ColorManager.white)),
                   TextSpan(
                       text: "Batool",
                       style: TextStyle(
                           fontSize: 30.sp,
                           fontFamily: MyFont.mainFont,
-                          color: MyColors.deepOrange)),
+                          color: ColorManager.deepOrange)),
                 ])),
                 SizedBox(height: 50.h),
                 Text(
                   "Hello Again !",
                   style: TextStyle(
-                      color: MyColors.white,
+                      color: ColorManager.white,
                       fontFamily: MyFont.titleFont,
                       fontSize: 25.sp),
                 ),
@@ -91,7 +88,7 @@ class _SingInScreenState extends State<SingInScreen> {
                   style: TextStyle(
                       fontSize: 12.sp,
                       fontFamily: MyFont.mainFont,
-                      color: MyColors.grey),
+                      color: ColorManager.grey),
                 ),
                 SizedBox(height: 60.h),
                 TextFormFieldWidget(
@@ -122,7 +119,7 @@ class _SingInScreenState extends State<SingInScreen> {
                         child: Icon(
                           isPassword ? Icons.visibility : Icons.visibility_off,
                           // size: 20,
-                          color: MyColors.white,
+                          color: ColorManager.white,
                         )),
                     validator: (value) {
                       if (value!.isEmpty) {
@@ -142,7 +139,7 @@ class _SingInScreenState extends State<SingInScreen> {
                         child: Text(
                       "Don't have an account? ",
                       style: TextStyle(
-                        color: MyColors.white,
+                        color: ColorManager.white,
                         fontSize: 14.sp,
                         fontFamily: MyFont.mainFont,
                       ),
@@ -154,7 +151,7 @@ class _SingInScreenState extends State<SingInScreen> {
                       },
                       child: Text("SignUp",
                           style: TextStyle(
-                            color: MyColors.deepOrange,
+                            color: ColorManager.deepOrange,
                             fontSize: 14.sp,
                             fontFamily: MyFont.mainFont,
                           )),
@@ -170,7 +167,7 @@ class _SingInScreenState extends State<SingInScreen> {
                     borderRadius: BorderRadius.circular(10),
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                            backgroundColor: MyColors.deepOrange),
+                            backgroundColor: ColorManager.deepOrange),
                         onPressed: () {
                           singInFill();
                         },
@@ -180,7 +177,7 @@ class _SingInScreenState extends State<SingInScreen> {
                             style: TextStyle(
                                 fontSize: 25.sp,
                                 fontFamily: MyFont.mainFont,
-                                color: MyColors.white),
+                                color: ColorManager.white),
                           ),
                         )),
                   ),

@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
+import '../../../constants/color_manager.dart';
 import '../../../constants/font.dart';
-import '../../../constants/mycolor.dart';
 class TextWidgetHome extends StatelessWidget {
    TextWidgetHome({Key? key,required this.text}) : super(key: key);
 String text;
@@ -13,7 +12,7 @@ String text;
       style: TextStyle(
           fontSize: 16.sp,
           fontFamily: MyFont.titleFont,
-          color: MyColors.white),
+          color: ColorManager.white),
     );
   }
 }

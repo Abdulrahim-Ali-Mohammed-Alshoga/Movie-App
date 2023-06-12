@@ -1,19 +1,13 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/constants/image_asset_name.dart';
-
-import '../../business_logic/cubit/movies_by_genre/movie_by_genre_cubit.dart';
-import '../../business_logic/cubit/movies_by_genre/movie_by_genre_state.dart';
-import '../../constants/arguments.dart';
+import '../../business_logic/cubit/movies_by_genre/genre_movies_cubit.dart';
+import '../../business_logic/cubit/movies_by_genre/genre_movies_state.dart';
 import '../../constants/font.dart';
-import '../../constants/mycolor.dart';
-import '../../constants/screen_name.dart';
+import '../../constants/color_manager.dart';
 import '../../data/models/movie.dart';
-import '../widgets/app_bar_widget.dart';
-import '../widgets/list_view_movies_widget.dart';
 import '../widgets/page_view_home_widget.dart';
 import '../widgets/show_snack_bar.dart';
 
@@ -113,17 +107,17 @@ class _SecandState extends State<Secand> {
       //             fontSize: 30.sp)),
       //   ]),
       // )),
-      body: BlocBuilder<MoviesByGenreCubit, MoviesByGenreState>(
+      body: BlocBuilder<GenreMoviesCubit, GenreMoviesState>(
         builder: (context, state) {
-          if (state is MoviesByGenreLoading) {
+          if (state is GenreMoviesLoading) {
             return const Center(
               child: CircularProgressIndicator(
-                color: MyColors.deepOrange,
+                color: ColorManager.deepOrange,
               ),
             );
           }
-          if (state is MoviesByGenreSuccess) {
-            movies = BlocProvider.of<MoviesByGenreCubit>(context).movies;
+          if (state is GenreMoviesSuccess) {
+            movies = BlocProvider.of<GenreMoviesCubit>(context).movies;
             print("555");
             return Padding(
               padding: EdgeInsets.only(top: 10.h),
@@ -139,7 +133,7 @@ class _SecandState extends State<Secand> {
                           style: TextStyle(
                               fontSize: 16.sp,
                               fontFamily: MyFont.titleFont,
-                              color: MyColors.white),
+                              color: ColorManager.white),
                         ),
                       ),
                     ),
@@ -157,7 +151,7 @@ class _SecandState extends State<Secand> {
                             style: TextStyle(
                                 fontSize: 16.sp,
                                 fontFamily: MyFont.titleFont,
-                                color: MyColors.white),
+                                color: ColorManager.white),
                           ),
                           GestureDetector(
                               onTap: () {
@@ -166,7 +160,7 @@ class _SecandState extends State<Secand> {
                               },
                               child: const Icon(
                                 Icons.keyboard_arrow_right,
-                                color: MyColors.white,
+                                color: ColorManager.white,
                                 size: 27,
                               ))
                         ],
@@ -182,7 +176,7 @@ class _SecandState extends State<Secand> {
             );
           }
 
-          if (state is MoviesByGenreInitialState) {
+          if (state is GenreMoviesInitialState) {
             return Center(
               child: SizedBox(
                 height: .1.h,

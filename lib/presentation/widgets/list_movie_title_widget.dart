@@ -1,15 +1,12 @@
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/constants/font.dart';
 import 'package:movies/constants/screen_name.dart';
 import 'package:movies/data/models/movie.dart';
-
 import '../../constants/arguments.dart';
-import '../../constants/image_network_name.dart';
-import '../../constants/mycolor.dart';
+import '../../constants/color_manager.dart';
 import '../../data/models/hive/movie_hive.dart';
 import 'cached_network_image_widget.dart';
 import 'icon_favorite_button_widget.dart';
@@ -31,7 +28,7 @@ Movie movie;
               margin: EdgeInsets.only(left: 12.r),
               width: 130.w,
               decoration: BoxDecoration(
-                  color: Colors.grey.withOpacity(.2),
+                  color: ColorManager.greyOpacity20,
                   borderRadius: BorderRadius.circular(20.r)),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(20.r),
@@ -68,15 +65,15 @@ Movie movie;
                       AutoSizeText(movie.title!,
                         maxLines: 2,
                         style: TextStyle(
-                            fontSize: 16.sp, fontFamily: MyFont.titleFont,color: MyColors.white)
+                            fontSize: 16.sp, fontFamily: MyFont.titleFont,color: ColorManager.white)
                       ),
                       Padding(
                         padding:  EdgeInsets.symmetric(vertical: 4.h),
                         child: RatingBarIndicator(
-                          rating:movie.rating/2,unratedColor: Colors.grey,
+                          rating:movie.rating/2,unratedColor: ColorManager.grey,
                           itemBuilder: (context, index) => const Icon(
                             Icons.star,
-                            color: Colors.amber,
+                            color: ColorManager.amber,
                           ),
                           itemCount: 5,
                           itemSize: 15.0,
@@ -91,7 +88,7 @@ Movie movie;
                           style: const TextStyle(
 fontSize: 12,
                               fontWeight: FontWeight.bold,
-                             color: Colors.grey
+                             color: ColorManager.grey
                           )
                         ),
                       ),

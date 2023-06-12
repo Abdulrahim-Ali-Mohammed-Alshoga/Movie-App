@@ -1,10 +1,10 @@
 import 'package:dio/dio.dart';
 import 'package:movies/constants/conction.dart';
 
-class MoviesByGenreWebService{
+class GenreMoviesWebService{
   late Dio dio;
 
-  MoviesByGenreWebService() {
+  GenreMoviesWebService() {
     BaseOptions baseOptions = BaseOptions(
         baseUrl: Conction.baseUrl,
         receiveDataWhenStatusError: true,
@@ -13,7 +13,7 @@ class MoviesByGenreWebService{
     dio = Dio(baseOptions);
   }
 
-  Future<List<dynamic>> getMoviesByGenre(int numberPage, int genre) async {
+  Future<List<dynamic>> getGenreMovies(int numberPage, int genre) async {
     Response response = await dio.get("discover/movie",
         queryParameters: {"api_key": Conction.apiKye, "page": numberPage,"with_genres":genre==0?'all':genre});
     //  print(response.data["results"]);

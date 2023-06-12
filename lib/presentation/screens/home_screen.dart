@@ -2,14 +2,12 @@ import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:movies/app/dependency_injection.dart';
 import 'package:movies/business_logic/cubit/genre/genre_cubit.dart';
 import 'package:movies/business_logic/cubit/home/home_cubit.dart';
 import 'package:movies/business_logic/cubit/home/home_state.dart';
-import 'package:movies/data/models/genre.dart';
 import '../../constants/font.dart';
-import '../../constants/mycolor.dart';
-import '../widgets/home/category_movie/list_view_category_movies_widget.dart';
+import '../../constants/color_manager.dart';
+import '../widgets/home/genre_movie/list_view_genre_movies_widget.dart';
 import '../widgets/home/now_playing_movie/list_view_now_playing_movies_widget.dart';
 import '../widgets/home/upcoming_movie/list_view_upcoming_movies_widget.dart';
 import '../widgets/image_off_the_internet.dart';
@@ -128,13 +126,15 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
             return Padding(
               padding: EdgeInsets.only(top: 8.h),
               child: ScrollConfiguration(
+
                 //وقف لون glow effect اي اللون الذي يظهر عند السحب للاعلى والاسفل في ListView او SingleChildScrollView وغيرها
                 behavior:
                     const MaterialScrollBehavior().copyWith(overscroll: false),
                 child: SingleChildScrollView(
                   //طريقة اخر لوقف لون glow effect اي اللون الذي يظهر عند السحب للاعلى والاسفل في ListView او SingleChildScrollView وغيرها
-                  // physics: const BouncingScrollPhysics(),
-                  controller: scrollController,
+                 // physics: const BouncingScrollPhysics(),
+                controller: scrollController,
+
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
@@ -142,11 +142,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                         child: Padding(
                           padding: EdgeInsets.only(right: 30.w),
                           child: Text(
-                            "Recent Movies",
+                            "Now Playing",
                             style: TextStyle(
                                 fontSize: 16.sp,
                                 fontFamily: MyFont.titleFont,
-                                color: MyColors.white),
+                                color:ColorManager.white),
                           ),
                         ),
                       ),
@@ -156,11 +156,11 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
                       Padding(
                         padding: EdgeInsets.only(left: 15.w),
-                        child: ListViewUpcomingMoviesWidget(),
+                        child: ListViewNowPlayingMoviesWidget(),
                       ),
 
-                      ListViewNowPlayingMoviesWidget(),
-                      const ListViewCategoryMoviesWidget(),
+                      ListViewUpcomingMoviesWidget(),
+                      const ListViewGenreMoviesWidget(),
                     ],
                   ),
                 ),

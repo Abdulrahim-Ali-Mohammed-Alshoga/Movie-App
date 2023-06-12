@@ -7,8 +7,6 @@ import 'package:movies/business_logic/cubit/network/network_cubit.dart';
 import 'package:movies/constants/hive_name.dart';
 import 'package:movies/constants/theme_app.dart';
 import 'package:movies/app/my_app.dart';
-import 'package:movies/data/network/network_information.dart';
-
 import 'app/dependency_injection.dart';
 import 'business_logic/cubit/favorite/favorite_cubit.dart';
 

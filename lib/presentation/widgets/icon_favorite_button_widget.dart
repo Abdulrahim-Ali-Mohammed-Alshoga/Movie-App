@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../business_logic/cubit/favorite/favorite_cubit.dart';
 import '../../business_logic/cubit/favorite/favorite_state.dart';
+import '../../constants/color_manager.dart';
 import '../../data/models/hive/movie_hive.dart';
 
 class IconFavoriteButtonWidget extends StatelessWidget {
@@ -37,7 +38,7 @@ class IconFavoriteButtonWidget extends StatelessWidget {
           padding: EdgeInsets.all(paddingSize),
           icon: Icon(
               size: size, isFavorite ? Icons.favorite : Icons.favorite_border),
-          color: Colors.red,
+          color: ColorManager.red,
         );
       }
 

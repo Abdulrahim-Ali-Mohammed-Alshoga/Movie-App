@@ -10,7 +10,7 @@ class UpcomingMovieCubit extends Cubit<UpcomingMovieState> {
   UpcomingMoviesRepository upcomingMoviesRepository;
   List<Movie> movies = [];
   int numberPage=1;
- Future<void>  getAllMovies({required int numberPage}) async{
+ Future<void>  getAllMovies() async{
           if (movies.isEmpty) {
             emit(UpcomingMovieLoading());
           }

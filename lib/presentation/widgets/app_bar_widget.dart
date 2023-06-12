@@ -1,13 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:hive/hive.dart';
-import 'package:movies/business_logic/cubit/auth_cubit.dart';
 import 'package:movies/constants/screen_name.dart';
-
-import '../../constants/hive_name.dart';
 import '../../constants/image_asset_name.dart';
-import '../../constants/mycolor.dart';
 
 class AppBarWidget extends StatefulWidget implements PreferredSizeWidget {
   Widget nameAppBar;

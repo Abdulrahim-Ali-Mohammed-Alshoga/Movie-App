@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-
+import '../../constants/color_manager.dart';
 import '../../constants/font.dart';
-import '../../constants/mycolor.dart';
 
 class TextFormFieldWidget extends StatelessWidget {
   final TextEditingController controller;
@@ -29,28 +28,28 @@ class TextFormFieldWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextFormField(
       keyboardType: textInputType,
-      cursorColor: Colors.white,
+      cursorColor: ColorManager.white,
       style:
-          const TextStyle(color: MyColors.white, fontFamily: MyFont.mainFont),
+          const TextStyle(color: ColorManager.white, fontFamily: MyFont.mainFont),
       controller: controller,
       textInputAction: textInputAction,
       validator: validator,
       obscureText: obscureText,
       decoration: InputDecoration(
         suffixIcon: suffixIcon,
-        enabledBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: MyColors.grey, width: 1),
+        enabledBorder:  const OutlineInputBorder(
+          borderSide: BorderSide(color: ColorManager.grey, width: 1),
         ),
         focusedBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.white),
+          borderSide: BorderSide(color: ColorManager.white),
         ),
         focusedErrorBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.redAccent),
+          borderSide: BorderSide(color: ColorManager.redAccent),
         ),
         errorBorder: const OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.redAccent),
+          borderSide: BorderSide(color: ColorManager.redAccent),
         ),
-        hintStyle: const TextStyle(color: MyColors.grey),
+        hintStyle: const TextStyle(color: ColorManager.grey),
         hintText: hintText,
       ),
     );

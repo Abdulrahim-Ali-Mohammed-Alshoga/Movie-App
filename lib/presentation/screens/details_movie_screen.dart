@@ -1,13 +1,11 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/constants/color_manager.dart';
 import 'package:movies/data/models/movie.dart';
 import 'package:movies/presentation/widgets/stack_details_moive_widget.dart';
-
 import '../../constants/arguments.dart';
 import '../../constants/font.dart';
-import '../../constants/mycolor.dart';
 
 class DetailsMovieScreen extends StatefulWidget {
   DetailsMovieScreen({Key? key, required this.detailsMovie}) : super(key: key);
@@ -38,7 +36,7 @@ class _DetailsMovieScreenState extends State<DetailsMovieScreen> {
                     "Rating : ",
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                        color: MyColors.white,
+                        color: ColorManager.white,
                         fontFamily: MyFont.titleFont,
                         fontSize: 15.sp),
                   ),
@@ -46,12 +44,12 @@ class _DetailsMovieScreenState extends State<DetailsMovieScreen> {
                     rating: movie.rating / 2,
                     itemBuilder: (context, index) => const Icon(
                       Icons.star,
-                      color: Colors.amber,
+                  color: ColorManager.amber,
                     ),
                     itemPadding: const EdgeInsets.only(bottom: 0),
                     itemCount: 5,
                     itemSize: 20.0,
-                    unratedColor: Colors.grey,
+                    unratedColor: ColorManager.grey,
                     direction: Axis.horizontal,
                   ),
                   SizedBox(
@@ -62,7 +60,7 @@ class _DetailsMovieScreenState extends State<DetailsMovieScreen> {
                       TextSpan(
                         text: movie.rating.toString(),
                         style: TextStyle(
-                            color: Colors.grey,
+                            color: ColorManager.grey,
                             fontFamily: MyFont.mainFont,
                             fontWeight: FontWeight.bold,
                             fontSize: 22.sp),
@@ -70,7 +68,7 @@ class _DetailsMovieScreenState extends State<DetailsMovieScreen> {
                       TextSpan(
                         text: "/10",
                         style: TextStyle(
-                            color: Colors.grey,
+                            color: ColorManager.grey,
                             fontSize: 16.sp,
                             fontFamily: MyFont.mainFont),
                       )
@@ -86,14 +84,14 @@ class _DetailsMovieScreenState extends State<DetailsMovieScreen> {
                     TextSpan(
                       text: "Votes : ",
                       style: TextStyle(
-                          color: MyColors.white,
+                          color: ColorManager.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 17.sp),
                     ),
                     TextSpan(
                       text: "${"movie.vote"} vote",
                       style: TextStyle(
-                          color: Colors.grey,
+                          color: ColorManager.grey,
                           fontSize: 18.sp,
                           fontFamily: MyFont.mainFont),
                     )
@@ -105,7 +103,7 @@ class _DetailsMovieScreenState extends State<DetailsMovieScreen> {
                 "Story line :",
                 textAlign: TextAlign.start,
                 style: TextStyle(
-                    color: MyColors.white,
+                    color: ColorManager.white,
                     fontFamily: MyFont.titleFont,
                     fontSize: 15.sp),
               ),
@@ -115,7 +113,7 @@ class _DetailsMovieScreenState extends State<DetailsMovieScreen> {
               child: SelectableText(
                 "movie.description!",
                 style: TextStyle(
-                    color: Colors.grey,
+                    color:ColorManager.grey,
                     fontSize: 15.sp,
                     fontFamily: MyFont.mainFont),
               ),

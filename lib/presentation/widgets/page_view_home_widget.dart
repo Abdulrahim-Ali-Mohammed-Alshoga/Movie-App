@@ -1,20 +1,13 @@
-import 'dart:async';
-
 import 'package:auto_size_text/auto_size_text.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
-import 'package:movies/business_logic/cubit/favorite/favorite_cubit.dart';
 import 'package:movies/constants/font.dart';
-import 'package:movies/constants/mycolor.dart';
 import 'package:movies/data/models/movie.dart';
-
 import '../../constants/arguments.dart';
+import '../../constants/color_manager.dart';
 import '../../constants/hive_name.dart';
-import '../../constants/image_network_name.dart';
 import '../../constants/screen_name.dart';
 import '../../data/models/hive/movie_hive.dart';
 import 'cached_network_image_widget.dart';
@@ -83,7 +76,7 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
                 margin: EdgeInsets.only(top: top, bottom: 10.h, right: 30.w),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.r),
-                  color: const Color(0xfff0f0f0).withOpacity(.3),
+                  color:  ColorManager.whiteDarkOpacity30,
                 ),
                 child: Stack(
                   alignment: Alignment.bottomRight,
@@ -111,13 +104,13 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
               padding: EdgeInsets.only(right: 30.w, bottom: 5.h),
               child: RatingBarIndicator(
                 rating: widget.movies[index].rating / 2,
-                itemBuilder: (context, index) => Icon(
+                itemBuilder: (context, index) => const Icon(
                   Icons.star,
-                  color: Colors.amber,
+                  color: ColorManager.amber,
                 ),
                 itemCount: 5,
                 itemSize: 15.0,
-                unratedColor: Colors.grey,
+                unratedColor: ColorManager.grey,
                 direction: Axis.horizontal,
               ),
             ),
@@ -127,7 +120,7 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
                 widget.movies[index].title!,
                 maxLines: 2,
                 style: TextStyle(
-                    color: MyColors.white,
+                    color: ColorManager.white,
                     fontSize: 17.sp,
                     fontFamily: MyFont.titleFont),
                 textAlign: TextAlign.center,

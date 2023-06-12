@@ -4,34 +4,38 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/business_logic/cubit/network/network_cubit.dart';
 import 'package:movies/business_logic/cubit/network/network_state.dart';
+import 'package:movies/constants/color_manager.dart';
 import '../../constants/image_network_name.dart';
-import '../../constants/mycolor.dart';
+
 class CachedNetworkImageWidget extends StatefulWidget {
-   CachedNetworkImageWidget({Key? key,this.height,this.image}) : super(key: key);
-String? image;
-double? height;
+  CachedNetworkImageWidget({Key? key, this.height, this.image})
+      : super(key: key);
+  String? image;
+  double? height;
+
   @override
-  State<CachedNetworkImageWidget> createState() => _CachedNetworkImageWidgetState();
+  State<CachedNetworkImageWidget> createState() =>
+      _CachedNetworkImageWidgetState();
 }
 
 class _CachedNetworkImageWidgetState extends State<CachedNetworkImageWidget> {
-  double newKey=0;
+  double newKey = 0;
 
   @override
   Widget build(BuildContext context) {
-
-    return BlocListener<NetworkCubit,NetworkState>(
+    return BlocListener<NetworkCubit, NetworkState>(
       listener: (context, state) {
-        if(state is NetworkIsConnected&&newKey>0){
-          print(widget.image);
+        if (state is NetworkIsConnected && newKey > 0) {
           setState(() {
             //newKey=0;
           });
         }
       },
       child: CachedNetworkImage(
-        height:widget.height,
-        key: ValueKey(widget.image==null?widget.image:widget.image!+newKey.toString()),
+        height: widget.height,
+        key: ValueKey(widget.image == null
+            ? widget.image
+            : widget.image! + newKey.toString()),
         imageBuilder: (context, imageProvider) {
           return Container(
             decoration: BoxDecoration(
@@ -42,33 +46,30 @@ class _CachedNetworkImageWidgetState extends State<CachedNetworkImageWidget> {
             ),
           );
         },
-        imageUrl: widget.image == null ? "لل" : ImageNetworkName.rootImages+widget.image!,
+        imageUrl: widget.image == null
+            ? "لل"
+            : ImageNetworkName.rootImages + widget.image!,
         errorWidget: (context, url, error) {
-          if(widget.image!=null){
+          if (widget.image != null) {
             newKey++;
           }
 
           if (error.toString() == "Failed host lookup: 'image.tmdb.org'") {
-
             return GestureDetector(
-              onTap: () {
-              },
+              onTap: () {},
               child: Container(
                 height: double.infinity,
-
                 child: Center(
                     child: Icon(
-                      Icons.wifi_off,
-                      size: 30.sp,
-                      color: MyColors.deepOrange,
-                    )),
+                  Icons.wifi_off,
+                  size: 30.sp,
+                  color: ColorManager.deepOrange,
+                )),
               ),
             );
           }
           return GestureDetector(
-            onTap: (){
-
-            },
+            onTap: () {},
             child: Center(
               child: Icon(
                 Icons.image_not_supported,
@@ -79,11 +80,10 @@ class _CachedNetworkImageWidgetState extends State<CachedNetworkImageWidget> {
         },
         placeholder: (context, url) {
           return const Center(
-            child: CircularProgressIndicator(color: MyColors.deepOrange),
+            child: CircularProgressIndicator(color: ColorManager.deepOrange),
           );
         },
       ),
     );
   }
 }
-

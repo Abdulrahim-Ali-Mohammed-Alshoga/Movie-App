@@ -3,26 +3,15 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/business_logic/cubit/home/home_cubit.dart';
-import 'package:movies/business_logic/cubit/movies_by_genre/movie_by_genre_cubit.dart';
-import 'package:movies/business_logic/cubit/search_movies/search_movie_cubit.dart';
-import 'package:movies/data/repository/movies_repository.dart';
-import 'package:movies/data/web_services/movies_by_genre_web_service.dart';
+import 'package:movies/business_logic/cubit/movies_by_genre/genre_movies_cubit.dart';
+import 'package:movies/constants/color_manager.dart';
 import 'package:movies/presentation/screens/favorites_screen.dart';
-
 import '../../app/dependency_injection.dart';
-import '../../business_logic/cubit/favorite/favorite_cubit.dart';
 import '../../business_logic/cubit/genre/genre_cubit.dart';
 import '../../business_logic/cubit/now_playing_movies/now_playing_movies_cubit.dart';
 import '../../business_logic/cubit/upcoming_movies/upcoming_movies_cubit.dart';
 import '../../constants/font.dart';
-import '../../constants/mycolor.dart';
 import '../../data/network/network_information.dart';
-import '../../data/repository/genre_repository.dart';
-import '../../data/repository/now_playing_movies_repository.dart';
-import '../../data/repository/upcoming_movies_repository.dart';
-import '../../data/web_services/genre_web_service.dart';
-import '../../data/web_services/now_playing_movies_web_service.dart';
-import '../../data/web_services/upcoming_movies_web_services.dart';
 import '../widgets/app_bar_widget.dart';
 import 'home_screen.dart';
 
@@ -36,12 +25,8 @@ class NavigationBarScreen extends StatefulWidget {
 class _NavigationBarScreenState extends State<NavigationBarScreen> {
   int firstPage = 0;
   late ConnectivityResult connectivityResult;
-  NowPlayingMovieCubit nowPlayingMovieCubit = NowPlayingMovieCubit(
-      NowPlayingMoviesRepository(NowPlayingMoviesWebServices()));
-  GenreCubit genreCubit = GenreCubit(GenreRepository(GenreWebService()));
 
-  MoviesByGenreCubit moviesByGenreCubit =
-  MoviesByGenreCubit(MoviesByGenreRepository(MoviesByGenreWebService()));
+
   late List<Widget> page;
 
   @override
@@ -52,7 +37,7 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
       MultiBlocProvider(
           providers: [
         BlocProvider<GenreCubit>(
-          create: (context) => genreCubit,
+          create: (context) => instance<GenreCubit>(),
         ),
         BlocProvider<UpcomingMovieCubit>(
           create: (context) => instance<UpcomingMovieCubit>(),
@@ -63,8 +48,8 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
         BlocProvider<NowPlayingMovieCubit>(
           create: (context) => instance<NowPlayingMovieCubit>(),
         ),
-        BlocProvider<MoviesByGenreCubit>(
-          create: (context) => moviesByGenreCubit,
+        BlocProvider<GenreMoviesCubit>(
+          create: (context) =>  instance<GenreMoviesCubit>(),
         ),
       ], child: HomeScreen()),
       FavoritesScreen()
@@ -83,13 +68,13 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
               text: "Cinema",
               style: TextStyle(
                   fontFamily: MyFont.mainFont,
-                  color: MyColors.white,
+                  color: ColorManager.white,
                   fontSize: 30.sp)),
           TextSpan(
               text: "Batool",
               style: TextStyle(
                   fontFamily: MyFont.mainFont,
-                  color: MyColors.deepOrange,
+                  color: ColorManager.deepOrange,
                   fontSize: 30.sp)),
         ]),
       )),
@@ -100,10 +85,10 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
         ],
       ),
       bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: MyColors.deepOrange,
+        backgroundColor: ColorManager.deepOrange,
         currentIndex: firstPage,
-        unselectedItemColor: MyColors.grey,
-        fixedColor: MyColors.white,
+        unselectedItemColor: ColorManager.grey,
+        fixedColor: ColorManager.white,
         onTap: (v) {
           setState(() {
             firstPage = v;
@@ -114,11 +99,11 @@ class _NavigationBarScreenState extends State<NavigationBarScreen> {
           BottomNavigationBarItem(
               icon: Icon(Icons.movie),
               label: "Movies",
-              backgroundColor: Colors.deepOrange),
+              backgroundColor: ColorManager.deepOrange),
           BottomNavigationBarItem(
               icon: Icon(Icons.favorite),
               label: "Favorites",
-              backgroundColor: Colors.deepOrange),
+              backgroundColor: ColorManager.deepOrange),
         ],
       ),
     );

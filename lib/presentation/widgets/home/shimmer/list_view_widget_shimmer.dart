@@ -1,12 +1,8 @@
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/presentation/widgets/shimmer_widget.dart';
-import 'package:shimmer/shimmer.dart';
 
-import '../../../../constants/font.dart';
-import '../../../../constants/mycolor.dart';
+import '../../../../constants/color_manager.dart';
 
 class ListViewWidgetShimmer extends StatelessWidget {
   const ListViewWidgetShimmer({Key? key}) : super(key: key);
@@ -30,7 +26,7 @@ class ListViewWidgetShimmer extends StatelessWidget {
 
                     children: [
                       ShimmerWidget(
-                          color: Colors.grey.withOpacity(.3),
+                          color:ColorManager.greyOpacity30,
                           margin: EdgeInsets.only(left: 12.r),
                           height: 150.h,
                           width: 130.w,
@@ -39,7 +35,7 @@ class ListViewWidgetShimmer extends StatelessWidget {
                         bottom: 5,
                         right: 7,
                         child: Icon(
-                            color: Colors.red, size: 22, Icons.favorite_border),
+                            color: ColorManager.red, size: 22, Icons.favorite_border),
                       ),
                     ],
                   ),
@@ -53,31 +49,31 @@ class ListViewWidgetShimmer extends StatelessWidget {
                           ShimmerWidget(
                             circular: 4,
                             height: 10,
-                            color: Colors.grey.withOpacity(.3),
+                            color: ColorManager.greyOpacity30,
                             margin: EdgeInsets.only(left: 10.w, top: 18.h),
                           ),
                           ShimmerWidget(
                             circular: 4,
                             height: 10,
-                            color: Colors.grey.withOpacity(.3),
+                            color: ColorManager.greyOpacity30,
                             margin: EdgeInsets.only(left: 10.w, top: 18.h),
                           ),
                           ShimmerWidget(
                             circular: 4,
                             height: 10,
-                            color: Colors.grey.withOpacity(.3),
+                            color: ColorManager.greyOpacity30,
                             margin: EdgeInsets.only(left: 10.w, top: 18.h),
                           ),
                           ShimmerWidget(
                             circular: 4,
                             height: 10,
-                            color: Colors.grey.withOpacity(.3),
+                            color: ColorManager.greyOpacity30,
                             margin: EdgeInsets.only(left: 10.w, top: 18.h),
                           ),
                           ShimmerWidget(
                             circular: 4,
                             height: 10,
-                            color: Colors.grey.withOpacity(.3),
+                            color: ColorManager.greyOpacity30,
                             margin: EdgeInsets.only(left: 10.w, top: 18.h),
                           ),
                         ],

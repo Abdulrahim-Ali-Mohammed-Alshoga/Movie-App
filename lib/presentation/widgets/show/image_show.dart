@@ -1,6 +1,7 @@
 
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:movies/constants/color_manager.dart';
 
   Future<void> myImageShow({required BuildContext context, required String image,required id}){
     double minScale=1;
@@ -10,7 +11,8 @@ import 'package:flutter/material.dart';
       barrierDismissible: true,
       reverseTransitionDuration: const Duration(milliseconds: 50),
       transitionDuration: const Duration(milliseconds: 500),
-      barrierColor: Colors.black45,
+      barrierColor: ColorManager.blackOpacity45
+      ,
       pageBuilder: (context, _, __) {
         return Hero(
             tag: id,

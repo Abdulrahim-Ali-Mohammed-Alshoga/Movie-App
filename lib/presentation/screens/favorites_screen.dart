@@ -1,13 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:hive/hive.dart';
-import 'package:hive_flutter/adapters.dart';
 import '../../business_logic/cubit/favorite/favorite_cubit.dart';
 import '../../business_logic/cubit/favorite/favorite_state.dart';
-import '../../constants/hive_name.dart';
 import '../../data/models/hive/movie_hive.dart';
 import '../widgets/empty_widget.dart';
-import '../widgets/grid_title_widget.dart';
 import '../widgets/sreach_movies/grid_view_shimmer_widget.dart';
 
 class FavoritesScreen extends StatefulWidget {

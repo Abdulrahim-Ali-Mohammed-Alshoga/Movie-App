@@ -5,6 +5,7 @@ import 'package:movies/business_logic/cubit/network/network_cubit.dart';
 import 'package:movies/business_logic/cubit/network/network_state.dart';
 import 'package:movies/constants/screen_name.dart';
 import '../constants/arguments.dart';
+import '../constants/color_manager.dart';
 import '../constants/route_app.dart';
 import '../constants/theme_app.dart';
 import '../presentation/widgets/show_snack_bar.dart';
@@ -62,7 +63,7 @@ else if(state is NetworkIsNotConnected)
             // isHomeScreen ? ScreenName.navigationBarScreen : ScreenName
             //     .onboardScreen,
             title: "Cinema Batool",
-            color: Colors.black,
+            color: ColorManager.black,
             theme: ThemeApp().lightTheme,
           ),
         );

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/constants/color_manager.dart';
 import 'package:movies/constants/image_asset_name.dart';
 import '../../constants/font.dart';
-import '../../constants/mycolor.dart';
 import '../../constants/screen_name.dart';
 import '../widgets/page_view_on_board.dart';
 
@@ -41,7 +41,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
         });
       },
       child: Container(
-        color: MyColors.black,
+        color: ColorManager.black,
         child: AnimatedContainer(
           duration: const Duration(milliseconds: 150),
           margin: const EdgeInsets.symmetric(horizontal: 8),
@@ -49,7 +49,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
 
           width: isActive ? 22.0 : 11.0,
           decoration: BoxDecoration(
-              color: isActive ? MyColors.deepOrange : MyColors.grey,
+              color: isActive ? ColorManager.deepOrange : ColorManager.grey,
               borderRadius: BorderRadius.all(const Radius.circular(12).r)),
         ),
       ),
@@ -141,8 +141,8 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                     child: Center(
                       child: OutlinedButton(
                         style: OutlinedButton.styleFrom(
-                          shadowColor: MyColors.deepOrange,
-                          backgroundColor: MyColors.deepOrange,
+                          shadowColor: ColorManager.deepOrange,
+                          backgroundColor: ColorManager.deepOrange,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10).r),
                           fixedSize: Size(
@@ -155,7 +155,7 @@ class _OnBoardScreenState extends State<OnBoardScreen> {
                         child: Text(
                           'Get Started',
                           style: TextStyle(
-                              color: Colors.white,
+                              color: ColorManager.white,
                               fontSize: 25.sp,
                               fontFamily: MyFont.mainFont),
                         ),

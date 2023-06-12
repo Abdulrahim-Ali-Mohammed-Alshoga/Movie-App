@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../constants/color_manager.dart';
 import '../../constants/image_asset_name.dart';
-import '../../constants/mycolor.dart';
 class ImageOffTheInternet extends StatelessWidget {
    ImageOffTheInternet({Key? key,required this.onPressed}) : super(key: key);
   VoidCallback onPressed;
@@ -21,9 +21,9 @@ class ImageOffTheInternet extends StatelessWidget {
               height: 400.h,
             ),
           ),
-          const Text('No data connection',style: TextStyle(fontSize: 19,color: Colors.white),),
+          const Text('No data connection',style: TextStyle(fontSize: 19,color: ColorManager.white),),
           TextButton(onPressed:onPressed, child: const Text(
-            'Try again',style: TextStyle(color: MyColors.deepOrange),
+            'Try again',style: TextStyle(color: ColorManager.deepOrange),
           ))
         ],
       ),
