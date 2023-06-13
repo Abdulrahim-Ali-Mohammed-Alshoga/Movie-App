@@ -18,8 +18,8 @@ class MovieHiveAdapter extends TypeAdapter<MovieHive> {
     };
     return MovieHive(
       image: fields[1] as String?,
-      id: fields[0] as num,
-      rating: fields[2] as num,
+      id: fields[0] as num?,
+      rating: fields[2] as num?,
       productionData: fields[3] as String?,
     );
   }

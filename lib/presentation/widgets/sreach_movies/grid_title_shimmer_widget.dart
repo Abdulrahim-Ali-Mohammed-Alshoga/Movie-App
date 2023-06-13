@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/color_manager.dart';
-import '../shimmer_widget.dart';
+import '../shimmer/shimmer_widget.dart';
 class GridTitleShimmerWidget extends StatelessWidget {
   const GridTitleShimmerWidget({Key? key}) : super(key: key);
 

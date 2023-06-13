@@ -3,14 +3,25 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/data/models/movie.dart';
-import '../../constants/font.dart';
-import '../../constants/color_manager.dart';
+import 'package:movies/presentation/widgets/cached_network_image_widget.dart';
+import '../../../constants/font.dart';
+import '../../../constants/color_manager.dart';
+import '../../../data/models/movie_details.dart';
+import '../show/image_show.dart';
 
 class StackDetailsMovieWidget extends StatelessWidget {
-  StackDetailsMovieWidget({Key? key, required this.movie}) : super(key: key);
+  StackDetailsMovieWidget({Key? key, required this.movie,required this.movieDetails}) : super(key: key);
   Movie movie;
-  bool checkImage = true;
+  MovieDetails movieDetails;
+String changeTime(int time){
+  int minutes;
+  double hours;
+  minutes=time%60;
 
+  hours=time/60 ;
+  print(time);
+  return '${hours.floor()} h $minutes m';
+}
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -22,44 +33,13 @@ class StackDetailsMovieWidget extends StatelessWidget {
       child: Stack(
 
         children: [
-          CachedNetworkImage(
-              imageUrl:" movie.imageBackdrop!",
-              key: UniqueKey(),
-              height: 350.h,
-              memCacheHeight: 700,
-              maxHeightDiskCache: 700,
-              errorWidget: (context, url, error) {
-                if (error.toString() ==
-                    "Failed host lookup: 'image.tmdb.org'") {
-                  return Center(
-                      child: Icon(
-                    Icons.wifi_off,
-                    size: 70.sp,
-                    color: ColorManager.deepOrange,
-                  ));
-                }
-                //   print(error.);
-
-                return Center(
-                  child: Icon(
-                    Icons.image_not_supported,
-                    size: 70.sp,
-                  ),
-                );
-              },
-              placeholder: (context, url) {
-                return const Center(
-                  child:
-                      CircularProgressIndicator(color: ColorManager.deepOrange),
-                );
-              },
-              fit: BoxFit.cover),
-          Opacity(
-            opacity: .5,
-            child: Container(
-              color: ColorManager.black,
+          CachedNetworkImageWidget(
+            image: movieDetails.imageBackdrop!,
             ),
-          ),
+
+Container(
+  color: ColorManager.blackOpacity20,
+),
           Positioned(
             right: 0,
             left: 0,
@@ -82,44 +62,14 @@ class StackDetailsMovieWidget extends StatelessWidget {
 bottom: 10,
             child: GestureDetector(
               onTap: () {
-               // myImageShow(image:movie.image! ,id: movie.id,context: context);
+                myImageShow(image:movie.image! ,id: movie.id,context: context);
               },
               child: Hero(
-                tag: movie.id,
+                tag: movie.id!,
                 child: Container(
                   color: ColorManager.black,
-                  child: CachedNetworkImage(
-                    imageUrl: movie.image!,
-                    key: UniqueKey(),
-                    fit: BoxFit.fill,
-                    cacheKey: movie.image,
-                    memCacheHeight: 600,
-                    maxHeightDiskCache: 600,
-                    errorWidget: (context, url, error) {
-                      checkImage = false;
-                      if (error.toString() ==
-                          "Failed host lookup: 'image.tmdb.org'") {
-                        return Center(
-                            child: Icon(
-                          Icons.wifi_off,
-                          size: 70.sp,
-                          color: ColorManager.deepOrange,
-                        ));
-                      }
-                      return Center(
-                        child: Icon(
-                          Icons.image_not_supported,
-                          size: 70.sp,
-                        ),
-                      );
-                    },
-                    placeholder: (context, url) {
-                      checkImage = true;
-                      return const Center(
-                        child: CircularProgressIndicator(
-                            color: ColorManager.deepOrange),
-                      );
-                    },
+                  child: CachedNetworkImageWidget(
+                    image: movie.image,
                   ),
                 ),
               ),
@@ -151,7 +101,7 @@ bottom: 10,
                         SizedBox(
                           width: 10.w,
                         ),
-                        Text("movie.productionData!",
+                        Text(movie.productionData!,
                             style: TextStyle(
                               color: ColorManager.grey,
                               fontSize: 15.sp,
@@ -167,7 +117,7 @@ bottom: 10,
                         SizedBox(
                           width: 10.w,
                         ),
-                        Text("movie.language!",
+                        Text(movieDetails.language!,
                             style: TextStyle(
                               color: ColorManager.grey,
                               fontSize: 15.sp,
@@ -179,12 +129,12 @@ bottom: 10,
                     padding: EdgeInsets.only(top: 3.h, left: 8.w),
                     child: Row(
                       children: [
-                        Icon(Icons.remove_red_eye,
+                        Icon(Icons.timer,
                             color: ColorManager.grey, size: 15.w),
                         SizedBox(
                           width: 10.w,
                         ),
-                        Text("movie.watch.toInt().toString()",
+                        Text(changeTime(movieDetails.time!.toInt()),
                             style: TextStyle(
                               color: ColorManager.grey,
                               fontSize: 15.sp,

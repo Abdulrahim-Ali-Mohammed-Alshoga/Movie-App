@@ -85,14 +85,13 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
                         borderRadius: BorderRadius.circular(20).r,
                         child: CachedNetworkImageWidget(image: widget.movies[index].image,height: 265.h,)),
                     Positioned(
-                        top: 220.h,
                         child: IconFavoriteButtonWidget(
                           size: 25,
                           paddingSize: 12,
                           movieHive: MovieHive(
                               image: widget.movies[index].image,
-                              id: widget.movies[index].id,
-                              rating: widget.movies[index].rating,
+                              id: widget.movies[index].id!,
+                              rating: widget.movies[index].rating!,
                               productionData:
                                   widget.movies[index].productionData),
                         )),
@@ -103,7 +102,7 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
             Padding(
               padding: EdgeInsets.only(right: 30.w, bottom: 5.h),
               child: RatingBarIndicator(
-                rating: widget.movies[index].rating / 2,
+                rating: widget.movies[index].rating! / 2,
                 itemBuilder: (context, index) => const Icon(
                   Icons.star,
                   color: ColorManager.amber,

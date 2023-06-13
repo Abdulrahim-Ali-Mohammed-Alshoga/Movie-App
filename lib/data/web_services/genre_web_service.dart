@@ -20,8 +20,6 @@ class GenreWebService{
     Response response = await dio.get("genre/movie/list",
         queryParameters: {"api_key": Conction.apiKye},
     );
-        //  print(response.data["results"]);
-     print(response.data["genres"]);
 
     return response.data["genres"];
   }

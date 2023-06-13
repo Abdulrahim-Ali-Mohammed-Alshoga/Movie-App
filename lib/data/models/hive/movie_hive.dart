@@ -3,11 +3,11 @@ part 'movie_hive.g.dart';
 @HiveType(typeId: 0)
 class MovieHive extends HiveObject {
   @HiveField(0)
-  num id;
+  num? id;
   @HiveField(1)
   String? image;
   @HiveField(2)
-  num rating;
+  num? rating;
   @HiveField(3)
   late String? productionData;
 

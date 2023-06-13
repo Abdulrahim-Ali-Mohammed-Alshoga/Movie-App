@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/constants/color_manager.dart';
+import '../../constants/arguments.dart';
+import '../../constants/screen_name.dart';
 import '../../data/models/hive/movie_hive.dart';
+import '../../data/models/movie.dart';
 import 'cached_network_image_widget.dart';
 import 'icon_favorite_button_widget.dart';
 
@@ -23,8 +26,8 @@ class GridTitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // Navigator.pushNamed(context, ScreenName.detailsMovieScreen,
-        //     arguments: DetailsMovieArgument( detailsMovie: movie));
+        Navigator.pushNamed(context, ScreenName.detailsMovieScreen,
+            arguments: DetailsMovieArgument(detailsMovie: Movie(image:image ,id:id ,productionData:productionData ,rating: rating)));
       },
       child: Hero(
         tag: id,

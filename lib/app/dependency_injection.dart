@@ -5,15 +5,18 @@ import 'package:movies/data/repository/search_movies_repository.dart';
 import 'package:movies/data/web_services/now_playing_movies_web_service.dart';
 import 'package:movies/data/web_services/search_movies_web_services.dart';
 import '../business_logic/cubit/genre/genre_cubit.dart';
+import '../business_logic/cubit/movie_details/movie_details_cubit.dart';
 import '../business_logic/cubit/movies_by_genre/genre_movies_cubit.dart';
 import '../business_logic/cubit/now_playing_movies/now_playing_movies_cubit.dart';
 import '../business_logic/cubit/upcoming_movies/upcoming_movies_cubit.dart';
 import '../data/network/network_information.dart';
 import '../data/repository/genre_movies_repository.dart';
 import '../data/repository/genre_repository.dart';
+import '../data/repository/movie_details_repository.dart';
 import '../data/repository/upcoming_movies_repository.dart';
 import '../data/web_services/genre_movies_web_service.dart';
 import '../data/web_services/genre_web_service.dart';
+import '../data/web_services/movie_details_web service.dart';
 import '../data/web_services/upcoming_movies_web_services.dart';
 
 final instance = GetIt.instance;
@@ -94,5 +97,19 @@ Future<void> initNowPlayingMovies() async {
     // network info
     instance.registerLazySingleton<NowPlayingMovieCubit>(
         () => NowPlayingMovieCubit(instance()));
+  }
+}
+Future<void> initMovieDetails() async {
+  // app module, its a module where we put all generic dependencies
+  if (!GetIt.I.isRegistered<MovieDetailsWebService>()) {
+    instance.registerFactory<MovieDetailsWebService>(
+        () => MovieDetailsWebService());
+
+    instance.registerFactory<MovieDetailsRepository>(
+        () => MovieDetailsRepository(instance()));
+
+    // network info
+    instance.registerFactory<MovieDetailsCubit>(
+        () => MovieDetailsCubit(instance(),instance()));
   }
 }

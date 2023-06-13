@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/constants/color_manager.dart';
-import 'package:movies/presentation/widgets/shimmer_widget.dart';
+import 'package:movies/presentation/widgets/shimmer/shimmer_widget.dart';
 
 class PageViewWidgetShimmer extends StatefulWidget {
   const PageViewWidgetShimmer({Key? key}) : super(key: key);
@@ -67,8 +67,8 @@ class _PageViewWidgetShimmerState extends State<PageViewWidgetShimmer> {
                       height: 265.h,
                       color: ColorManager.greyOpacity40),
                   const Positioned(
-                    bottom: 15,
-                    right: 15,
+                    bottom: 10,
+                    right: 10,
                     child: Icon(
                         color: ColorManager.red, size: 25, Icons.favorite_border),
                   ),

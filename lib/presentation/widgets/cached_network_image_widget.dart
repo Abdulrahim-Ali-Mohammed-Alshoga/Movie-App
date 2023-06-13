@@ -8,10 +8,10 @@ import 'package:movies/constants/color_manager.dart';
 import '../../constants/image_network_name.dart';
 
 class CachedNetworkImageWidget extends StatefulWidget {
-  CachedNetworkImageWidget({Key? key, this.height, this.image})
+  CachedNetworkImageWidget({Key? key,this.width, this.height, this.image})
       : super(key: key);
   String? image;
-  double? height;
+  double? height,width;
 
   @override
   State<CachedNetworkImageWidget> createState() =>
@@ -33,6 +33,7 @@ class _CachedNetworkImageWidgetState extends State<CachedNetworkImageWidget> {
       },
       child: CachedNetworkImage(
         height: widget.height,
+        width: widget.width,
         key: ValueKey(widget.image == null
             ? widget.image
             : widget.image! + newKey.toString()),

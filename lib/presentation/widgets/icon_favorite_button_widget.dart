@@ -23,7 +23,7 @@ class IconFavoriteButtonWidget extends StatelessWidget {
 
       builder: (context, state) {
         isFavorite =
-          BlocProvider.of<FavoriteCubit>(context).isMovieFavorite(movieHive.id);
+          BlocProvider.of<FavoriteCubit>(context).isMovieFavorite(movieHive.id!);
         return  IconButton(
           constraints: const BoxConstraints(),
           onPressed: () {

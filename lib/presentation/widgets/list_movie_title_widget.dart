@@ -43,7 +43,7 @@ Movie movie;
                         alignment: Alignment.bottomRight,
                         child: IconFavoriteButtonWidget(paddingSize: 0,size: 22,movieHive:  MovieHive(
                             image:movie.image,
-                            id: movie.id,
+                            id: movie.id!,
                             rating: movie.rating!,
                             productionData:
                             movie.productionData),),
@@ -70,7 +70,7 @@ Movie movie;
                       Padding(
                         padding:  EdgeInsets.symmetric(vertical: 4.h),
                         child: RatingBarIndicator(
-                          rating:movie.rating/2,unratedColor: ColorManager.grey,
+                          rating:movie.rating!/2,unratedColor: ColorManager.grey,
                           itemBuilder: (context, index) => const Icon(
                             Icons.star,
                             color: ColorManager.amber,
