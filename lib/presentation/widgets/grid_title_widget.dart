@@ -3,23 +3,16 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/constants/color_manager.dart';
 import '../../constants/arguments.dart';
 import '../../constants/screen_name.dart';
-import '../../data/models/hive/movie_hive.dart';
 import '../../data/models/movie.dart';
 import 'cached_network_image_widget.dart';
 import 'icon_favorite_button_widget.dart';
 
 class GridTitleWidget extends StatelessWidget {
-  num id;
-  num? rating;
-  String? productionData;
-  String? image;
+ Movie movie;
 
   GridTitleWidget(
       {Key? key,
-      required this.productionData,
-      required this.id,
-      required this.rating,
-      required this.image})
+      required this.movie})
       : super(key: key);
 
   @override
@@ -27,10 +20,10 @@ class GridTitleWidget extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.pushNamed(context, ScreenName.detailsMovieScreen,
-            arguments: DetailsMovieArgument(detailsMovie: Movie(image:image ,id:id ,productionData:productionData ,rating: rating)));
+            arguments: DetailsMovieArgument(detailsMovie: movie));
       },
       child: Hero(
-        tag: id,
+        tag:movie.id!,
         child: Card(
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10).r),
@@ -56,14 +49,10 @@ class GridTitleWidget extends StatelessWidget {
                               IconFavoriteButtonWidget(
                                 paddingSize: 0,
                                 size: 15,
-                                movieHive: MovieHive(
-                                    image: image,
-                                    id: id,
-                                    rating: rating!,
-                                    productionData: productionData),
+                                movieHive: movie,
                               ),
                               Text(
-                                double.parse("$rating").toStringAsFixed(1),
+                                double.parse("${movie.rating}").toStringAsFixed(1),
                                 style: const TextStyle(
                                   overflow: TextOverflow.ellipsis,
                                   fontSize: 12,
@@ -74,9 +63,9 @@ class GridTitleWidget extends StatelessWidget {
                                   color: ColorManager.whiteOpacity80, size: 9),
                               Expanded(
                                 child: Text(
-                                  productionData == null || productionData == ""
+                                  movie.productionData == null || movie.productionData == ""
                                       ? "0000"
-                                      : productionData!.substring(0, 4),
+                                      : movie.productionData!.substring(0, 4),
                                   textAlign: TextAlign.end,
                                   style: const TextStyle(
                                     overflow: TextOverflow.ellipsis,
@@ -91,7 +80,7 @@ class GridTitleWidget extends StatelessWidget {
                         ),
                       ),
                       child: CachedNetworkImageWidget(
-                        image: image,
+                        image: movie.image,
                       )
                       // CachedNetworkImage(
                       //   memCacheHeight: 600,

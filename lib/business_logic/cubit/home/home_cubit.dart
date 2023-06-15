@@ -10,18 +10,19 @@ import 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this.networkInformation) : super(HomeInitialState());
   NetworkInfo networkInformation;
-  Future<void> getAllMovies(
-      {required BuildContext context, required bool mounted}) async {
+  void getAllMovies (
+      {required BuildContext context, required bool mounted})  async{
 
 
     if (await networkInformation.isConnected) {
       emit(HomeLoading());
+      if (!mounted) return;
       try {
         emit(HomeSuccess());
-        BlocProvider.of<UpcomingMovieCubit>(context)
+         BlocProvider.of<UpcomingMovieCubit>(context)
             .getAllMovies();
-        BlocProvider.of<GenreCubit>(context).getAllGenre();
-        BlocProvider.of<NowPlayingMovieCubit>(context)
+         BlocProvider.of<GenreCubit>(context).getAllGenre();
+         BlocProvider.of<NowPlayingMovieCubit>(context)
             .getAllMovies();
       } catch (e) {
         print(e);
@@ -30,7 +31,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(HomeNotConnected());
     }
   }
-  void get()  {
+  void checkTheNet()  {
 print('objectlllllllllllp');
     emit(HomeFailure());
   }

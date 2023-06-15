@@ -4,13 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../business_logic/cubit/favorite/favorite_cubit.dart';
 import '../../business_logic/cubit/favorite/favorite_state.dart';
 import '../../constants/color_manager.dart';
-import '../../data/models/hive/movie_hive.dart';
+import '../../data/models/movie.dart';
 
 class IconFavoriteButtonWidget extends StatelessWidget {
   IconFavoriteButtonWidget(
       {Key? key, required this.movieHive,required this.paddingSize, required this.size})
       : super(key: key);
-  MovieHive movieHive;
+  Movie movieHive;
   double size;
   double paddingSize;
   late bool isFavorite;

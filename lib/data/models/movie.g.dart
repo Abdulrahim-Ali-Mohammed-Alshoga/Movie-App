@@ -1,41 +1,47 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'movie_hive.dart';
+part of 'movie.dart';
 
 // **************************************************************************
 // TypeAdapterGenerator
 // **************************************************************************
 
-class MovieHiveAdapter extends TypeAdapter<MovieHive> {
+class MovieAdapter extends TypeAdapter<Movie> {
   @override
   final int typeId = 0;
 
   @override
-  MovieHive read(BinaryReader reader) {
+  Movie read(BinaryReader reader) {
     final numOfFields = reader.readByte();
     final fields = <int, dynamic>{
       for (int i = 0; i < numOfFields; i++) reader.readByte(): reader.read(),
     };
-    return MovieHive(
-      image: fields[1] as String?,
-      id: fields[0] as num?,
-      rating: fields[2] as num?,
-      productionData: fields[3] as String?,
+    return Movie(
+      image: fields[0] as String?,
+      id: fields[1] as num?,
+      title: fields[2] as String?,
+      rating: fields[3] as num?,
+      productionData: fields[4] as String?,
+      description: fields[5] as String?,
     );
   }
 
   @override
-  void write(BinaryWriter writer, MovieHive obj) {
+  void write(BinaryWriter writer, Movie obj) {
     writer
-      ..writeByte(4)
+      ..writeByte(6)
       ..writeByte(0)
-      ..write(obj.id)
-      ..writeByte(1)
       ..write(obj.image)
+      ..writeByte(1)
+      ..write(obj.id)
       ..writeByte(2)
-      ..write(obj.rating)
+      ..write(obj.title)
       ..writeByte(3)
-      ..write(obj.productionData);
+      ..write(obj.rating)
+      ..writeByte(4)
+      ..write(obj.productionData)
+      ..writeByte(5)
+      ..write(obj.description);
   }
 
   @override
@@ -44,7 +50,7 @@ class MovieHiveAdapter extends TypeAdapter<MovieHive> {
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
-      other is MovieHiveAdapter &&
+      other is MovieAdapter &&
           runtimeType == other.runtimeType &&
           typeId == other.typeId;
 }

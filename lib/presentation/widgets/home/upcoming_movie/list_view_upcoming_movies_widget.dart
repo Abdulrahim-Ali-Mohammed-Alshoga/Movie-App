@@ -11,9 +11,7 @@ import '../../../../constants/image_asset_name.dart';
 import '../../../../constants/screen_name.dart';
 import '../../../../data/models/movie.dart';
 import '../../list_movie_title_widget.dart';
-import '../../page_view_home_widget.dart';
 import '../shimmer/list_view_widget_shimmer.dart';
-import '../shimmer/page_view_widget_shimmer.dart';
 
 class ListViewUpcomingMoviesWidget extends StatelessWidget {
   ListViewUpcomingMoviesWidget({Key? key}) : super(key: key);
@@ -55,11 +53,11 @@ class ListViewUpcomingMoviesWidget extends StatelessWidget {
         Container(
             height: 180,
             margin: EdgeInsets.only(top: 10.h, bottom: 15.h),
-            decoration: BoxDecoration(
-                borderRadius: const BorderRadius.only(
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
                     bottomLeft: Radius.circular(10),
                     topLeft: Radius.circular(10)),
-                color: ColorManager.greyOpacity22.withOpacity(.22)),
+                color: ColorManager.greyOpacity22),
             child: BlocBuilder<UpcomingMovieCubit, UpcomingMovieState>(
               builder: (context, state) {
                 if (state is UpcomingMovieLoading) {

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import '../../business_logic/cubit/favorite/favorite_cubit.dart';
 import '../../business_logic/cubit/favorite/favorite_state.dart';
-import '../../data/models/hive/movie_hive.dart';
+import '../../data/models/movie.dart';
 import '../widgets/empty_widget.dart';
 import '../widgets/sreach_movies/grid_view_shimmer_widget.dart';
 
@@ -21,7 +21,7 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
     // box.clear();
   }
 
-  List<MovieHive> movies = [];
+  List<Movie> movies = [];
   ScrollController scrollController = ScrollController();
 
   @override

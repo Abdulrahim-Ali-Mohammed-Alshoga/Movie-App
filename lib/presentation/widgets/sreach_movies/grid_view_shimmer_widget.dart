@@ -18,11 +18,8 @@ class GridViewWidget extends StatelessWidget {
       itemCount: isShimmer?8:movies.length,
       itemBuilder: (BuildContext context, index) {
         return  isShimmer?const GridTitleShimmerWidget():GridTitleWidget(
+         movie: movies[index]
 
-          rating: movies[index].rating,
-          id: movies[index].id,
-          image: movies[index].image,
-          productionData: movies[index].productionData,
         );
       },
       gridDelegate:

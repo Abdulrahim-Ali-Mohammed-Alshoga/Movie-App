@@ -9,7 +9,6 @@ import '../../constants/arguments.dart';
 import '../../constants/color_manager.dart';
 import '../../constants/hive_name.dart';
 import '../../constants/screen_name.dart';
-import '../../data/models/hive/movie_hive.dart';
 import 'cached_network_image_widget.dart';
 import 'icon_favorite_button_widget.dart';
 
@@ -26,7 +25,7 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
   final PageController _pageController = PageController(viewportFraction: .50);
   int _currentPage = 0;
   double width = 180.w;
-  var box = Hive.box<MovieHive>(MovieFavoriteHiveDB.movieDB);
+  var box = Hive.box<Movie>(MovieFavoriteHiveDB.movieDB);
 
 
   @override
@@ -88,12 +87,7 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
                         child: IconFavoriteButtonWidget(
                           size: 25,
                           paddingSize: 12,
-                          movieHive: MovieHive(
-                              image: widget.movies[index].image,
-                              id: widget.movies[index].id!,
-                              rating: widget.movies[index].rating!,
-                              productionData:
-                                  widget.movies[index].productionData),
+                          movieHive:widget.movies[index],
                         )),
                   ],
                 ),

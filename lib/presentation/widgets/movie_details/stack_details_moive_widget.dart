@@ -108,6 +108,22 @@ bottom: 10,
                             )),
                       ],
                     ),
+                  ), Padding(
+                    padding: EdgeInsets.only(top: 3.h, left: 8.w),
+                    child: Row(
+                      children: [
+                        Icon(Icons.timer,
+                            color: ColorManager.grey, size: 15.w),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Text(changeTime(movieDetails.time!.toInt()),
+                            style: TextStyle(
+                              color: ColorManager.grey,
+                              fontSize: 15.sp,
+                            )),
+                      ],
+                    ),
                   ),
                   Padding(
                     padding: EdgeInsets.only(top: 3.h, left: 8.w),
@@ -125,23 +141,7 @@ bottom: 10,
                       ],
                     ),
                   ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 3.h, left: 8.w),
-                    child: Row(
-                      children: [
-                        Icon(Icons.timer,
-                            color: ColorManager.grey, size: 15.w),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        Text(changeTime(movieDetails.time!.toInt()),
-                            style: TextStyle(
-                              color: ColorManager.grey,
-                              fontSize: 15.sp,
-                            )),
-                      ],
-                    ),
-                  ),
+
                 ],
               ),
             ),

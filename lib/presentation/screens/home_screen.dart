@@ -65,7 +65,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     super.initState();
 
     BlocProvider.of<HomeCubit>(context)
-        .getAllMovies(mounted: mounted, context: context);
+        .getAllMovies(mounted: context.mounted, context: context);
 
     //WidgetsBinding.instance.addObserver(this);
     //  changConnect();

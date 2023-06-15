@@ -8,6 +8,7 @@ class ImageAssetName{
   static const String logIn='$rootImages/log_in.png';
   static const String offTheInternet='$rootImages/off_the _internet.png';
   static const String page_404='$rootImages/page_404.png';
+  static const String user='$rootImages/user.png';
 
 }
 // Q7fXb@suB62.fWG

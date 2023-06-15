@@ -7,17 +7,19 @@ import 'package:movies/constants/screen_name.dart';
 import 'package:movies/data/models/movie.dart';
 import '../../constants/arguments.dart';
 import '../../constants/color_manager.dart';
-import '../../data/models/hive/movie_hive.dart';
 import 'cached_network_image_widget.dart';
 import 'icon_favorite_button_widget.dart';
+
 class ListMovieTitleWidget extends StatelessWidget {
-   ListMovieTitleWidget({Key? key,required this.movie}) : super(key: key);
-Movie movie;
+  ListMovieTitleWidget({Key? key, required this.movie}) : super(key: key);
+  Movie movie;
+
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-       Navigator.pushNamed(context, ScreenName.detailsMovieScreen,arguments: DetailsMovieArgument(detailsMovie: movie));
+      onTap: () {
+        Navigator.pushNamed(context, ScreenName.detailsMovieScreen,
+            arguments: DetailsMovieArgument(detailsMovie: movie));
       },
       child: SizedBox(
         width: 320.w,
@@ -25,7 +27,7 @@ Movie movie;
           children: [
             Container(
               height: 150.h,
-              margin: EdgeInsets.only(left: 12.r),
+              margin: EdgeInsets.only(left: 12.w),
               width: 130.w,
               decoration: BoxDecoration(
                   color: ColorManager.greyOpacity20,
@@ -38,39 +40,40 @@ Movie movie;
                     CachedNetworkImageWidget(image: movie.image!),
                     Positioned.fill(
                       bottom: 5,
-                    right: 7,
+                      right: 7,
                       child: Align(
                         alignment: Alignment.bottomRight,
-                        child: IconFavoriteButtonWidget(paddingSize: 0,size: 22,movieHive:  MovieHive(
-                            image:movie.image,
-                            id: movie.id!,
-                            rating: movie.rating!,
-                            productionData:
-                            movie.productionData),),
+                        child: IconFavoriteButtonWidget(
+                          paddingSize: 0,
+                          size: 22,
+                          movieHive: movie,
+                        ),
                       ),
                     ),
                   ],
                 ),
               ),
             ),
-
             Expanded(
-              child: SizedBox(height: 150.h,
+              child: SizedBox(
+                height: 150.h,
                 child: Padding(
-                  padding:  EdgeInsets.only(left: 10.w,top: 8.h),
+                  padding: EdgeInsets.only(left: 10.w, top: 8.h),
                   child: Column(
                     // mainAxisAlignment: MainAxisAlignment.center,
-                     crossAxisAlignment: CrossAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AutoSizeText(movie.title!,
-                        maxLines: 2,
-                        style: TextStyle(
-                            fontSize: 16.sp, fontFamily: MyFont.titleFont,color: ColorManager.white)
-                      ),
+                          maxLines: 2,
+                          style: TextStyle(
+                              fontSize: 16.sp,
+                              fontFamily: MyFont.titleFont,
+                              color: ColorManager.white)),
                       Padding(
-                        padding:  EdgeInsets.symmetric(vertical: 4.h),
+                        padding: EdgeInsets.symmetric(vertical: 4.h),
                         child: RatingBarIndicator(
-                          rating:movie.rating!/2,unratedColor: ColorManager.grey,
+                          rating: movie.rating! / 2,
+                          unratedColor: ColorManager.grey,
                           itemBuilder: (context, index) => const Icon(
                             Icons.star,
                             color: ColorManager.amber,
@@ -81,18 +84,14 @@ Movie movie;
                         ),
                       ),
                       Flexible(
-                        child:Text(movie.description!,
-                          maxLines: 4,
-
-                     overflow:TextOverflow.ellipsis ,
-                          style: const TextStyle(
-fontSize: 12,
-                              fontWeight: FontWeight.bold,
-                             color: ColorManager.grey
-                          )
-                        ),
+                        child: Text(movie.description!,
+                            maxLines: 4,
+                            overflow: TextOverflow.ellipsis,
+                            style: const TextStyle(
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                color: ColorManager.grey)),
                       ),
-
                     ],
                   ),
                 ),

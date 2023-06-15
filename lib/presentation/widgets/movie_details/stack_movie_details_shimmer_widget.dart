@@ -16,9 +16,7 @@ class StackMovieDetailsShimmerWidget extends StatelessWidget {
         color: ColorManager.black,
       ),
       child: Stack(
-
         children: [
-
           ShimmerWidget(color: ColorManager.greyOpacity30),
           Container(
             color: ColorManager.blackOpacity20,
@@ -44,10 +42,9 @@ class StackMovieDetailsShimmerWidget extends StatelessWidget {
               top: 280.h,
               bottom: 10,
               child: ShimmerWidget(
-                height: 50, color: ColorManager.greyOpacity30,)
-
-
-          ),
+                height: 50,
+                color: ColorManager.greyOpacity30,
+              )),
           Positioned(
             right: 20.w,
             left: 190.w,
@@ -59,7 +56,8 @@ class StackMovieDetailsShimmerWidget extends StatelessWidget {
                 children: [
                   Padding(
                     padding: EdgeInsets.only(top: 65.h, left: 8.w),
-                    child: ShimmerWidget(height: 15,
+                    child: ShimmerWidget(
+                        height: 15,
                         circular: 10,
                         color: ColorManager.greyOpacity30),
                   ),
@@ -67,51 +65,55 @@ class StackMovieDetailsShimmerWidget extends StatelessWidget {
                     padding: EdgeInsets.only(top: 10.h, left: 8.w),
                     child: Row(
                       children: [
-                        Icon(
-                            Icons.event, color: ColorManager.grey, size: 15.sp),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        Flexible(child: ShimmerWidget(width: 250,
-                            height: 10,
-                            circular: 10,
-                            color: ColorManager.greyOpacity30),)
-
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 3.h, left: 8.w),
-                    child: Row(
-                      children: [
-                        Icon(Icons.language, color: ColorManager.grey,
-                            size: 15.sp),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        Flexible(child: ShimmerWidget(width: 250,
-                            height: 10,
-                            circular: 10,
-                            color: ColorManager.greyOpacity30),)
-                       ,
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 3.h, left: 8.w),
-                    child: Row(
-                      children: [
-                        Icon(Icons.timer,
-                            color: ColorManager.grey, size: 15.w),
+                        Icon(Icons.event,
+                            color: ColorManager.grey, size: 15.sp),
                         SizedBox(
                           width: 10.w,
                         ),
                         Flexible(
-                          child: ShimmerWidget(width: 250,
+                          child: ShimmerWidget(
+                              width: 250,
                               height: 10,
                               circular: 10,
-                              color: ColorManager.greyOpacity30) ,
-                        ) ,
+                              color: ColorManager.greyOpacity30),
+                        )
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 3.h, left: 8.w),
+                    child: Row(
+                      children: [
+                        Icon(Icons.language,
+                            color: ColorManager.grey, size: 15.sp),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Flexible(
+                          child: ShimmerWidget(
+                              width: 250,
+                              height: 10,
+                              circular: 10,
+                              color: ColorManager.greyOpacity30),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 3.h, left: 8.w),
+                    child: Row(
+                      children: [
+                        Icon(Icons.timer, color: ColorManager.grey, size: 15.w),
+                        SizedBox(
+                          width: 10.w,
+                        ),
+                        Flexible(
+                          child: ShimmerWidget(
+                              width: 250,
+                              height: 10,
+                              circular: 10,
+                              color: ColorManager.greyOpacity30),
+                        ),
                       ],
                     ),
                   ),

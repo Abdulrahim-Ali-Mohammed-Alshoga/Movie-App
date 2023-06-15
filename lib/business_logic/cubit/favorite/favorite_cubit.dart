@@ -2,13 +2,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive/hive.dart';
 
 import '../../../constants/hive_name.dart';
-import '../../../data/models/hive/movie_hive.dart';
+import '../../../data/models/movie.dart';
 import 'favorite_state.dart';
 
 class FavoriteCubit extends Cubit<FavoriteState>{
   FavoriteCubit():super(FavoriteInitialState());
-   List<MovieHive> movieFavorites=[];
-  var box = Hive.box<MovieHive>(MovieFavoriteHiveDB.movieDB);
+   List<Movie> movieFavorites=[];
+  var box = Hive.box<Movie>(MovieFavoriteHiveDB.movieDB);
 
  getMovieFavorite() {
   if(box.toMap().values.toList().isNotEmpty){
@@ -16,12 +16,12 @@ class FavoriteCubit extends Cubit<FavoriteState>{
     emit(FavoriteSuccess());
   }
 }
-  Future addMovieFavorite(MovieHive movieHive) async{
+  Future addMovieFavorite(Movie movieHive) async{
     movieFavorites.add(movieHive);
     await box.add(movieHive);
     emit(FavoriteAdd());
   }
- Future removeMovieFavorite(MovieHive movieHive) async{
+ Future removeMovieFavorite(Movie movieHive) async{
     for (int i = 0; i < movieFavorites.length; i++) {
       if (movieFavorites[i].id == movieHive.id) {
 

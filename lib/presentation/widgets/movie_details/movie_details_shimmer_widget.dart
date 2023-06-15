@@ -52,6 +52,22 @@ class MovieDetailsShimmerWidget extends StatelessWidget {
 
               ),
           Padding(
+              padding: const EdgeInsets.only(top: 15, left: 20),
+              child:Row(
+                children: [
+                  Text(
+                    "Genres : ",
+                    style: TextStyle(
+                        color: ColorManager.white,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 17.sp),
+                  ),
+                  ShimmerWidget(width: 212,height: 10,circular: 10,color:  ColorManager.greyOpacity30),
+                ],
+              )
+
+          ),
+          Padding(
             padding: EdgeInsets.only(top: 15.h, left: 20.w),
             child: Text(
               "Story line :",

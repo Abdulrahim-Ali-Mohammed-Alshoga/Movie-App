@@ -6,7 +6,7 @@ class AuthHiveDB{
   AuthHiveDB._();
 }
 class MovieFavoriteHiveDB {
-  static const String movieDB="movie";
+  static const String movieDB="movies";
 
   MovieFavoriteHiveDB._();
 }

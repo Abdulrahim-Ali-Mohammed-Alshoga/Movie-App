@@ -10,10 +10,12 @@ import '../business_logic/cubit/movies_by_genre/genre_movies_cubit.dart';
 import '../business_logic/cubit/now_playing_movies/now_playing_movies_cubit.dart';
 import '../business_logic/cubit/upcoming_movies/upcoming_movies_cubit.dart';
 import '../data/network/network_information.dart';
+import '../data/repository/cast_repository.dart';
 import '../data/repository/genre_movies_repository.dart';
 import '../data/repository/genre_repository.dart';
 import '../data/repository/movie_details_repository.dart';
 import '../data/repository/upcoming_movies_repository.dart';
+import '../data/web_services/cast_web_services.dart';
 import '../data/web_services/genre_movies_web_service.dart';
 import '../data/web_services/genre_web_service.dart';
 import '../data/web_services/movie_details_web service.dart';
@@ -107,9 +109,12 @@ Future<void> initMovieDetails() async {
 
     instance.registerFactory<MovieDetailsRepository>(
         () => MovieDetailsRepository(instance()));
-
+    instance.registerFactory<CastWebService>(
+            () => CastWebService());
+    instance.registerFactory<CastRepository>(
+            () => CastRepository(instance()));
     // network info
     instance.registerFactory<MovieDetailsCubit>(
-        () => MovieDetailsCubit(instance(),instance()));
+        () => MovieDetailsCubit(instance(),instance(),instance()));
   }
 }

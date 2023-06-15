@@ -10,7 +10,6 @@ class GenreCubit extends Cubit<GenreState> {
   GenreCubit(this.genreRepository) : super(GenreInitialState());
   GenreRepository genreRepository;
   int numberSelectGenre = 0;
-  late BuildContext j;
   List<Genre> genre = [Genre.toJson(name: "All", id: 0)];
 
  Future<void>  enterNumberSelectGenre({required int numberSelect}) async {
