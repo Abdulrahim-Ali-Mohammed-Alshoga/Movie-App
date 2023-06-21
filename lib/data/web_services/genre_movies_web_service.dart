@@ -16,7 +16,7 @@ class GenreMoviesWebService{
   Future<List<dynamic>> getGenreMovies(int numberPage, int genre) async {
     Response response = await dio.get("discover/movie",
         queryParameters: {"api_key": Conction.apiKye, "page": numberPage,"with_genres":genre==0?'all':genre});
-    //  print(response.data["results"]);
+     //print(response.data["results"]);
 
     return response.data["results"];
   }

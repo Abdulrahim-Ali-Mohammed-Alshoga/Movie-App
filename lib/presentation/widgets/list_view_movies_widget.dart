@@ -4,8 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/business_logic/cubit/movies_by_genre/genre_movies_state.dart';
 import 'package:movies/constants/image_asset_name.dart';
-import 'package:movies/data/repository/genre_movies_repository.dart';
-import 'package:movies/data/web_services/genre_movies_web_service.dart';
 import 'package:movies/presentation/widgets/page_view_home_widget.dart';
 import 'package:movies/presentation/widgets/home/shimmer/list_view_widget_shimmer.dart';
 import 'package:movies/presentation/widgets/home/shimmer/page_view_widget_shimmer.dart';
@@ -67,7 +65,7 @@ genres=widget.genres;
                   height: 430.h,
                   child: BlocBuilder<GenreMoviesCubit, GenreMoviesState>(
                     builder: (context, state) {
-                      if (state is GenreMoviesLoading||state is GenreMoviesInitialState) {
+                      if (state is GenreMoviesLoading) {
                         return const PageViewWidgetShimmer();
                       }
                       if (state is GenreMoviesSuccess ) {
@@ -200,13 +198,7 @@ genres=widget.genres;
                           );
                         }
 
-                        if (state is GenreMoviesInitialState) {
-                          return Center(
-                            child: SizedBox(
-                              height: .1.h,
-                            ),
-                          );
-                        } else {
+                       else {
                           return Center(
                             child: Padding(
                               padding: EdgeInsets.only(bottom: 130.h),

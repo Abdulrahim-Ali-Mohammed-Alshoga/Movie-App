@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movies/app/dependency_injection.dart';
-import 'package:movies/business_logic/cubit/now_playing_movies/now_playing_movies_cubit.dart';
 import 'package:movies/business_logic/cubit/search_movies/search_movie_cubit.dart';
+import 'package:movies/business_logic/cubit/trending/trending_cubit.dart';
 import 'package:movies/business_logic/cubit/upcoming_movies/upcoming_movies_cubit.dart';
 import 'package:movies/constants/arguments.dart';
 import 'package:movies/presentation/screens/movie__details_screen.dart';
@@ -12,12 +12,13 @@ import 'package:movies/presentation/screens/personal_information_screen.dart';
 import 'package:movies/presentation/screens/list_movies_screen.dart';
 import 'package:movies/presentation/screens/search_movies_screen.dart';
 import 'package:movies/presentation/screens/sign_in_screen.dart';
+import '../app/animate_route.dart';
 import '../business_logic/cubit/genre/genre_cubit.dart';
 import '../business_logic/cubit/movie_details/movie_details_cubit.dart';
 import '../business_logic/cubit/movies_by_genre/genre_movies_cubit.dart';
-import '../data/models/movie_details.dart';
 import '../presentation/screens/list_genre_movies_screen.dart';
 import '../presentation/screens/navigation_bar_screen.dart';
+import '../presentation/screens/trending_screen.dart';
 import 'screen_name.dart';
 
 class RouteApp {
@@ -29,13 +30,13 @@ class RouteApp {
       case ScreenName.homeScreen:
         return MaterialPageRoute(
           builder: (context) {
-            return HomeScreen();
+            return const HomeScreen();
           },
         );
       case ScreenName.onboardScreen:
         return MaterialPageRoute(
           builder: (context) {
-            return OnBoardScreen();
+            return const OnBoardScreen();
           },
         );
       case ScreenName.navigationBarScreen:
@@ -52,9 +53,18 @@ class RouteApp {
             );
           },
         );
+      case ScreenName.trendingScreen:
+        initTrendingMovie();
+        return AnimateRoute(
+            rightOrLeft: 0.0,
+            topOrBottom: 1.0,
+            page: BlocProvider<TrendingMovieCubit>(
+              create: (context) => instance<TrendingMovieCubit>()..getTrendingMovie(),
+              child: const TrendingScreen(),)
+        );
       case ScreenName.personalInformationScreen:
         return MaterialPageRoute(
-          builder: (context) => PersonalInformationScreen(),
+          builder: (context) => const PersonalInformationScreen(),
         );
       case ScreenName.listMoviesScreen:
         return MaterialPageRoute(builder: (context) {
@@ -83,22 +93,19 @@ class RouteApp {
             });
       case ScreenName.singInScreen:
         return MaterialPageRoute(
-          builder: (context) =>
-
-          const SingInScreen(),
+          builder: (context) => const SingInScreen(),
         );
       case ScreenName.detailsMovieScreen:
         initMovieDetails();
-        DetailsMovieArgument detailsMovieArgument = settings.arguments as
-        DetailsMovieArgument;
+        DetailsMovieArgument detailsMovieArgument =
+        settings.arguments as DetailsMovieArgument;
         return MaterialPageRoute(
-          builder: (context) =>  BlocProvider<MovieDetailsCubit>(
-              create: (context) =>
-              instance<MovieDetailsCubit>(),
-              child: MovieDetailsScreen(
-                  detailsMovie:detailsMovieArgument.detailsMovie),
-            )
-          );
+            builder: (context) =>
+                BlocProvider<MovieDetailsCubit>(
+                  create: (context) => instance<MovieDetailsCubit>(),
+                  child: MovieDetailsScreen(
+                      movie: detailsMovieArgument.detailsMovie),
+                ));
 
       case ScreenName.searchMoviesScreen:
         initSearchScreen();
@@ -106,7 +113,7 @@ class RouteApp {
           builder: (context) =>
               BlocProvider<SearchMovieCubit>(
                   create: (context) => instance<SearchMovieCubit>(),
-                  child: SearchMovieScreen()),
+                  child: const SearchMovieScreen()),
         );
     }
     return null;

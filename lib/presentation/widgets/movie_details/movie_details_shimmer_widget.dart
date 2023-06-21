@@ -5,6 +5,7 @@ import 'package:movies/presentation/widgets/movie_details/stack_movie_details_sh
 import '../../../constants/color_manager.dart';
 import '../../../constants/font.dart';
 import '../shimmer/shimmer_widget.dart';
+import 'list_view_cast_widget.dart';
 class MovieDetailsShimmerWidget extends StatelessWidget {
   const MovieDetailsShimmerWidget({Key? key}) : super(key: key);
 
@@ -88,7 +89,21 @@ class MovieDetailsShimmerWidget extends StatelessWidget {
                     circular: 10,
                     color: ColorManager.greyOpacity30),
               ],)),
-            ) )
+            ) ),
+          Padding(
+            padding: EdgeInsets.only(top: 15.h, left: 20.w),
+            child: Text(
+              "Cast :",
+              textAlign: TextAlign.start,
+              style: TextStyle(
+                  color: ColorManager.white,
+                  fontFamily: MyFont.titleFont,
+                  fontSize: 15.sp),
+            ),
+          ),
+          Padding(
+              padding: EdgeInsets.only(top: 15.h, left: 20.w),
+              child: const ListViewCastWidget(isShimmer: false,)),
         ],
       ),
     );

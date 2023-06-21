@@ -19,7 +19,7 @@ void main() async {
       widgetsBinding: WidgetsFlutterBinding.ensureInitialized());
   await AppHive().getInitHive;
   await initAppModule();
-  Future.delayed(const Duration(milliseconds: 1))
+  Future.delayed(const Duration(milliseconds: 500))
       .then((value) => FlutterNativeSplash.remove());
   var box = Hive.box(AuthHiveDB.authDB);
   runApp(MultiBlocProvider(providers: [

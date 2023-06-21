@@ -140,7 +140,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
                     children: [
                       Center(
                         child: Padding(
-                          padding: EdgeInsets.only(right: 30.w),
+                          padding: EdgeInsets.only(right: 0.w),
                           child: Text(
                             "Now Playing",
                             style: TextStyle(
@@ -161,6 +161,7 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
 
                       ListViewUpcomingMoviesWidget(),
                       const ListViewGenreMoviesWidget(),
+                      SizedBox(height: 67.h)
                     ],
                   ),
                 ),

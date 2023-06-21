@@ -12,6 +12,7 @@ class ColorManager {
 
   // static const black=Color(0xFF231C1A);
   static const grey = Color(0xFF9E9E9E);
+  static const greyOpacity10 = Color(0xFF282828);
   static const greyOpacity22 = Color(0x389E9E9E);
   static const greyOpacity20 = Color(0x339E9E9E);
   static const greyOpacity40 = Color(0x669E9E9E);
@@ -21,6 +22,7 @@ class ColorManager {
   static const whiteOpacity30 = Color(0x4DFFFFFF);
   static const whiteOpacity60 = Color(0x99FFFFFF);
   static const whiteOpacity80 = Color(0xCCFFFFFF);
+  static const whiteOpacity90 = Color(0xE6FFFFFF);
   static const whiteDark = Color(0xFFf0f0f0);
   static const whiteDarkOpacity30 = Color(0x4Df0f0f0);
   static const green = Color(0xFF4CAF50);

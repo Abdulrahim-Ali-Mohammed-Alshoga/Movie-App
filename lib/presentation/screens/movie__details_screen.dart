@@ -17,8 +17,8 @@ import '../widgets/movie_details/list_view_cast_widget.dart';
 import '../widgets/movie_details/movie_details_shimmer_widget.dart';
 
 class MovieDetailsScreen extends StatefulWidget {
-  MovieDetailsScreen({Key? key, required this.detailsMovie}) : super(key: key);
-  Movie detailsMovie;
+  const MovieDetailsScreen({Key? key, required this.movie}) : super(key: key);
+  final Movie movie;
 
   @override
   State<MovieDetailsScreen> createState() => _MovieDetailsScreenState();
@@ -27,23 +27,38 @@ class MovieDetailsScreen extends StatefulWidget {
 class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
   late Movie movie;
   late MovieDetails movieDetails;
-  late List<Cast> casts;
-  late List<Genre> genres;
+  late List<Cast> casts = [];
+  late List<Genre> genres = [];
   bool isLogin = false;
 
   @override
   void initState() {
     // TODO: implement initState
     BlocProvider.of<MovieDetailsCubit>(context)
-        .getMovieDetails(idMovie: widget.detailsMovie.id!.toInt());
+        .getMovieDetails(idMovie: widget.movie.id!.toInt());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    movie = widget.detailsMovie;
-    return Scaffold(body: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
-        builder: (context, state) {
+    movie = widget.movie;
+    return Scaffold(
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.transparent,
+          leading: IconButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              icon: Icon(
+                Icons.arrow_back_ios,
+                size: 24.h,
+                color: ColorManager.white,
+              )),
+        ),
+        body: BlocBuilder<MovieDetailsCubit, MovieDetailsState>(
+            builder: (context, state) {
           if (state is MovieDetailsInitialState) {
             return EmptyWidget(
               icon: Icons.search,
@@ -57,13 +72,8 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
           // }
           else if (state is MovieDetailsSuccess) {
             movieDetails =
-            BlocProvider
-                .of<MovieDetailsCubit>(context)
-                .movieDetails!;
-            casts = BlocProvider
-                .of<MovieDetailsCubit>(context)
-                .casts;
-            genres=movieDetails.genres!.cast();
+                BlocProvider.of<MovieDetailsCubit>(context).movieDetails!;
+            casts = BlocProvider.of<MovieDetailsCubit>(context).casts;
             return SingleChildScrollView(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -80,12 +90,11 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                           style: TextStyle(
                               color: ColorManager.white,
                               fontFamily: MyFont.titleFont,
-                              fontSize: 15.sp),
+                              fontSize: 16.sp),
                         ),
                         RatingBarIndicator(
                           rating: movie.rating! / 2,
-                          itemBuilder: (context, index) =>
-                          const Icon(
+                          itemBuilder: (context, index) => const Icon(
                             Icons.star,
                             color: ColorManager.amber,
                           ),
@@ -128,41 +137,46 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                             text: "Votes : ",
                             style: TextStyle(
                                 color: ColorManager.white,
+                                fontFamily: MyFont.titleFont,
                                 fontWeight: FontWeight.bold,
-                                fontSize: 17.sp),
+                                fontSize: 16.sp),
                           ),
                           TextSpan(
                             text: "${movieDetails.vote} vote",
                             style: TextStyle(
                                 color: ColorManager.grey,
-                                fontSize: 18.sp,
+                                fontSize: 16.sp,
                                 fontFamily: MyFont.mainFont),
                           )
                         ]),
                       )),
                   Padding(
                       padding: const EdgeInsets.only(top: 15, left: 20),
-                      child: RichText(maxLines: 1,
-                        text: TextSpan(
-
-                            children: <TextSpan>[
-                        TextSpan(
-                        text: "Genres : ",
-                          style: TextStyle(
-                              color: ColorManager.white,
-                              fontWeight: FontWeight.bold,
-                              fontSize: 17.sp),
-                        ),
-                        TextSpan(
+                      child: RichText(
+                        maxLines: 1,
+                        text: TextSpan(children: <TextSpan>[
+                          TextSpan(
+                            text: "Genres : ",
+                            style: TextStyle(
+                                color: ColorManager.white,
+                                fontWeight: FontWeight.bold,
+                                fontFamily: MyFont.titleFont,
+                                fontSize: 16.sp),
+                          ),
+                          TextSpan(
                             text: List.generate(
-                             genres.length>3?3:genres.length, (
-                                index) => genres[index].name).toList().join(' - '),
-                              style: TextStyle(
-                                  color: ColorManager.grey,
-                                  fontSize: 18.sp,
-                                  fontFamily: MyFont.mainFont),
-                            )
-                            ]),
+                                    movieDetails.genres!.length > 3
+                                        ? 3
+                                        : movieDetails.genres!.length,
+                                    (index) => movieDetails.genres![index].name)
+                                .toList()
+                                .join(' - '),
+                            style: TextStyle(
+                                color: ColorManager.grey,
+                                fontSize: 16.sp,
+                                fontFamily: MyFont.mainFont),
+                          )
+                        ]),
                       )),
                   Padding(
                     padding: EdgeInsets.only(top: 15.h, left: 20.w),
@@ -172,17 +186,17 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       style: TextStyle(
                           color: ColorManager.white,
                           fontFamily: MyFont.titleFont,
-                          fontSize: 15.sp),
+                          fontSize: 16.sp),
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.only(
-                        top: 10, left: 20, right: 20),
+                    padding:
+                        const EdgeInsets.only(top: 10, left: 20, right: 20),
                     child: SelectableText(
                       movieDetails.description!,
                       style: TextStyle(
                           color: ColorManager.grey,
-                          fontSize: 15.sp,
+                          fontSize: 16.sp,
                           fontFamily: MyFont.mainFont),
                     ),
                   ),
@@ -194,13 +208,15 @@ class _MovieDetailsScreenState extends State<MovieDetailsScreen> {
                       style: TextStyle(
                           color: ColorManager.white,
                           fontFamily: MyFont.titleFont,
-                          fontSize: 15.sp),
+                          fontSize: 16.sp),
                     ),
                   ),
                   Padding(
                       padding: EdgeInsets.only(top: 15.h, left: 20.w),
-                      child: ListViewCastWidget(casts: casts)
-                  ),
+                      child: ListViewCastWidget(
+                        casts: casts,
+                        isShimmer: true,
+                      )),
                 ],
               ),
             );

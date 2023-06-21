@@ -5,6 +5,7 @@ class ScreenName{
   static const String homeScreen="/home_screen";
   static const String personalInformationScreen="/personal_information_screen";
   static const String singInScreen="/sing_in_screen";
+  static const String trendingScreen="/trending_screen";
 // const String homeScreen="/home_screen";
   static const String listMoviesScreen="/list_movies_screen";
   static const String listGenreMoviesScreen="/list_Genre_movies_screen";

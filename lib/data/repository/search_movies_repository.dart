@@ -1,5 +1,5 @@
 import 'package:movies/data/models/movie.dart';
-import 'package:movies/data/web_services/search_movies_web_services.dart';
+import 'package:movies/data/web_services/search_movies_web_service.dart';
 
 class SearchMoviesRepository{
 

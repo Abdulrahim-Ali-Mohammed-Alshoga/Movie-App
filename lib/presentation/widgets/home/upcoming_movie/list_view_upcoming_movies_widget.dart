@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/business_logic/cubit/upcoming_movies/upcoming_movies_cubit.dart';
 import 'package:movies/business_logic/cubit/upcoming_movies/upcoming_movies_state.dart';
-
+import 'package:movies/presentation/widgets/failure_widget.dart';
 import '../../../../constants/arguments.dart';
 import '../../../../constants/color_manager.dart';
 import '../../../../constants/font.dart';
@@ -35,9 +35,10 @@ class ListViewUpcomingMoviesWidget extends StatelessWidget {
                     color: ColorManager.white),
               ),
               GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, ScreenName.listMoviesScreen,
-                        arguments: ListMoviesArgument(namePage: "Now playing"));
+                  onTap: () {if(movies.isNotEmpty) {
+                      Navigator.pushNamed(context, ScreenName.listMoviesScreen,
+                          arguments: ListMoviesArgument(namePage: "Upcoming"));
+                    }
                     // Navigator.pushNamed(context, ScreenName.listMoviesScreen,
                     //     arguments: ListMovies(movies[ind],
                     //         genres[ind], movieCubit[ind]));
@@ -88,7 +89,7 @@ class ListViewUpcomingMoviesWidget extends StatelessWidget {
                                     Navigator.pushNamed(
                                         context, ScreenName.listMoviesScreen,
                                         arguments: ListMoviesArgument(
-                                            namePage: "Now playing"));
+                                            namePage: "Upcoming"));
                                     // Navigator.pushNamed(
                                     //     context, ScreenName.listMoviesScreen,
                                     //     arguments: ListMovies(
@@ -130,15 +131,12 @@ class ListViewUpcomingMoviesWidget extends StatelessWidget {
                     ),
                   );
                 } else {
-                  return Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: 130.h),
-                      child: Image.asset(
-                        ImageAssetName.page_404,
-                        width: 300.w,
-                        height: 400.h,
-                      ),
-                    ),
+                  return FailureWidget(
+                    onPressed: () {
+                      BlocProvider.of<UpcomingMovieCubit>(context)
+                          .getAllMovies();
+                    },
+                    sizeIcon: 35.r,
                   );
                 }
               },

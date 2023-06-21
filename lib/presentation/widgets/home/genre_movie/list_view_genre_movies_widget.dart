@@ -10,6 +10,7 @@ import '../../../../constants/font.dart';
 import '../../../../constants/image_asset_name.dart';
 import '../../../../constants/screen_name.dart';
 import '../../../../data/models/movie.dart';
+import '../../failure_widget.dart';
 import '../../list_movie_title_widget.dart';
 import '../../select_container_widgte.dart';
 import '../shimmer/list_view_widget_shimmer.dart';
@@ -51,11 +52,14 @@ class _ListViewGenreMoviesWidgetState extends State<ListViewGenreMoviesWidget> {
               ),
               GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context,
-                        ScreenName.listGenreMoviesScreen,
-                        arguments: ListGenreMoviesArgument(
-                            namePage: 'Movies',
-                            numberSelect: 1)).then((value) => BlocProvider.of<GenreCubit>(context).startGenre());
+                    if (movies.isNotEmpty) {
+                      Navigator.pushNamed(
+                              context, ScreenName.listGenreMoviesScreen,
+                              arguments: ListGenreMoviesArgument(
+                                  namePage: 'Movies', numberSelect: 1))
+                          .then((value) => BlocProvider.of<GenreCubit>(context)
+                              .startGenre());
+                    }
                     // Navigator.pushNamed(context, ScreenName.listMoviesScreen,
                     //     arguments: ListMovies(movies[ind],
                     //         genres[ind], movieCubit[ind]));
@@ -68,7 +72,7 @@ class _ListViewGenreMoviesWidgetState extends State<ListViewGenreMoviesWidget> {
             ],
           ),
         ),
-      SelectContainerWidget(uniqueKye: 4),
+        const SelectContainerWidget(),
         Container(
             height: 180,
             margin: EdgeInsets.only(top: 10.h, bottom: 15.h),
@@ -76,13 +80,24 @@ class _ListViewGenreMoviesWidgetState extends State<ListViewGenreMoviesWidget> {
                 borderRadius: const BorderRadius.only(
                     bottomLeft: Radius.circular(10),
                     topLeft: Radius.circular(10)),
-                color: ColorManager.greyOpacity22.withOpacity(.22)),
+                color: ColorManager.greyOpacity22),
             child: BlocBuilder<GenreMoviesCubit, GenreMoviesState>(
               builder: (context, state) {
-                if (state is GenreMoviesLoading) {
-                  return const ListViewWidgetShimmer();
-                }
-                if (state is GenreMoviesSuccess) {
+                if (state is GenreMoviesFailure) {
+                  return FailureWidget(
+                    onPressed: () {
+                      if (state.isNoGenre) {
+                        BlocProvider.of<GenreCubit>(context).getAllGenre();
+                      } else {
+                        BlocProvider.of<GenreMoviesCubit>(context)
+                            .getGenreMovies(
+                                BlocProvider.of<GenreMoviesCubit>(context)
+                                    .selectGenre);
+                      }
+                    },
+                    sizeIcon: 35.r,
+                  );
+                } else if (state is GenreMoviesSuccess) {
                   movies = BlocProvider.of<GenreMoviesCubit>(context).movies;
 
                   return ListView.builder(
@@ -105,10 +120,13 @@ class _ListViewGenreMoviesWidgetState extends State<ListViewGenreMoviesWidget> {
                               ? GestureDetector(
                                   onTap: () {
                                     Navigator.pushNamed(context,
-                                        ScreenName.listGenreMoviesScreen,
-                                        arguments: ListGenreMoviesArgument(
-                                            namePage: 'Movies',
-                                            numberSelect: 1)).then((value) => BlocProvider.of<GenreCubit>(context).startGenre());
+                                            ScreenName.listGenreMoviesScreen,
+                                            arguments: ListGenreMoviesArgument(
+                                                namePage: 'Movies',
+                                                numberSelect: 1))
+                                        .then((value) =>
+                                            BlocProvider.of<GenreCubit>(context)
+                                                .startGenre());
                                     // Navigator.pushNamed(
                                     //     context, ScreenName.listMoviesScreen,
                                     //     arguments: ListMovies(
@@ -142,24 +160,8 @@ class _ListViewGenreMoviesWidgetState extends State<ListViewGenreMoviesWidget> {
                       );
                     },
                   );
-                }
-                if (state is GenreMoviesInitialState) {
-                  return Center(
-                    child: SizedBox(
-                      height: .1.h,
-                    ),
-                  );
                 } else {
-                  return Center(
-                    child: Padding(
-                      padding: EdgeInsets.only(bottom: 130.h),
-                      child: Image.asset(
-                        ImageAssetName.page_404,
-                        width: 300.w,
-                        height: 400.h,
-                      ),
-                    ),
-                  );
+                  return const ListViewWidgetShimmer();
                 }
               },
             )),

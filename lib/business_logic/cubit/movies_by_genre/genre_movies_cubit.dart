@@ -12,49 +12,50 @@ class GenreMoviesCubit extends Cubit<GenreMoviesState> {
   NetworkInfo networkInformation;
   List<Movie> movies = [];
   int numberPage = 2;
-  int checkGenre = -1;
+  int selectGenre = -1;
 
-  void getGenreMovies(int? genre) async {
-    if (checkGenre != genre) {
-      if (await networkInformation.isConnected) {
+  void getGenreMovies(int? idGenre) async {print(idGenre);
+    //الشرط الاول من اجل اذا اخترنا نفس الفئة ما يتم طلبه من جديد
+    // والشرط الثاني من اجل اذا كان هناك خطاء وما تم جاب البيانات يتم جلبها ولو كانت من نفس الفئة
+    if (await networkInformation.isConnected) {
+
+      if (selectGenre != idGenre || movies.isEmpty) {
         movies.clear();
         numberPage = 2;
-        checkGenre = genre!;
+        selectGenre = idGenre!;
         if (movies.isEmpty) {
           emit(GenreMoviesLoading());
         }
         try {
-          movies.addAll(await genreMoviesRepository.getGenreMovies(1, genre!));
+          movies.addAll(await genreMoviesRepository.getGenreMovies(1, idGenre!));
           emit(GenreMoviesSuccess());
         } catch (e) {
-          print(e);
-          if (e.toString() == "Connecting timed out [10000ms]") {
-          } else {
-            emit(GenreMoviesFailure());
+          if (movies.isEmpty) {
+            emit(GenreMoviesFailure(isNoGenre: false));
           }
         }
-      } else {
-        emit(GenreMoviesNotConnected());
       }
+    } else {
+      movies.clear();
+      selectGenre = idGenre!;
+      emit(GenreMoviesNotConnected());
     }
+  }
+
+  void getFailure() {
+
+    emit(GenreMoviesFailure(isNoGenre: true));
+
   }
 
   void getSameGenreMovies() async {
-    if (movies.isEmpty) {
-      emit(GenreMoviesLoading());
-    }
     try {
       movies.addAll(
-          await genreMoviesRepository.getGenreMovies(numberPage, checkGenre));
+          await genreMoviesRepository.getGenreMovies(numberPage, selectGenre));
       emit(GenreMoviesSuccess());
       numberPage += 1;
     } catch (e) {
-      print(e);
-      if (e.toString() == "Connecting timed out [10000ms]") {
-      } else {
-        emit(GenreMoviesFailure());
-      }
+      print('object');
     }
   }
 }
-

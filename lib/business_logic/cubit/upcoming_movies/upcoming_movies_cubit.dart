@@ -19,11 +19,14 @@ class UpcomingMovieCubit extends Cubit<UpcomingMovieState> {
             emit(UpcomingMovieSuccess());
             numberPage+=1;
           } catch (e) {
-            print(e);
-            if(e.toString()=="Connecting timed out [10000ms]"){
-
+            //
+            // if(e.toString()=="Connecting timed out [10000ms]"){
+            //
+            // }
+            if (movies.isEmpty) {
+              emit(UpcomingMovieFailure());
             }
-            else{emit(UpcomingMovieFailure());}
+
 
           }
 

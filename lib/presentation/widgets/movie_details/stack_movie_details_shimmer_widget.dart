@@ -84,8 +84,7 @@ class StackMovieDetailsShimmerWidget extends StatelessWidget {
                     padding: EdgeInsets.only(top: 3.h, left: 8.w),
                     child: Row(
                       children: [
-                        Icon(Icons.language,
-                            color: ColorManager.grey, size: 15.sp),
+                        Icon(Icons.timer, color: ColorManager.grey, size: 15.w),
                         SizedBox(
                           width: 10.w,
                         ),
@@ -102,8 +101,12 @@ class StackMovieDetailsShimmerWidget extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.only(top: 3.h, left: 8.w),
                     child: Row(
-                      children: [
-                        Icon(Icons.timer, color: ColorManager.grey, size: 15.w),
+                      children: [  Icon(
+                        color: ColorManager.red,
+                        Icons.favorite_border,
+                        size: 15.r,
+                      ),
+
                         SizedBox(
                           width: 10.w,
                         ),
@@ -121,18 +124,7 @@ class StackMovieDetailsShimmerWidget extends StatelessWidget {
               ),
             ),
           ),
-          Positioned(
-              height: 110.h,
-              width: 70.w,
-              child: IconButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  icon: Icon(
-                    Icons.arrow_back_ios,
-                    size: 24.h,
-                    color: ColorManager.white,
-                  ))),
+
         ],
       ),
     );

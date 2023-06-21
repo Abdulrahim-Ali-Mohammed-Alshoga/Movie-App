@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../business_logic/cubit/favorite/favorite_cubit.dart';
 import '../../business_logic/cubit/favorite/favorite_state.dart';
 import '../../data/models/movie.dart';
@@ -18,7 +19,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    // box.clear();
   }
 
   List<Movie> movies = [];
@@ -37,9 +37,14 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
           return ScrollConfiguration(
               behavior:
                   const MaterialScrollBehavior().copyWith(overscroll: false),
-              child: GridViewWidget(
-                scrollController: scrollController,
-                movies: movies,
+              child:SingleChildScrollView(
+                controller:scrollController ,
+                child: Column(children: [
+                  GridViewWidget(
+                    movies: movies,
+                  ),
+                  SizedBox(height: 72.h),
+                ]),
               ));
         } else {
           return EmptyWidget(
@@ -50,7 +55,6 @@ class _FavoritesScreenState extends State<FavoritesScreen> {
       },
       listener: (context, state) {
         if (state is FavoriteAdd) {
-          print(movies.length);
           if (movies.isNotEmpty) {
             scrollController.jumpTo(0);
           }

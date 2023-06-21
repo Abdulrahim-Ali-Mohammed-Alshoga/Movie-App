@@ -2,6 +2,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/app/extensions.dart';
 import 'package:movies/constants/font.dart';
 import 'package:movies/constants/screen_name.dart';
 import 'package:movies/data/models/movie.dart';
@@ -37,7 +38,7 @@ class ListMovieTitleWidget extends StatelessWidget {
                 child: Stack(
                   fit: StackFit.expand,
                   children: [
-                    CachedNetworkImageWidget(image: movie.image!),
+                    CachedNetworkImageWidget(image: movie.image!.orEmpty),
                     Positioned.fill(
                       bottom: 5,
                       right: 7,

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:hive/hive.dart';
+import 'package:movies/app/extensions.dart';
 import 'package:movies/constants/font.dart';
 import 'package:movies/data/models/movie.dart';
 import '../../constants/arguments.dart';
@@ -61,7 +62,7 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
         bool active = index == _currentPage;
 
         final double top = active ? 30.h : 70.h;
-        return Column(
+        return  Column(
           children: [
             GestureDetector(
               onTap: () {
@@ -72,7 +73,7 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
               child: AnimatedContainer(
                 duration: const Duration(seconds: 2),
                 curve: Curves.easeInOutCubicEmphasized,
-                margin: EdgeInsets.only(top: top, bottom: 10.h, right: 30.w),
+                margin: EdgeInsets.only(top: top, bottom: 10.h, right: 15.w,left: 15.w),
                 decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20.r),
                   color:  ColorManager.whiteDarkOpacity30,
@@ -82,7 +83,7 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
                   children: [
                     ClipRRect(
                         borderRadius: BorderRadius.circular(20).r,
-                        child: CachedNetworkImageWidget(image: widget.movies[index].image,height: 265.h,)),
+                        child: CachedNetworkImageWidget(image: widget.movies[index].image.orEmpty,height: 265.h,)),
                     Positioned(
                         child: IconFavoriteButtonWidget(
                           size: 25,
@@ -94,7 +95,7 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.only(right: 30.w, bottom: 5.h),
+              padding: EdgeInsets.only(right: 15.w, bottom: 5.h),
               child: RatingBarIndicator(
                 rating: widget.movies[index].rating! / 2,
                 itemBuilder: (context, index) => const Icon(
@@ -107,18 +108,19 @@ class _PageViewHomeWidgetState extends State<PageViewHomeWidget> {
                 direction: Axis.horizontal,
               ),
             ),
-            Padding(
-              padding: EdgeInsets.only(right: 30.w),
-              child: AutoSizeText(
-                widget.movies[index].title!,
-                maxLines: 2,
-                style: TextStyle(
-                    color: ColorManager.white,
-                    fontSize: 17.sp,
-                    fontFamily: MyFont.titleFont),
-                textAlign: TextAlign.center,
-              ),
-            )
+          Expanded(child:Padding(
+            padding: EdgeInsets.only(right: 15.w),
+            child: AutoSizeText(
+              widget.movies[index].title!,
+              maxLines: 2,
+              style: TextStyle(
+                  color: ColorManager.white,
+                  fontSize: 17.sp,
+                  fontFamily: MyFont.titleFont),
+              textAlign: TextAlign.center,
+            ),
+          ) )
+
           ],
         );
       },

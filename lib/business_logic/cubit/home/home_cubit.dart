@@ -19,9 +19,9 @@ class HomeCubit extends Cubit<HomeState> {
       if (!mounted) return;
       try {
         emit(HomeSuccess());
-         BlocProvider.of<UpcomingMovieCubit>(context)
+        BlocProvider.of<GenreCubit>(context).getAllGenre();
+        BlocProvider.of<UpcomingMovieCubit>(context)
             .getAllMovies();
-         BlocProvider.of<GenreCubit>(context).getAllGenre();
          BlocProvider.of<NowPlayingMovieCubit>(context)
             .getAllMovies();
       } catch (e) {
@@ -32,7 +32,6 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
   void checkTheNet()  {
-print('objectlllllllllllp');
     emit(HomeFailure());
   }
 }

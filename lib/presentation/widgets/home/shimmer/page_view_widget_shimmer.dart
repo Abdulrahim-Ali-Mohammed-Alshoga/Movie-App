@@ -54,7 +54,7 @@ class _PageViewWidgetShimmerState extends State<PageViewWidgetShimmer> {
             AnimatedContainer(
               duration: const Duration(seconds: 2),
               curve: Curves.easeInOutCubicEmphasized,
-              margin: EdgeInsets.only(top: top, bottom: 10.h, right: 30.w),
+              margin: EdgeInsets.only(top: top, bottom: 10.h, right: 15.w,left: 15.w),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20.r),
                 color: ColorManager.blackOpacity20,

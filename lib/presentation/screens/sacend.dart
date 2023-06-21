@@ -176,13 +176,7 @@ class _SecandState extends State<Secand> {
             );
           }
 
-          if (state is GenreMoviesInitialState) {
-            return Center(
-              child: SizedBox(
-                height: .1.h,
-              ),
-            );
-          } else {
+        else {
             return Center(
               child: Padding(
                 padding: EdgeInsets.only(bottom: 130.h),

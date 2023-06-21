@@ -3,23 +3,26 @@ import 'package:movies/business_logic/cubit/search_movies/search_movie_cubit.dar
 import 'package:movies/data/repository/now_playing_movies_repository.dart';
 import 'package:movies/data/repository/search_movies_repository.dart';
 import 'package:movies/data/web_services/now_playing_movies_web_service.dart';
-import 'package:movies/data/web_services/search_movies_web_services.dart';
+import 'package:movies/data/web_services/search_movies_web_service.dart';
 import '../business_logic/cubit/genre/genre_cubit.dart';
 import '../business_logic/cubit/movie_details/movie_details_cubit.dart';
 import '../business_logic/cubit/movies_by_genre/genre_movies_cubit.dart';
 import '../business_logic/cubit/now_playing_movies/now_playing_movies_cubit.dart';
+import '../business_logic/cubit/trending/trending_cubit.dart';
 import '../business_logic/cubit/upcoming_movies/upcoming_movies_cubit.dart';
 import '../data/network/network_information.dart';
 import '../data/repository/cast_repository.dart';
 import '../data/repository/genre_movies_repository.dart';
 import '../data/repository/genre_repository.dart';
 import '../data/repository/movie_details_repository.dart';
+import '../data/repository/trending_movies_repository.dart';
 import '../data/repository/upcoming_movies_repository.dart';
-import '../data/web_services/cast_web_services.dart';
+import '../data/web_services/cast_web_service.dart';
 import '../data/web_services/genre_movies_web_service.dart';
 import '../data/web_services/genre_web_service.dart';
 import '../data/web_services/movie_details_web service.dart';
-import '../data/web_services/upcoming_movies_web_services.dart';
+import '../data/web_services/trending_movies_web_service.dart';
+import '../data/web_services/upcoming_movies_web_service.dart';
 
 final instance = GetIt.instance;
 
@@ -72,6 +75,20 @@ Future<void> initGenre() async {
   }
 }
 
+Future<void> initTrendingMovie() async {
+  // app module, its a module where we put all generic dependencies
+  if (!GetIt.I.isRegistered<TrendingMoviesWebService>()) {
+    instance.registerLazySingleton<TrendingMoviesWebService>(
+            () => TrendingMoviesWebService());
+
+    instance.registerLazySingleton<TrendingMoviesRepository>(
+            () => TrendingMoviesRepository(instance()));
+
+    // network info
+    instance.registerLazySingleton<TrendingMovieCubit>(
+            () => TrendingMovieCubit(instance(),instance()));
+  }
+}
 Future<void> initUpcomingMovie() async {
   // app module, its a module where we put all generic dependencies
   if (!GetIt.I.isRegistered<UpcomingMoviesWebServices>()) {

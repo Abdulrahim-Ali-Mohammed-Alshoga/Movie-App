@@ -8,9 +8,10 @@ import 'package:movies/constants/color_manager.dart';
 import '../../constants/image_network_name.dart';
 
 class CachedNetworkImageWidget extends StatefulWidget {
-  CachedNetworkImageWidget({Key? key,this.width, this.height, this.image})
+  CachedNetworkImageWidget({Key? key,this.colorIcon=ColorManager.blackDark,this.width, this.height, this.image})
       : super(key: key);
   String? image;
+  Color? colorIcon;
   double? height,width;
 
   @override
@@ -34,7 +35,7 @@ class _CachedNetworkImageWidgetState extends State<CachedNetworkImageWidget> {
       child: CachedNetworkImage(
         height: widget.height,
         width: widget.width,
-        key: ValueKey(widget.image == null
+        key: ValueKey(widget.image!.isEmpty
             ? widget.image
             : widget.image! + newKey.toString()),
         imageBuilder: (context, imageProvider) {
@@ -47,11 +48,11 @@ class _CachedNetworkImageWidgetState extends State<CachedNetworkImageWidget> {
             ),
           );
         },
-        imageUrl: widget.image == null
-            ? "لل"
+        imageUrl: widget.image!.isEmpty
+            ? 'https://0.0.0.0/2'
             : ImageNetworkName.rootImages + widget.image!,
         errorWidget: (context, url, error) {
-          if (widget.image != null) {
+          if (widget.image!.isNotEmpty) {
             newKey++;
           }
 
@@ -64,7 +65,7 @@ class _CachedNetworkImageWidgetState extends State<CachedNetworkImageWidget> {
                     child: Icon(
                   Icons.wifi_off,
                   size: 30.sp,
-                  color: ColorManager.deepOrange,
+                  color: widget.colorIcon,
                 )),
               ),
             );
@@ -75,6 +76,7 @@ class _CachedNetworkImageWidgetState extends State<CachedNetworkImageWidget> {
               child: Icon(
                 Icons.image_not_supported,
                 size: 30.sp,
+                color: widget.colorIcon,
               ),
             ),
           );

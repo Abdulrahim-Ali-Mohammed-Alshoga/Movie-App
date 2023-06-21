@@ -9,6 +9,7 @@ import '../../../../constants/font.dart';
 import '../../../../constants/image_asset_name.dart';
 import '../../../../constants/screen_name.dart';
 import '../../../../data/models/movie.dart';
+import '../../failure_widget.dart';
 import '../../page_view_home_widget.dart';
 import '../shimmer/list_view_widget_shimmer.dart';
 import '../shimmer/page_view_widget_shimmer.dart';
@@ -19,11 +20,7 @@ class ListViewNowPlayingMoviesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-        itemCount: 1,
-        shrinkWrap: true,
-        physics: const NeverScrollableScrollPhysics(),
-        itemBuilder: (BuildContext context, index) {
+
           return Column(
             children: [
               SizedBox(
@@ -42,22 +39,14 @@ class ListViewNowPlayingMoviesWidget extends StatelessWidget {
                       );
                     }
                     else {
-                      return Center(
-                        child: Padding(
-                          padding: EdgeInsets.only(bottom: 130.h),
-                          child: Image.asset(
-                            ImageAssetName.page_404,
-                            width: 300.w,
-                            height: 400.h,
-                          ),
-                        ),
-                      );
+                      return FailureWidget(onPressed: (){ BlocProvider.of<NowPlayingMovieCubit>(context)
+                          .getAllMovies();},sizeIcon: 40.h,);
                     }
                   },
                 ),
               ),
             ],
           );
-        });
+
   }
 }

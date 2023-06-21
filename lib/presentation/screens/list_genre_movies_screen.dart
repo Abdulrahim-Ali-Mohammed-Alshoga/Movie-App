@@ -1,14 +1,13 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:movies/business_logic/cubit/movies_by_genre/genre_movies_cubit.dart';
 import 'package:movies/business_logic/cubit/movies_by_genre/genre_movies_state.dart';
-import '../../business_logic/cubit/genre/genre_cubit.dart';
 import '../../constants/arguments.dart';
 import '../../constants/font.dart';
 import '../../data/models/movie.dart';
+import '../widgets/failure_widget.dart';
 import '../widgets/image_off_the_internet.dart';
 import '../widgets/select_container_widgte.dart';
 import '../widgets/sreach_movies/grid_view_shimmer_widget.dart';
@@ -28,8 +27,7 @@ class _ListGenreMoviesScreenState extends State<ListGenreMoviesScreen> {
   bool isLoading = true;
 
   Future getMovies() async {
-    BlocProvider.of<GenreMoviesCubit>(context)
-        .getSameGenreMovies();
+    BlocProvider.of<GenreMoviesCubit>(context).getSameGenreMovies();
   }
 
   @override
@@ -70,7 +68,7 @@ class _ListGenreMoviesScreenState extends State<ListGenreMoviesScreen> {
         ),
         body: Column(
           children: [
-            SelectContainerWidget(uniqueKye: 150),
+            const SelectContainerWidget(),
             Expanded(
                 child: BlocConsumer<GenreMoviesCubit, GenreMoviesState>(
               listener: (context, state) {
@@ -108,7 +106,8 @@ class _ListGenreMoviesScreenState extends State<ListGenreMoviesScreen> {
                   );
                 } else if (state is GenreMoviesNotConnected) {
                   int idGenres =
-                      BlocProvider.of<GenreCubit>(context).numberSelectGenre;
+                      BlocProvider.of<GenreMoviesCubit>(context).selectGenre;
+
                   return ImageOffTheInternet(
                     onPressed: () {
                       BlocProvider.of<GenreMoviesCubit>(context)
@@ -116,10 +115,13 @@ class _ListGenreMoviesScreenState extends State<ListGenreMoviesScreen> {
                     },
                   );
                 } else {
-                  return Center(
-                    child: SizedBox(
-                      height: .1.h,
-                    ),
+                  return FailureWidget(
+                    onPressed: () {
+                      BlocProvider.of<GenreMoviesCubit>(context).getGenreMovies(
+                          BlocProvider.of<GenreMoviesCubit>(context)
+                              .selectGenre);
+                    },
+                    sizeIcon: 50.r,
                   );
                 }
               },

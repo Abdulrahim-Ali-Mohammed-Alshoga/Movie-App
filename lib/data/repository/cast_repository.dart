@@ -1,5 +1,5 @@
 import '../models/cast.dart';
-import '../web_services/cast_web_services.dart';
+import '../web_services/cast_web_service.dart';
 
 class CastRepository {
   CastWebService castWebService;

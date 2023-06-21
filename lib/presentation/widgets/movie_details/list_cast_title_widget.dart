@@ -1,6 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:movies/app/extensions.dart';
 import 'package:movies/data/models/cast.dart';
 
 import '../../../constants/color_manager.dart';
@@ -9,10 +10,10 @@ import '../../../constants/image_asset_name.dart';
 import '../cached_network_image_widget.dart';
 
 class ListCastTitleWidget extends StatelessWidget {
-  ListCastTitleWidget({Key? key, required this.index, required this.cast})
+  const ListCastTitleWidget({Key? key, required this.index, required this.cast})
       : super(key: key);
-  Cast cast;
-  int index;
+ final Cast cast;
+ final int index;
 
   @override
   Widget build(BuildContext context) {
@@ -47,10 +48,9 @@ class ListCastTitleWidget extends StatelessWidget {
             borderRadius: BorderRadius.only(
                 topRight: Radius.circular(20.r),
                 topLeft: Radius.circular(20.r)),
-            child: cast.image == null
+            child: cast.image.orEmpty.isEmpty
                 ? Center(
                     child: Image.asset(
-                      
                         height: 180.h, width: 120.w, ImageAssetName.user),
                   )
                 : CachedNetworkImageWidget(
@@ -61,18 +61,18 @@ class ListCastTitleWidget extends StatelessWidget {
           ),
           Expanded(
             child: Padding(
-              padding: EdgeInsets.only(left: 10.w, top: 4.h, bottom: 4.h),
+              padding: EdgeInsets.symmetric(vertical: 4.h ,horizontal: 8.w),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AutoSizeText(cast.name!,
+                  AutoSizeText(cast.name!.orEmpty,
                       maxLines: 2,
                       style: TextStyle(
                           fontSize: 14.sp,
                           fontFamily: MyFont.titleFont,
                           color: ColorManager.white)),
-                  Text(cast.characterName!,
+                  Text(cast.characterName!.orEmpty,
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: const TextStyle(
